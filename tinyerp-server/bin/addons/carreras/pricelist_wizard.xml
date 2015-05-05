@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+    <wizard 
+            string="Calcul de tarifa de recubriment"
+            model="product.pricelist_rec"
+            name="carreras.pricelist_rec.compute"
+            menu="False"
+            id="wizard_pricelist_rec_compute" />
+
+    <wizard 
+            string="Llistat de tarifes de tractament"
+            model="product.pricelist_kilo"
+            name="carreras.pricelist_tr_report"
+            menu="False"
+            id="wizard_pricelist_tr_report" />
+
+    <wizard 
+            string="Llistat de tarifes de recubriment"
+            model="product.pricelist_rec"
+            name="carreras.pricelist_rec_report"
+            menu="False"
+            id="wizard_pricelist_rec_report" />
+
+    <wizard 
+            string="Llistat de tarifes de Client"
+            model="product.pricelist_partner"
+            name="carreras.pricelist_partner_report"
+            menu="False"
+            id="wizard_pricelist_partner_report" />
+
+    <wizard 
+            string="Llistat de Tarifes de Compres"
+            model="product.pricelist_supplier"
+            name="carreras.pricelist_supplier_report"
+            menu="False"
+            id="wizard_pricelist_supplier_report" />
+</data>
+</terp>

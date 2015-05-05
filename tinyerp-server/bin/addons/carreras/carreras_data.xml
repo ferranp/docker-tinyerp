@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+<!-- Impressores -->
+    <record model="printjob.printers" id="printer1">
+        <field name="name">9-Pin-Series</field>
+        <field name="system_name">9-Pin-Series</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer2">
+        <field name="name">BrotherH</field>
+        <field name="system_name">BrotherH</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer3">
+        <field name="name">EPLQ</field>
+        <field name="system_name">EPLQ</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer4">
+        <field name="name">EPSONDFX</field>
+        <field name="system_name">EPSONDFX</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer5">
+        <field name="name">EPSONFX</field>
+        <field name="system_name">EPSONFX</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer6">
+        <field name="name">HPL4200</field>
+        <field name="system_name">HPL4200</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer7">
+        <field name="name">LaserJet-1200</field>
+        <field name="system_name">LaserJet-1200</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer8">
+        <field name="name">Laserjet2600n</field>
+        <field name="system_name">Laserjet2600n</field>
+        <field name="is_default" eval="False"/>
+    </record>
+    <record model="printjob.printers" id="printer9">
+        <field name="name">Sharp MX-2300N</field>
+        <field name="system_name">Sharp-MX-2300N</field>
+        <field name="is_default" eval="True"/>
+    </record>
+</data>
+</terp>

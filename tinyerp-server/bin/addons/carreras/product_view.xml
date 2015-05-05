@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+<!-- Productes -->
+<record model="ir.ui.view" id="view_product_product_form_dumb1">
+    <field name="name">product.product.form.dumb1</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <page string="Descriptions" position="replace" />
+    </field>
+</record>
+<record model="ir.ui.view" id="view_product_product_form_dumb2">
+    <field name="name">product.product.form.dumb2</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="account.product_normal_form_view" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <field name="taxes_id" position="replace" />
+    </field>
+</record>
+<record model="ir.ui.view" id="view_product_product_form_dumb3">
+    <field name="name">product.product.form.dumb3</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="account.product_normal_form_view" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <field name="supplier_taxes_id" position="replace" />
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_product_product_form_dumb4">
+    <field name="name">product.product.form.dumb4</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <page string="Information" position="after">
+            <page string="Representants">
+                <field name="default_agent_id" />
+                <field name="default_comission" />
+                <separator colspan="4" label="Representants"/>
+                <field name="agent_ids" colspan="4" nolabel="1"/>
+            </page>
+        </page>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_product_product_form_dumb5">
+    <field name="name">product.product.form.dumb5</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <page string="Information" position="after">
+            <page string="Taxes">
+                <field name="taxes_id" colspan="4"/>
+                <field name="supplier_taxes_id" colspan="4"/>
+            </page>
+        </page>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_product_product_form_dumb6">
+    <field name="name">product.product.form.dumb6</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <field name="default_code" position="after">
+            <field name="family_id" />
+            <field name="department_id" />
+        </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_product_product_form_dumb7">
+    <field name="name">product.product.form.dumb7</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <field name="product_manager" position="after">
+            <field name="description_sale" colspan="4" />
+            <field name="description" colspan="4" string="Descripció TTC" />
+            <field name="description_purchase" colspan="4" string="Descripció del producte"/>
+            <field name="hard_metal" />
+            <field name="per_rec" />
+        </field>
+    </field>
+</record>
+
+<!-- Llista de productes -->
+<record model="ir.ui.view" id="view_carreras_product_tree_prod">
+    <field name="name">carreras.product.product.tree.prod</field>
+    <field name="model">product.product</field>
+    <field name="type">tree</field>
+    <field name="priority">20</field>
+    <field name="arch" type="xml">
+        <tree string="Tractaments">
+            <field name="default_code" select="1"/>
+            <field name="name" select="1"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_carreras_product_tree_prod">
+    <field name="name">Tractaments</field>
+    <field name="res_model">product.product</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="view_carreras_product_tree_prod"/>
+</record>
+
+
+<!-- Productes de Venda -->
+<record model="ir.actions.act_window" id="product_customer_action">
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.product</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('categ_id','like','Vendes')]</field>
+    <field name="context">{'categ_id':'Vendes'}</field>
+    <field name="view_id" ref="product.product_product_tree_view"/>
+</record>
+
+<!-- Productes de Compra -->
+<record model="ir.actions.act_window" id="product_supplier_action">
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.product</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('categ_id','like','Compres')]</field>
+    <field name="context">{'categ_id':'Compres'}</field>
+    <field name="view_id" ref="product.product_product_tree_view"/>
+</record>
+
+        <!--
+<record model="ir.actions.act_window" id="product_supplier_action">
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.product</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('categ_id','like','Compres')]</field>
+    <field name="context">{'categ_id':'Compres'}</field>
+    <field name="view_id" ref="product.product_product_tree_view"/>
+</record>
+ -->
+
+<!-- UOM -->
+<record model="ir.ui.view" id="view_carreras_product_uom_tree_prod">
+    <field name="name">carreras.product.uom.tree.prod</field>
+    <field name="model">product.uom</field>
+    <field name="type">tree</field>
+    <field name="priority">20</field>
+    <field name="arch" type="xml">
+        <tree string="Unitats de Mesura">
+            <field name="name"/>
+            <field name="category_id"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_carreras_product_uom_tree_prod">
+    <field name="name">Unitats de Mesura</field>
+    <field name="res_model">product.uom</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="view_carreras_product_uom_tree_prod"/>
+</record>
+
+
+<!-- Families -->
+<record model="ir.ui.view" id="view_product_family_form">
+    <field name="name">product.family.form</field>
+    <field name="model">product.family</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Families">
+            <field name="name" select="1"/>
+            <newline />
+            <field name="description" select="1" colspan="4"/>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_product_family_tree">
+    <field name="name">product.family.tree</field>
+    <field name="model">product.family</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Families">
+            <field name="name" select="1"/>
+            <field name="description" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_product_family">
+    <field name="name">Famílies de Productes</field>
+    <field name="res_model">product.family</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<!-- Departaments -->
+<record model="ir.ui.view" id="view_product_department_form">
+    <field name="name">product.department.form</field>
+    <field name="model">product.department</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Departaments">
+            <field name="name" select="1"/>
+            <newline />
+            <field name="description" select="1" colspan="4"/>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_product_department_tree">
+    <field name="name">product.department.tree</field>
+    <field name="model">product.department</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Departaments">
+            <field name="name" select="1"/>
+            <field name="description" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_product_department">
+    <field name="name">Departaments dels Productes</field>
+    <field name="res_model">product.department</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+</data>
+</terp>

@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+<!-- Comandes de Compra -->
+
+<delete model="ir.ui.view" id="carreras_purchase_order_form" />
+
+<record model="ir.ui.view" id="carreras_purchase_order_form">
+    <field name="name">carreras.purchase.order.form</field>
+    <field name="model">purchase.order</field>
+    <field name="type">form</field>
+    <field name="priority" eval="10" />
+    <field name="arch" type="xml">
+        <form string="Purchase Order">
+            <notebook>
+                <page string="Purchase Order">
+                
+                    <field name="pricelist_id" invisible="True"/>
+                    <field name="warehouse_id" invisible="True"/>
+                    
+                    <field name="name" select="1"/>
+                    <field name="date_order" select="2" string="Data d'Alta"/>
+                    <newline/>
+                    
+                    <field name="partner_id" select="1" on_change="onchange_partner_id(partner_id)" />
+                    <!--
+                    <field name="partner_id" select="1" domain="[('supplier_ids','&lt;&gt;','')]"
+                        on_change="onchange_partner_id(partner_id)" />
+                    <field name="partner_id" select="1" on_change="onchange_partner_id(partner_id)" />
+                    <field name="partner_id" select="1" domain="[('supplier_ids','&gt;','0')]"
+                        on_change="onchange_partner_id(partner_id)" />
+                    -->
+                    <field name="creator" string="Sol·licitat per"/>
+                    <field name="partner_address_id"/>
+                    <field name="aproved"/>
+                    
+                    <group colspan="2" col="2">
+                        <field name="ports"/>
+                        <field name="form_delivery"/>
+                        <field name="destination"/>
+                        <field name="date_term_delivery" required="True"/>
+                    </group>
+                    
+                    <group colspan="2" col="2" string="Dades de Recepció">
+                        <label />
+                        <field name="partner_ref" string="Albarà"/>
+                        <field name="date_delivery"/>
+                        <field name="date_reception"/>
+                    </group>
+                    <newline/>
+                    <field name="order_line" widget="one2many_list" colspan="4" nolabel="1"/>
+                    <separator string="Document State" colspan="4" select="2"/>
+                    <group colspan="4" col="7">
+                        <field name="amount_untaxed" sum="Untaxed amount"/>
+                        <field name="amount_tax"/>
+                        <field name="amount_total" sum="Total amount"/>
+                        <button name="button_dummy" string="Compute" states="draft" type="object"/>
+                    </group>
+                    <group col="9" colspan="4">
+                        <field name="state" readonly="1"/>
+                        <button name="purchase_confirm" states="draft" string="Confirm Purchase Order"/>
+                        <button name="purchase_appbuyer" states="wait_auth" string="Approve Purchase"/>
+
+                        <button name="purchase_approve" states="confirmed" string="Approved by Supplier"/>
+                        <button name="purchase_cancel" states="draft,confirmed,wait_auth" string="Cancel Purchase Order"/>
+                        <button name="purchase_cancel" states="approved" string="Cancel Purchase Order"/>
+
+                        <button name="shipping_ok" states="except_shipping" string="Shipping Done"/>
+                        <button name="invoice_ok" states="except_invoice" string="Invoice Done"/>
+                    </group>
+                </page>
+                    <!--
+                <page string="Purchase Shippings">
+                    <field name="dest_address_id" on_change="onchange_dest_address_id(dest_address_id)"/>
+                    <field name="dest_address_id"/>
+                    <field name="location_id"/>
+                    <field name="invoice_method"/>
+                    <newline/>
+                    <field name="invoice_id" colspan="4"/>
+                    <field name="picking_ids" colspan="4"/>
+                </page>
+                    -->
+                <page string="Notes">
+                    <field name="validator" />
+                    <field name="date_approve" readonly="True"/>
+                    <field name="invoice_method" string="Mètode" />
+                    <!--
+                    <field name="origin" select="2"/>
+                    -->
+                    <field name="notes" colspan="4" nolabel="1"/>
+                </page>
+            </notebook>
+        </form>
+    </field>
+</record>
+
+<!-- linies -->
+<record model="ir.ui.view" id="purchase_order_line_form_dumb1">
+    <field name="name">purchase.order.line.form.dumb1</field>
+    <field name="model">purchase.order.line</field>
+    <field name="inherit_id" ref="purchase.purchase_order_line_form" />
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <field name="product_id" position="replace">
+                <field name="product_id" colspan="4" domain="[('categ_id','like','Compres')]"
+                        on_change="product_id_change(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order)"
+                        context="partner_id=parent.partner_id,quantity=product_qty,pricelist=parent.pricelist_id,uom=product_uom,warehouse=parent.warehouse_id"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="purchase_order_line_form_dumb2">
+    <field name="name">purchase.order.line.form.dumb2</field>
+    <field name="type">form</field>
+    <field name="model">purchase.order.line</field>
+    <field name="inherit_id" ref="purchase.purchase_order_line_form" />
+    <field name="arch" type="xml">
+        <field name="account_analytic_id" position="replace">
+            <field name="discount"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="purchase_order_line_form_dumb3">
+    <field name="name">purchase.order.line.form.dumb3</field>
+    <field name="type">form</field>
+    <field name="model">purchase.order.line</field>
+    <field name="inherit_id" ref="purchase.purchase_order_line_form" />
+    <field name="arch" type="xml">
+        <field name="name" position="after">
+            <field name="pricelist_text" nolabel="1"/>
+            <field name="pricelist" colspan="3" 
+                domain="[('partner_id','=',parent.partner_id),('product_id','=',product_id)]"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="purchase_order_line_form_dumb4">
+    <field name="name">purchase.order.line.form.dumb4</field>
+    <field name="type">form</field>
+    <field name="model">purchase.order.line</field>
+    <field name="inherit_id" ref="purchase.purchase_order_line_form" />
+    <field name="arch" type="xml">
+        <field name="date_planned" position="replace">
+            <field name="date_planned" invisible="True"/>
+        </field>
+    </field>
+</record>
+
+<!-- Alta -->
+<record model="ir.actions.act_window" id="purchase_form_action">
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">purchase.order</field>
+    <field name="view_mode">form,tree</field>
+</record>
+
+<!-- Comandes en draft -->
+<record model="ir.actions.act_window" id="purchase_form_action2">
+    <field name="name">Comandes Pendents</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">purchase.order</field>
+    <field name="domain">[('state','=','draft')]</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+<!-- Comandes confirmades -->
+<record model="ir.actions.act_window" id="purchase_form_action3">
+    <field name="name">Comandes Confirmades</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">purchase.order</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('state','=','confirmed')]</field>
+</record>
+<!-- Comandes finalitzades -->
+<record model="ir.actions.act_window" id="purchase_form_action1">
+    <field name="name">Comandes Finalitzades</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">purchase.order</field>
+    <field name="domain">[('state','in',['done','cancel'])]</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_type">form</field>
+</record>
+
+<!-- Consulta de les línies d'un proveïdor / producte -->
+
+<record model="ir.ui.view" id="purchase_order_line_tree_last">
+    <field name="name">purchase.order.line.tree.last</field>
+    <field name="model">purchase.order.line</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Ultims Proveïdors del producte">
+            <field name="date_order"/>
+            <field name="order_id" string="Comanda"/>
+            <field name="partner"/>
+            <field name="product_id"/>
+            <field name="product_qty"/>
+            <field name="price_unit"/>
+            <field name="product_uom"/>
+            <field name="partner_ref"/>
+            <field name="date_reception"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="act_product_product_2_purchase_order_line">
+    <field name="name">Últimes comandes</field>
+    <field name="res_model">purchase.order.line</field>
+    <field name="src_model">product.product</field>
+    <field name="domain">[('product_id', '=', active_id)]</field>
+    <field name="view_mode">tree</field>
+    <field name="view_type">form</field>
+    <field name="view_id" ref="purchase_order_line_tree_last" />
+</record>
+<record model="ir.values" id="ir_open_product_po">
+    <field name="key2">client_action_relate</field>
+    <field name="model">product.product</field>
+    <field name="name">Últimes comandes</field>
+    <field name="value" eval="'ir.actions.act_window,%d'%act_product_product_2_purchase_order_line"/>
+    <field name="object" eval="True"/>
+</record>
+
+<record model="ir.actions.act_window" id="act_res_partner_2_purchase_order_line">
+    <field name="name">Últimes comandes</field>
+    <field name="res_model">purchase.order.line</field>
+    <field name="src_model">res.partner</field>
+    <field name="domain">[('partner', '=', active_id)]</field>
+    <field name="view_mode">tree</field>
+    <field name="view_type">form</field>
+    <field name="view_id" ref="purchase_order_line_tree_last" />
+</record>
+<record model="ir.values" id="ir_open_partner_po">
+    <field name="key2">client_action_relate</field>
+    <field name="model">res.partner</field>
+    <field name="name">Últimes comandes</field>
+    <field name="value" eval="'ir.actions.act_window,%d'%act_res_partner_2_purchase_order_line"/>
+    <field name="object" eval="True"/>
+</record>
+
+</data>
+</terp>

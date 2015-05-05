@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+<!-- Representants -->
+<record model="ir.ui.view" id="view_agent_agent_form">
+    <field name="name">agent.agent.form</field>
+    <field name="model">agent.agent</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+      <form string="Representants">
+            <field name="code"/>
+            <newline/>
+            <field name="name"/>
+            <field name="partner_id"/>
+            <field name="city"/>
+            <separator colspan="4" label="Tractaments"/>
+            <field name="product_ids" colspan="4" nolabel="1"/>
+      </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_agent_agent_tree">
+    <field name="name">agent.agent.tree</field>
+    <field name="model">agent.agent</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+      <tree string="Representants">
+            <field name="code" />
+            <field name="name" />
+            <field name="city" />
+            <field name="partner_id" />
+      </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_agent_agent_form">
+    <field name="name">Representants</field>
+    <field name="res_model">agent.agent</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<!-- Representants per Tractament-->
+<record model="ir.ui.view" id="view_agent_product_form">
+    <field name="name">agent.product.form</field>
+    <field name="model">agent.product</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+      <form string="Representant i Tractament">
+            <field name="product_id"/>
+            <newline/>
+            <field name="agent_id"/>
+            <newline/>
+            <field name="comission"/>
+      </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_agent_product_tree">
+    <field name="name">agent.product.tree</field>
+    <field name="model">agent.product</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+      <tree string="Representants per Tractament">
+            <field name="product_id" />
+            <field name="agent_id" />
+            <field name="comission" />
+      </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_agent_product_form">
+    <field name="name">Representants per Tractament</field>
+    <field name="res_model">agent.product</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+</data>
+</terp>

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+convert() {
+   echo "./tiny_sxw2rml.py $1.sxw > $1.rml"
+   ./tiny_sxw2rml.py $1.sxw > $1.rml
+}
+
+if [ -n "$1" ]; then
+   base=`echo "$1" | cut -d . -f 1`
+   if [ -f ${base}.sxw ]; then
+     convert $base
+     exit
+   fi
+fi
+
+for i in `ls *.sxw`
+do
+ base=`basename $i .sxw`
+ convert $base
+done

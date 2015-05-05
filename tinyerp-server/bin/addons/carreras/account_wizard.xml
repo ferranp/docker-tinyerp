@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<terp>
+<data noupdate="1">
+    <wizard 
+            string="Diari de Vendes"
+            model="account.invoice"
+            name="carreras.invoice.journal"
+            menu="False"
+            id="wizard_invoice_journal" />
+
+    <wizard 
+            string="Diari de Compres"
+            model="account.invoice"
+            name="carreras.invoice.journal_sup"
+            menu="False"
+            id="wizard_invoice_journal_sup" />
+
+    <wizard 
+            string="Llistat de Factures"
+            model="account.invoice"
+            name="carreras.invoice_report"
+            menu="False"
+            id="wizard_invoice_report"/>
+
+    <wizard 
+            string="Llistat de Factures Emeses"
+            model="account.invoice"
+            name="carreras.out_invoice_report"
+            menu="False"
+            id="wizard_out_invoice_report"/>
+    <wizard 
+            string="Llistat de Factures Rebudes"
+            model="account.invoice"
+            name="carreras.in_invoice_report"
+            menu="False"
+            id="wizard_in_invoice_report"/>
+
+    <wizard 
+            string="Llistat de Declaració model 347"
+            model="account.invoice"
+            name="carreras.report_347"
+            menu="False"
+            id="wizard_report_347" />
+
+    <wizard 
+            string="Llistat d'assentaments"
+            model="account.move"
+            name="move.report"
+            menu="False"
+            id="wizard_move_report" />
+
+    <wizard 
+            string="Balanç de Sumes i Saldos"
+            model="account.account"
+            name="carreras.balance"
+            menu="False"
+            id="wizard_balance" />
+
+    <wizard 
+            string="Balanç de Situació"
+            model="account.account"
+            name="carreras.situation_balance"
+            menu="False"
+            id="wizard_situation_balance" />
+
+    <wizard 
+            string="Compte d'Explotació"
+            model="account.account"
+            name="carreras.account.results"
+            menu="False"
+            id="wizard_account_results" />
+
+    <wizard 
+            string="Extracte de Comptes"
+            model="account.account"
+            name="carreras.account.extracte"
+            keyword="client_print_multi"
+            id="wizard_account_extracte"/>
+        
+    <wizard 
+            string="Pagaments Pendents"
+            model="account.account"
+            name="carreras.account.pending.payment"
+            keyword="client_print_multi"
+            id="wizard_account_pending_payment"/>
+        
+    <wizard 
+            string="ReObrir Periode"
+            model="account.period"
+            name="account.period.reopen"
+            id="wizard_account_period_reopen"/>
+        
+    <wizard 
+            string="Confirmar Factures"
+            model="account.invoice"
+            name="carreras.invoice_confirm"
+            menu="False"
+            id="wizard_invoice_confirm"/>
+    <wizard 
+            string="Confirmar Factures"
+            model="account.invoice"
+            name="carreras.supplier_invoice_confirm"
+            menu="False"
+            id="wizard_supplier_invoice_confirm"/>
+
+    <wizard 
+            string="Renumerar Assentaments"
+            model="account.move"
+            name="carreras.move_number"
+            menu="False"
+            id="wizard_move_number"/>
+
+    <wizard 
+            string="Pagaments en Esborrany"
+            model="account.bank.statement"
+            name="carreras.bank_statement_company"
+            menu="False"
+            id="wizard_bank_statement_company"/>
+
+    <wizard
+            string="Tancament de l'Any"
+            model="account.fiscalyear"
+            name="account.fiscalyear.move.close"
+            menu="False"
+            id="wizard_fiscalyear_move_close"/>
+    <wizard
+            string="Obertura de l'Any"
+            model="account.fiscalyear"
+            name="account.fiscalyear.move.open"
+            menu="False"
+            id="wizard_fiscalyear_move_open"/>
+    <wizard
+            string="Explotació de l'Any"
+            model="account.fiscalyear"
+            name="account.fiscalyear.move.explo"
+            menu="False"
+            id="wizard_fiscalyear_move_explo"/>
+
+
+    <delete model="ir.actions.wizard" id="account.wizard_invoice_pay"/>
+    <delete model="ir.actions.wizard" id="account.wizard_invoice_refund"/>
+
+</data>
+</terp>

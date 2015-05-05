@@ -1,0 +1,11 @@
+syntax: glob
+*.pyc
+*.log
+*.sqlite
+.ropeproject
+htmlcov
+.coverage
+.noseids
+.env
+node_modules
+bower_components

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<terp>
+<data noupdate="1">
+
+<record model="ir.rule.group" id="sale_order_comp_rule_group">
+    <field name="name">Sale multi-company</field>
+    <field name="model_id" search="[('model','=','sale.order')]" model="ir.model"/>
+    <field name="global" eval="True"/>
+</record>
+<record model="ir.rule" id="sale_order_comp_rule">
+    <field name="field_id" search="[('model','=','sale.order'),('name','=','company_id')]" model="ir.model.fields"/>
+    <field name="operator">child_of</field>
+    <field name="operand">user.company_id.id</field>
+    <field name="rule_group" ref="sale_order_comp_rule_group"/>
+</record>
+
+
+<!-- Cerca per tractament 
+<record model="ir.rule.group" id="sale_product_comp_rule_group">
+    <field name="name">Sale Product Search</field>
+    <field name="model_id" search="[('model','=','product.product')]" model="ir.model"/>
+    <field name="global" eval="True"/>
+</record>
+<record model="ir.rule" id="sale_product_comp_rule">
+    <field name="field_id" search="[('model','=','product.product')]" model="ir.model.fields"/>
+    <field name="operator">child_of</field>
+    <field name="operand">product_id.id</field>
+    <field name="rule_group" ref="sale_product_comp_rule_group"/>
+</record>
+-->
+
+</data>
+</terp>

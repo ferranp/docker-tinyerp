@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+<record model="ir.rule.group" id="account_journal_period_rule_group">
+    <field name="name">Journal period multi-company</field>
+    <field name="model_id" search="[('model','=','account.journal.period')]" model="ir.model"/>
+    <field name="global" eval="True"/>
+</record>
+<record model="ir.rule" id="account_journal_period_rule">
+    <field name="field_id" search="[('model','=','account.journal.period'),('name','=','company_id')]" model="ir.model.fields"/>
+    <field name="operator">=</field>
+    <field name="operand">user.company_id.id</field>
+    <field name="rule_group" ref="account_journal_period_rule_group"/>
+</record>
+
+<record model="ir.rule.group" id="account_move_rule_group">
+    <field name="name">Account.move multi-company</field>
+    <field name="model_id" search="[('model','=','account.move')]" model="ir.model"/>
+    <field name="global" eval="True"/>
+</record>
+<record model="ir.rule" id="account_move_rule">
+    <field name="field_id" search="[('model','=','account.move'),('name','=','company_id')]" model="ir.model.fields"/>
+    <field name="operator">=</field>
+    <field name="operand">user.company_id.id</field>
+    <field name="rule_group" ref="account_move_rule_group"/>
+</record>
+
+<!-- Albarans  -->
+<record model="ir.sequence" id="seq_delivery_01">
+        <field name="name">Albarans Serie 01</field>
+        <field name="code">sale.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">01/</field>
+</record>
+<record model="ir.sequence" id="seq_delivery_02">
+        <field name="name">Albarans Serie 02</field>
+        <field name="code">sale.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">02/</field>
+</record>
+<record model="ir.sequence" id="seq_delivery_03">
+        <field name="name">Albarans Serie 03</field>
+        <field name="code">sale.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">03/</field>
+</record>
+<record model="ir.sequence" id="seq_delivery_04">
+        <field name="name">Albarans Serie 04</field>
+        <field name="code">sale.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">04/</field>
+</record>
+<record model="ir.sequence" id="seq_delivery_05">
+        <field name="name">Albarans Serie 05</field>
+        <field name="code">sale.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">05/</field>
+</record>
+<record model="ir.sequence" id="seq_delivery_06">
+        <field name="name">Albarans Serie 06</field>
+        <field name="code">sale.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">06/</field>
+</record>
+<!-- Factures manuals -->
+<record model="ir.sequence" id="seq_inv_man">
+        <field name="name">Factures Manuals</field>
+        <field name="code">account.invoice.in_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">FM/</field>
+</record>
+
+<!-- Factures  -->
+<record model="ir.sequence" id="seq_credit_invoice_TL">
+        <field name="name">Factures Crèdit TL</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">0/</field>
+</record>
+<record model="ir.sequence" id="seq_credit_invoice_TJ">
+        <field name="name">Factures Crèdit TJ</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">1/</field>
+</record>
+<record model="ir.sequence" id="seq_credit_invoice_TC">
+        <field name="name">Factures Crèdit TC</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">0/</field>
+</record>
+<record model="ir.sequence" id="seq_credit_invoice_BD">
+        <field name="name">Factures Crèdit BD</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">0/</field>
+</record>
+<record model="ir.sequence" id="seq_cash_invoice_TL">
+        <field name="name">Factures Comptat TL</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">2/</field>
+</record>
+<record model="ir.sequence" id="seq_cash_invoice_TJ">
+        <field name="name">Factures Comptat TJ</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">3/</field>
+</record>
+<record model="ir.sequence" id="seq_cash_invoice_TC">
+        <field name="name">Factures Comptat TC</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">1/</field>
+</record>
+<record model="ir.sequence" id="seq_cash_invoice_BD">
+        <field name="name">Factures Comptat BD</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">1/</field>
+</record>
+
+<!-- Abonaments  -->
+<record model="ir.sequence" id="seq_refund_TL">
+        <field name="name">Abonaments TL</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">0/</field>
+</record>
+<record model="ir.sequence" id="seq_refund_TJ">
+        <field name="name">Abonaments TJ</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">0/</field>
+</record>
+<record model="ir.sequence" id="seq_refund_TC">
+        <field name="name">Abonaments TC</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">0/</field>
+</record>
+<record model="ir.sequence" id="seq_refund_BD">
+        <field name="name">Abonaments BD</field>
+        <field name="code">account.invoice.out_invoice</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">0/</field>
+</record>
+
+<!-- Despeses de Finançament  -->
+<record model="account.financing" id="acc_financing_00">
+        <field name="code">0</field>
+        <field name="name">Despeses financeres 0</field>
+        <field name="percentage" eval="0.00" />
+</record>
+<record model="account.financing" id="acc_financing_01">
+        <field name="code">1</field>
+        <field name="name">Despeses financeres 1</field>
+        <field name="percentage" eval="0.00" />
+</record>
+<record model="account.financing" id="acc_financing_02">
+        <field name="code">2</field>
+        <field name="name">Despeses financeres 2</field>
+        <field name="percentage" eval="2.7" />
+</record>
+<record model="account.financing" id="acc_financing_03">
+        <field name="code">3</field>
+        <field name="name">Despeses financeres 3</field>
+        <field name="percentage" eval="1.75" />
+</record>
+<record model="account.financing" id="acc_financing_04">
+        <field name="code">4</field>
+        <field name="name">Despeses financeres 4</field>
+        <field name="percentage" eval="3.50" />
+</record>
+<record model="account.financing" id="acc_financing_05">
+        <field name="code">5</field>
+        <field name="name">Despeses financeres 5</field>
+        <field name="percentage" eval="1.90" />
+</record>
+<record model="account.financing" id="acc_financing_06">
+        <field name="code">6</field>
+        <field name="name">Despeses financeres 6</field>
+        <field name="percentage" eval="1.50" />
+</record>
+
+<!-- Comandes de Compres  -->
+<record model="ir.sequence" id="seq_purchase_TL">
+        <field name="name">Comandes TL</field>
+        <field name="code">purchase.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">TL/</field>
+</record>
+<record model="ir.sequence" id="seq_purchase_TJ">
+        <field name="name">Comandes TJ</field>
+        <field name="code">purchase.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">TJ/</field>
+</record>
+<record model="ir.sequence" id="seq_purchase_TC">
+        <field name="name">Comandes TC</field>
+        <field name="code">purchase.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">TC/</field>
+</record>
+<record model="ir.sequence" id="seq_purchase_BD">
+        <field name="name">Comandes BD</field>
+        <field name="code">purchase.order</field>
+        <field name="padding" eval="6"/>
+        <field name="prefix">BD/</field>
+</record>
+
+</data>
+</terp>

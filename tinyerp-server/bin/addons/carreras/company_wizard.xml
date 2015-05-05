@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+    <wizard 
+            string="Canvi d'empresa"
+            model="res.users"
+            name="carreras.change_company"
+            menu="False"
+            id="wizard_change_company" />
+
+    <wizard
+            string="Traspàs a Proves"
+            model="ir.model"
+            name="carreras.copy_database"
+            menu="False"
+            id="wizard_copy"/>
+
+    <wizard
+            string="Còpia de Seguretat"
+            model="ir.model"
+            name="carreras.backup_database"
+            menu="False"
+            id="wizard_backup"/>
+
+    <wizard
+            string="Reiniciar OpenERP"
+            model="ir.model"
+            name="carreras.openerp_restart"
+            menu="False"
+            id="wizard_restart"/>
+</data>
+</terp>

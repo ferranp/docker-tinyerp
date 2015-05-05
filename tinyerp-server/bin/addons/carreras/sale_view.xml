@@ -1,0 +1,850 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+    <!--  ************************************* -->
+    <!--          Centre de treball             -->
+    <!--  ************************************* -->
+
+    <record model="ir.ui.view" id="view_shop_form_ext">
+        <field name="name">carreras.sale.shop</field>
+        <field name="model">sale.shop</field>
+        <field name="inherit_id" ref="sale.view_shop_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="after">
+                <field name="address"/>
+                <newline />
+                <field name="quality_charge"/>
+                <newline />
+                <field name="sequence_id"/>
+            </field>
+        </field>
+    </record>
+
+    <!--  ************************************* -->
+    <!--            ENTRADA  TRACTAMENT         -->
+    <!--  ************************************* -->
+
+    <!-- Pantalla entrada de Fulls de Ruta de Tractament-->
+    <record model="ir.ui.view" id="view_sale_order_form_TR">
+        <field name="name">sale.order.form.TR</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form string="Full de Ruta de Tractament" >
+                        <group colspan="4" col="6">
+                            <field name="name" select="1" on_change="onchange_name(name)"/>
+                            <field name="date_order" select="1"/>
+                            <field name="shop_id" select="2" on_change="onchange_partner_id(customer_id, partner_id, shop_id)"/>
+                            <field name="customer_id" on_change="onchange_customer_id(customer_id,partner_id, shop_id)" colspan="4" />
+                            <field name="company_id" readonly="1"/>
+                            <field name="partner_id" select="1" on_change="onchange_partner_id(customer_id, partner_id, shop_id)" required="1" colspan="4"/>
+                            <field name="client_order_ref" />
+                            <field name="stuff_desc" colspan="6"/>
+                            <newline />
+                            <label />
+                            <group string="Duresa" colspan="3" col="2">    
+                                <field name="min_req_hardness" required="1"/>
+                                <field name="max_req_hardness" required="1"/>
+                            </group>
+                            <group string="Profunditat" colspan="2"  col="2">    
+                                <field name="max_req_depth" required="1"/>
+                                <field name="min_req_depth" required="1"/>
+                            </group>
+                        </group>
+                        
+                        <!--
+                        <field name="pricelist_id" invisible="True"/>
+                        <field name="partner_order_id" domain="[('partner_id','=',partner_id)]" invisible="True"/>
+                        <field name="partner_invoice_id" domain="[('partner_id','=',partner_id)]" invisible="True"/>
+                        <field name="partner_shipping_id" domain="[('partner_id','=',partner_id)]" invisible="True"/>
+                        <field name="line_type"  invisible="True"/>
+                        -->                        
+
+                        <group colspan="4" col="6">
+                          <group colspan="2" col="1">
+                            <separator string="Observacions del Full de Ruta"/>
+                            <field name="note" nolabel="1"/>
+                          </group>
+                          <group colspan="2" col="1">
+                            <separator string="Observacions de l'Albarà"/>
+                            <field name="delivery_note" nolabel="1"/>
+                          </group>
+                          <group colspan="2" col="1">
+                            <separator string="Observacions de Qualitat"/>
+                            <field name="quality_note" nolabel="1" readonly="1"/>
+                          </group>
+                        </group>
+                        <newline/>
+                        <field name="order_line" widget="one2many_list" colspan="4" mode="tree" nolabel="1" context="order_id=active_id">
+                            <tree string="Línies">
+                                <!--<field name="name" colspan="4"/>-->
+                                <field name="product_id"/>
+                                <field name="product_uom_qty" string="Qty"/>
+                                <field name="product_uom" string="UoM"/>
+                                <field name="discount"/>
+                                <field name="price_unit"/>
+                                <field name="price_net"/>
+                                <field name="price_subtotal"/>
+                            </tree>
+    <!-- Linea de Tractament -->
+            <form string="Línia de Tractament">
+                <field name="product_id" colspan="4" required="1" select="1" domain="[('categ_id','like','Vendes')]"
+                        on_change="product_id_change_tr(product_id,product_uom_qty,product_uom,name,parent.partner_id, depth, False              ,parent.company_id,0, kilos, quantity)" />
+                <!--<field name="name" colspan="4" />-->
+                <field name="name" invisible="True" />
+                <field name="depth" required="1" 
+                        on_change="product_id_change_tr(product_id,product_uom_qty,product_uom,name,parent.partner_id,depth,pricelist_partner_id,parent.company_id,0, kilos, quantity)" />
+                <field name="product_uom" 
+                        on_change="manual_change('TR',price_unit,pricelist_price,0,quantity,product_uom,kilos,product_id,depth)"/>
+                <field name="customer_pricelist" />
+                <field name="pricelist_partner_id" nolabel="1" colspan="2" domain="[('product_id','=',product_id),('partner_id','=',parent.partner_id)]" 
+                        on_change="product_id_change_tr(product_id,product_uom_qty,product_uom,name,parent.partner_id,depth,pricelist_partner_id,parent.company_id,0, kilos, quantity)" />
+                <field name="quantity" required="1" string="Unitats" 
+                        on_change="product_id_change_tr(product_id,product_uom_qty,product_uom,name,parent.partner_id,depth,pricelist_partner_id,parent.company_id,0, kilos, quantity)" />
+                <field name="kilos" required="1" 
+                        on_change="product_id_change_tr(product_id,product_uom_qty,product_uom,name,parent.partner_id,depth,pricelist_partner_id,parent.company_id,0, kilos, quantity)" />
+
+                <separator string="Càlcul" colspan="4"/>
+                <field name="pricelist_price" />
+                <field name="product_uom_qty" string="Quantitat" readonly="1"/>
+                <field name="price_unit"
+                        on_change="manual_change('TR',price_unit,pricelist_price,0,quantity,product_uom,kilos,product_id,depth)"/>
+                <field name="manual" readonly="1"/>
+                    <!--
+                <field name="discount" readonly="1"
+                        on_change="manual_change('TR',price_unit,pricelist_price,0,quantity,product_uom,kilos,product_id,depth)"/>
+                     -->
+                    <label colspan="2" />
+                <field name="price_net" />
+                <field name="price_min" />
+                <field name="price_subtotal" />
+            </form>
+                        </field>
+                        <newline/>
+                        <group colspan="4" col="7">
+                            <field name="amount_lines"/>
+                            <field name="amount_minimum"/>
+                            <field name="amount_untaxed"/>
+                            <button name="button_dummy" string="Compute" states="draft" type="object"/>
+                        </group>
+            </form>
+        </field>
+    </record>
+
+    <!--  ************************************* -->
+    <!--            ENTRADA  RECOBRIMENT        -->
+    <!--  ************************************* -->
+
+    <!-- Pantalla entrada de Fulls de Ruta de Recobriment-->
+
+    <record model="ir.ui.view" id="view_sale_order_form_RE">
+        <field name="name">sale.order.form.RE</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form string="Full de Ruta de Recobriment">
+                        <group colspan="4" col="6">
+                            <field name="name" select="1" on_change="onchange_name(name)"/>
+                            <field name="date_order" select="1"/>
+                            <field name="shop_id" select="2" on_change="onchange_partner_id(customer_id, partner_id, shop_id)"/>
+                            <field name="customer_id" on_change="onchange_customer_id(customer_id,partner_id, shop_id)" colspan="4" />
+                            <field name="company_id" readonly="1"/>
+                            <field name="partner_id" select="1" on_change="onchange_partner_id(customer_id, partner_id, shop_id)" required="1" colspan="4"/>
+                            <field name="client_order_ref" />
+                            <field name="stuff_desc" colspan="6"/>
+                            <newline />
+                            <label />
+                            <group string="Duresa" colspan="3" col="2">    
+                                <field name="min_req_hardness" required="1"/>
+                                <field name="max_req_hardness" required="1"/>
+                            </group>
+                            <group string="Profunditat" colspan="2"  col="2">    
+                                <field name="max_req_depth" required="1"/>
+                                <field name="min_req_depth" required="1"/>
+                            </group>
+                        </group>
+                        
+                        <group colspan="4" col="6">
+                          <group colspan="2" col="1">
+                            <separator string="Observacions del Full de Ruta"/>
+                            <field name="note" nolabel="1"/>
+                          </group>
+                          <group colspan="2" col="1">
+                            <separator string="Observacions de l'Albarà"/>
+                            <field name="delivery_note" nolabel="1"/>
+                          </group>
+                          <group colspan="2" col="1">
+                            <separator string="Observacions de Qualitat"/>
+                            <field name="quality_note" nolabel="1" readonly="1"/>
+                          </group>
+                        </group>
+                        <!--
+                        <field name="pricelist_id" invisible="True"/>
+                        <field name="partner_order_id" domain="[('partner_id','=',partner_id)]" invisible="True"/>
+                        <field name="partner_invoice_id" domain="[('partner_id','=',partner_id)]" invisible="True"/>
+                        <field name="partner_shipping_id" domain="[('partner_id','=',partner_id)]" invisible="True"/>
+                        <field name="line_type"  invisible="True"/>
+                        -->                        
+                        
+                        <newline/>
+                        <field name="order_line" widget="one2many_list" colspan="4" nolabel="1" mode="tree" context="order_id=active_id">
+                            <tree string="Línies">
+                                <!--<field name="name" colspan="4"/>-->
+                                <field name="product_id"/>
+                                <field name="product_uom_qty" string="Qty"/>
+                                <field name="product_uom" string="UoM"/>
+                                <field name="discount"/>
+                                <field name="price_unit"/>
+                                <field name="price_net"/>
+                                <field name="price_subtotal"/>
+                            </tree>
+    <!-- Linea de Recobriment -->
+            <form string="Línia de Recubriment">
+                 <field name="product_id" colspan="4" required="1" select="1" domain="[('categ_id','like','Vendes - Recobriments')]"
+                            on_change="product_id_change_re( product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, parent.company_id, quantity)" /> 
+                <!--<field name="name" colspan="4" />-->
+                <field name="name" invisible="True" />
+                    
+                    <field name="piece_id" colspan="4"  
+                            on_change="product_id_change_re( product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, parent.company_id, quantity)" /> 
+                    <field name="length"
+                            on_change="product_id_change_re( product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, parent.company_id, quantity)" /> 
+                    <field name="diameter"
+                            on_change="product_id_change_re( product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, parent.company_id, quantity)" /> 
+                    <field name="hard_metal"
+                            on_change="product_id_change_re( product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, parent.company_id, quantity)" /> 
+                    
+                    
+                    <field name="product_uom" readonly="1"/>
+                    <field name="kilos" required="1" />
+                    <field name="quantity" required="1" string="Unitats" 
+                            on_change="product_id_change_re( product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, parent.company_id, quantity)" /> 
+                
+                    <separator string="Càlcul" colspan="4"/>
+                    <field name="pricelist_price" />
+                    <field name="product_uom_qty" string="Quantitat"  readonly="1"/>
+                    <field name="price_unit"  
+                        on_change="manual_change('RE',price_unit,pricelist_price,discount,quantity,product_uom,kilos,product_id)"/>
+                    <field name="manual" readonly="1"/>
+                    <field name="discount" readonly="1" />
+                    <field name="price_net" />
+                    <field name="price_min" />
+                    <field name="price_subtotal" />
+            </form>
+                            
+                        </field>
+                        <newline/>
+                        <group colspan="4" col="7">
+                            <field name="amount_lines"/>
+                            <field name="amount_minimum"/>
+                            <field name="amount_untaxed"/>
+                            <button name="button_dummy" string="Compute" states="draft" type="object"/>
+                        </group>
+            </form>
+        </field>
+    </record>
+
+    <!--  ************************************* -->
+    <!--            QUALITAT                    -->
+    <!--  ************************************* -->
+
+    <!-- Pantalla de Qualitat (form) -->
+    <record model="ir.ui.view" id="view_sale_order_quality_form">
+        <field name="name">carreras.sale.order.quality.form</field>
+        <field name="model">sale.order</field>
+        <field name="priority" eval="20"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+          <form string="Qualitat">
+            <group colspan="4" col="6">
+                <field name="name" colspan="4" readonly="1" />
+                <field name="date_order" select="1" readonly="1" />
+                <field name="customer_id" readonly="1" />
+                <field name="partner_id" readonly="1" />
+                <field name="client_order_ref" readonly="1"/>
+                <field name="delivery" colspan="4" select="1"/>
+                <field name="date_delivery" string="Data" select="1" readonly="1"/>
+            </group>
+            <newline />
+            <separator string="Paràmetres sol·licitats" colspan="4" />
+            <group string="Duresa" colspan="2" col="2">    
+                <field name="min_req_hardness" required="1" readonly="1"/>
+                <field name="max_req_hardness" required="1" readonly="1"/>
+            </group>
+            <group string="Profunditat" colspan="2"  col="2">    
+                <field name="max_req_depth" required="1" readonly="1"/>
+                <field name="min_req_depth" required="1" readonly="1"/>
+            </group>
+            <separator string="Paràmetres obtinguts" colspan="4" />
+                            <group string="Duresa" colspan="2" col="2">    
+                                <field name="min_obt_hardness" required="1"/>
+                                <field name="max_obt_hardness" required="1"/>
+                            </group>
+                            <group string="Profunditat" colspan="2"  col="2">    
+                                <field name="max_obt_depth" required="1"/>
+                                <field name="min_obt_depth" required="1"/>
+                            </group>
+          
+            <group colspan="4" col="6">
+              <group colspan="2" col="1">
+                <separator string="Observacions del Full de Ruta"/>
+                <field name="note" nolabel="1"/>
+              </group>
+              <group colspan="2" col="1">
+                <separator string="Observacions de l'Albarà"/>
+                <field name="delivery_note" nolabel="1"/>
+              </group>
+              <group colspan="2" col="1">
+                <separator string="Observacions de l'Qualitat"/>
+                <field name="quality_note" nolabel="1"/>
+              </group>
+            </group>
+            <field name="order_line" widget="many2many" colspan="4" nolabel="1" context="order_id=active_id" readonly="1"/>
+            <group colspan="4" col="13">
+              <field name="state" select="2"/>
+              <label />
+                    <button string="Generar Albarà" states="draft" name="%(wizard_carreras_cash)d" type="action"/>
+<!--
+                    <button name="order_confirm" string="Confirm Order" states="draft"/>
+                    <button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object"/>
+                    <button name="action_cancel" string="Cancel Order" states="manual,progress" type="object"/>
+                    <button name="cancel" string="Cancel Order" states="draft"/>
+-->
+            </group>
+          </form>
+        </field>
+    </record>
+
+    <!-- Pantalla de Qualitat (tree) -->
+    <!--
+    <record model="ir.ui.view" id="view_sale_order_quality_tree">
+        <field name="name">carreras.sale.order.quality.tree</field>
+        <field name="model">sale.order</field>
+        <field name="type">tree</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+          <tree string="Qualitat">
+                <field name="name" />
+                <field name="company_id" />
+                <field name="max_req_depth" />
+                <field name="min_req_depth" />
+          </tree>
+        </field>
+    </record>
+    -->
+
+
+    <!--  ************************************* -->
+    <!--            GENERICA                    --> 
+    <!--  ************************************* -->
+
+    <!-- Pantalla genèrica de Fulls de Ruta (form) -->
+
+    <record model="ir.ui.view" id="view_order_form_all">
+        <field name="name">carreras.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+          <form string="Ordres de Venda">
+            <group colspan="4" col="4">
+                <field name="name" select="1" on_change="onchange_name(name)"/>
+                <field name="date_order" string="Data" select="2"/>
+                <field name="customer_id" on_change="onchange_customer_id(customer_id,partner_id, shop_id)" />
+                <field name="partner_id" on_change="onchange_partner_id(customer_id, partner_id, shop_id)" required="1" />
+            </group>
+            <notebook>
+              <page string="Full de Ruta">
+                <!--
+                <group colspan="4" col="8">
+                  <field name="company_id" colspan="3" hidden="1" readonly="1"/>
+                  <field name="shop_id" select="2" on_change="onchange_partner_id(customer_id, partner_id, shop_id)"/>
+                  <newline/>
+                   <field name="pricelist_id"  domain="[('type','=','sale')]" colspan="3"/>
+                  <field name="client_order_ref" colspan="3"/>
+                
+                  <field name="block" colspan="2"/>
+                  <field name="client_order_ref" colspan="3"/>
+                  <newline/>
+                  <newline/>
+                  <field name="delivery" colspan="3" select="1"/>
+                  <field name="date_delivery" string="Data" colspan="2" select="1"/>
+                </group>
+                -->
+                  <field name="company_id" readonly="1" hidden="1"/>
+                  <field name="shop_id" select="2" on_change="onchange_partner_id(customer_id, partner_id, shop_id)"/>
+                  <field name="delivery" select="1"/>
+                  <field name="date_delivery" string="Data" select="1"/>
+                  <field name="client_order_ref" />
+                  <field name="block" />
+                <newline/>
+                        <group colspan="4" expand="1">
+                          <group colspan="2" col="1" expand="1">
+                            <separator string="Observacions del Full de Ruta"/>
+                            <field name="note" nolabel="1"/>
+                          </group>
+                          <group colspan="2" col="1" expand="1">
+                            <separator string="Observacions de l'Albarà"/>
+                            <field name="delivery_note" nolabel="1"/>
+                          </group>
+                        </group>
+                
+                <separator colspan="4"/>
+                <group colspan="4" col="13">
+                <group colspan="2" cols="2">
+                    <field name="state" select="2"/>
+                    <label />
+                </group>
+                    <button name="order_confirm" string="Confirm Order" states="draft"/>
+                    <!--<button name="invoice_recreate" string="Recreate Invoice" states="invoice_except"/>
+                    <button name="invoice_cancel" string="Cancel Order" states="invoice_except"/>
+                    <button name="invoice_corrected" string="Invoice Corrected" states="invoice_except"/> 
+                    <button name="manual_invoice" states="manual" string="Facturar"/> -->
+                    <button name="action_cancel_draft" states="cancel" string="Activar Full de Ruta" type="object"/>
+                    <button name="action_cancel" string="Cancel·lar" states="manual" type="object"/>
+                    <button name="cancel" string="Cancel·lar" states="draft"/>
+                </group>
+              </page>
+              <page string="Línies">
+                <group colspan="2" cols="2">
+                    <field name="line_type"  select="2"/>
+                    <label />
+                </group>
+                <field name="order_line" widget="one2many_list" colspan="4" nolabel="1" mode="tree">
+                    <!-- Linies -->
+                    <tree string="Línies" readonly="1" nolabel="1">
+                        <field name="name" colspan="4"/>
+                        <!--<field name="product_id"/>-->
+                        <field name="product_uom_qty" string="Qty"/>
+                        <field name="product_uom" string="UoM"/>
+                        <field name="discount"/>
+                        <field name="price_unit"/>
+                        <field name="price_net"/>
+                        <field name="price_subtotal"/>
+                    </tree>
+            <form string="Línia">
+            <notebook>
+              <page string="Principal">
+                        <field name="product_id" colspan="4" select="2" domain="[('categ_id','like','Vendes')]"
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                        <field name="name" colspan="4" />
+
+                    <separator string="Tractament" colspan="4"/>
+                        <field name="depth"  
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                        <newline />
+                        <field name="customer_pricelist" />
+                        <field name="pricelist_partner_id" nolabel="1" colspan="2" domain="[('product_id','=',product_id),('partner_id','=',parent.partner_id)]" 
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                    
+                    <separator string="Recobriment" colspan="4"/>
+                        <field name="piece_id" colspan="3"  
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                        <group colspan="1" cols="2">
+                        <field name="hard_metal"
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                        </group>                    
+                        <field name="length"
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                        <field name="diameter"
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                        
+
+                    <separator string="Quantitat" colspan="4"/>
+                        <field name="product_uom"
+                                on_change="manual_change(parent.line_type, price_unit,pricelist_price,discount,quantity)"/>
+                        <newline />
+                        <field name="kilos" required="1"
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                        <field name="quantity" required="1" string="Unitats"
+                                on_change="product_id_change_all(parent.line_type, product_id, product_uom_qty, product_uom, name, parent.partner_id, length, diameter, piece_id, hard_metal, parent.customer_id, depth, pricelist_partner_id, parent.company_id, discount, kilos, quantity)" /> 
+                
+                    <separator string="Càlcul" colspan="4"/>
+                        <field name="pricelist_price" />
+                        <field name="product_uom_qty" string="Quantitat"/>
+                        <field name="price_unit"
+                            on_change="manual_change(parent.line_type, price_unit,pricelist_price,discount,quantity,product_uom,kilos,product_id,depth)"/>
+                        <field name="manual" readonly="1"/>
+                        <field name="discount" readonly="1" />
+                        <field name="price_net" /> 
+                        <field name="price_min" />
+                        <field name="price_subtotal" />
+              </page>
+              <page string="Altres">
+                        <field name="tax_id" />
+              </page>
+            </notebook>
+            </form>
+
+                </field>
+                        <group colspan="4" col="7">
+                            <field name="amount_lines"/>
+                            <newline />
+                            <field name="amount_minimum"/>
+                            <newline />
+                            <separator colspan="2" />
+                            <newline />
+                            <field name="amount_untaxed"/>
+                            <field name="amount_tax"/>
+                            <field name="amount_total"/>
+                            <button name="button_dummy" string="Compute" states="draft" type="object"/>
+                            <newline />
+                            <separator colspan="6" string="Comissions"/>
+                            <field name="comission"/>
+                            <field name="agent_id"/>
+                            <field name="date_comission"/>
+                            <field name="amount_comission"/>
+                            <field name="block_comission"/>
+                            <newline />
+                            <label string="Observacions"  align="0.0"/>
+                            <field name="note_comission" colspan="7" nolabel="1"/>
+                        </group>
+              </page>
+              <page string="Tècnic">
+                  <group col="1" colspan="4">
+                    <field name="stuff_desc" />
+                  </group>
+                <separator string="Parametres sol.licitats" colspan="4" />
+                            <group string="Duresa" colspan="2" col="2">    
+                                <field name="min_req_hardness" />
+                                <field name="max_req_hardness" />
+                            </group>
+                            <group string="Profunditat" colspan="2"  col="2">    
+                                <field name="max_req_depth" />
+                                <field name="min_req_depth" />
+                            </group>
+                <separator string="Parametres obtinguts" colspan="4" />
+                            <group string="Duresa" colspan="2" col="2">    
+                                <field name="min_obt_hardness" />
+                                <field name="max_obt_hardness" />
+                            </group>
+                            <group string="Profunditat" colspan="2"  col="2">    
+                                <field name="max_obt_depth" />
+                                <field name="min_obt_depth" />
+                            </group>
+                <separator string="Observacions de Qualitat" colspan="4" />
+                    <field name="quality_note" colspan="4" nolabel="1"/>
+              </page>
+              <page string="Client">
+                  <group col="2" colspan="4">
+                      <field name="partner_order_id" domain="[('partner_id','=',partner_id)]" required="0"/>
+                      <field name="partner_invoice_id" domain="[('partner_id','=',partner_id)]" required="0"/>
+                      <field name="partner_shipping_id" domain="[('partner_id','=',partner_id)]" required="0"/>
+                  </group>
+              </page>
+              <page string="History">
+                <field name="invoiced" string="Facturat" select="2"/>
+                <field name="order_policy" string="Mètode" />
+                <separator string="Generated Invoices" colspan="4"/>
+                <field name="invoice_ids" colspan="4" nolabel="1"/>
+              </page>
+            </notebook>
+          </form>
+        </field>
+    </record>
+
+    <!--  ************************************* -->
+    <!--    Llista de fulls de ruta / albarans  -->
+    <!--  ************************************* -->
+
+<record model="ir.ui.view" id="view_order_tree2">
+    <field name="name">sale.order.tree2</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_tree" />
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <field name="name" position="after">
+            <field name="customer_id" string="Codi"/>
+            <field name="delivery"/>
+            <field name="date_delivery"/>
+        </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_order_tree3">
+    <field name="name">sale.order.tree3</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_tree" />
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+            <field name="product"/>
+            <field name="client_order_ref"/>
+        </field>
+    </field>
+</record>
+<!--      Vista Sale Order per defecte per la seleccio de camps a la vista en llista  -->
+<record model="ir.ui.view" id="view_sale_order_selection">
+    <field name="name">carreras.sale.order.selection</field>
+    <field name="model">sale.order</field>
+    <field name="priority" eval="1"/>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+      <form string="Seleccio">
+            <field name="name" select="1"/>
+            <field name="date_order" select="1" sequence="1"/>
+            <field name="customer_id" select="1"/>
+            <field name="shop_id" select="1"/>
+            <field name="delivery" select="1"/>
+            <field name="date_delivery" select="1"/>
+            <field name="partner_id" select="1" string="NIF"/>
+            <field name="company_id" select="1" readonly="1"/>
+            <field name="client_order_ref" select="1"/>
+            <field name="product" select="1"/>
+            <field name="state" select="2"/>
+            <field name="line_type" select="2"/>
+      </form>
+    </field>
+</record>
+
+<!-- vista en llista per defecte de les línies d'albarans -->
+<record model="ir.ui.view" id="view_carreras_sale_order_line_tree">
+    <field name="name">view.carreras.sale.order.line.tree</field>
+    <field name="model">sale.order.line</field>
+    <field name="type">tree</field>
+    <field name="priority" eval="1" />
+    <field name="arch" type="xml">
+        <tree string="Línies" readonly="1" nolabel="1">
+            <field name="name" colspan="4"/>
+            <!--<field name="product_id"/>-->
+            <field name="product_uom_qty" string="Qty"/>
+            <field name="product_uom" string="UoM"/>
+            <field name="discount"/>
+            <field name="price_unit"/>
+            <field name="price_net"/>
+            <field name="price_subtotal"/>
+        </tree>
+    </field>
+</record>
+
+    <!--  ************************************* -->
+    <!--      ACTIONS                           -->
+    <!--  ************************************* -->
+
+
+    <!-- Entrada de Fulls de Ruta de Tractament -->
+    <record model="ir.actions.act_window" id="action_sale_order_new_TR">
+        <field name="name">Entrada de Fulls de Ruta de Tractament</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="carreras.view_sale_order_form_TR"/>
+        <field name="context">{'line_type':'TR'}</field>
+        <field name="domain">[('line_type','=','TR'),('state','=','draft')]</field>
+    </record>
+
+    <!-- Entrada de Fulls de Ruta de Recobriment -->
+    <record model="ir.actions.act_window" id="action_sale_order_new_RE">
+        <field name="name">Entrada de Fulls de Ruta de Recobriment</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="carreras.view_sale_order_form_RE"/>
+        <field name="context">{'line_type':'RE'}</field>
+        <field name="domain">[('line_type','=','RE'),('state','=','draft')]</field>
+    </record>
+
+    <!-- Entrada de dades de Qualitat (per delegacions) -->
+    <record model="ir.actions.act_window" id="action_sale_order_quality">
+        <field name="name">Entrada de Dades de Qualitat</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('state','=','draft')]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_sale_order_quality_tree">
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="carreras.action_sale_order_quality"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_sale_order_quality_form">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="carreras.view_sale_order_quality_form"/>
+        <field name="act_window_id" ref="carreras.action_sale_order_quality"/>
+    </record>
+    <wizard string="Qualitat"
+            model="sale.order"
+            name="carreras.sale.order.local_quality"
+            menu="False"
+            id="wizard_sale_order_local_quality" />
+
+    <!-- Consulta i Reimpressió d'Albarans (per delegacions) -->
+    <record model="ir.actions.act_window" id="action_delivery_local">
+        <field name="name">Consulta i Reimpressió d'Albarans</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <!--
+        <field name="domain">[('state','in',['done','manual']),('date_delivery','&gt;=',str(int(time.strftime('%Y'))-1)+time.strftime('-%m-%d'))]</field>
+        <field name="domain">[('state','in',['done','manual']),('date_delivery','&gt;=',time.strftime('%Y-%m-')+str(int(time.strftime('%d'))-1))]</field>
+        -->
+        <field name="domain">[('state','=','manual')]</field>
+        
+    </record>
+    <record model="ir.actions.act_window.view" id="action_delivery_local_tree">
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="carreras.action_delivery_local"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_delivery_local_form">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="carreras.view_sale_order_quality_form"/>
+        <field name="act_window_id" ref="carreras.action_delivery_local"/>
+    </record>
+    <wizard string="Consulta d'Albarans"
+            model="sale.order"
+            name="carreras.delivery.local"
+            menu="False"
+            id="wizard_delivery_local" />
+
+    <!-- Consulta i Reimpressió d'Albarans Històrics (per delegacions) -->
+    <record model="ir.actions.act_window" id="action_delivery_histo_local">
+        <field name="name">Consulta i Reimpressió d'Albarans Històrics</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('state','in',['progress','done'])]</field>
+        
+    </record>
+    <record model="ir.actions.act_window.view" id="action_delivery_histo_local_tree">
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="carreras.action_delivery_histo_local"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_delivery_histo_local_form">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="carreras.view_sale_order_quality_form"/>
+        <field name="act_window_id" ref="carreras.action_delivery_histo_local"/>
+    </record>
+    <wizard string="Consulta d'Albarans Històrics"
+            model="sale.order"
+            name="carreras.delivery.histo.local"
+            menu="False"
+            id="wizard_delivery_histo_local" />
+
+    <!-- Recuperar Albarans (per delegacions) -->
+<!--
+    <record model="ir.actions.act_window" id="action_recovery_local">
+        <field name="name">Recuperar Albarans</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('state','=','draft'),('delivery','&lt;&gt;',False)]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_recovery_local_tree">
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="carreras.action_recovery_local"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_recovery_local_form">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="carreras.view_sale_order_quality_form"/>
+        <field name="act_window_id" ref="carreras.action_recovery_local"/>
+    </record>
+    <wizard string="Consulta d'Albarans"
+            model="sale.order"
+            name="carreras.delivery.local"
+            menu="False"
+            id="wizard_delivery_local" />
+-->
+
+    <!-- Modificació de Fulls de Ruta de Tractament (per delegacions) -->
+    <record model="ir.actions.act_window" id="action_sale_order_TR">
+        <field name="name">Consulta de Fulls de Ruta de Tractament</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="context">{'line_type':'TR'}</field>
+        <field name="domain">[('line_type','=','TR'),('state','=','draft')]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_sale_order_TR_tree">
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="action_sale_order_TR"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_sale_order_TR_form">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="carreras.view_sale_order_form_TR"/>
+        <field name="act_window_id" ref="carreras.action_sale_order_TR"/>
+    </record>
+    <wizard string="Consulta de Fulls de Ruta de Tractament"
+            model="sale.order"
+            name="carreras.sale.order.local_TR"
+            menu="False"
+            id="wizard_sale_order_TR" />
+
+    <!-- Modificació de Fulls de Ruta de Recobriment (per delegacions) -->
+    <record model="ir.actions.act_window" id="action_sale_order_RE">
+        <field name="name">Consulta de Fulls de Ruta de Recobriment</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="carreras.view_sale_order_form_RE"/>
+        <field name="context">{'line_type':'RE'}</field>
+        <field name="domain">[('line_type','=','RE'),('state','=','draft')]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_sale_order_RE_tree">
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="carreras.action_sale_order_RE"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_sale_order_RE_form">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="carreras.view_sale_order_form_RE"/>
+        <field name="act_window_id" ref="carreras.action_sale_order_RE"/>
+    </record>
+    <wizard string="Consulta de Fulls de Ruta de Recobriment"
+            model="sale.order"
+            name="carreras.sale.order.local_RE"
+            menu="False"
+            id="wizard_sale_order_RE" />
+
+<!-- *********************************************************************** -->
+
+<!-- Consulta Detallada de Fulls de Ruta -->
+<record model="ir.actions.act_window" id="action_order_detall_fr">
+    <field name="name">Consulta Detallada de Fulls de Ruta</field>
+    <field name="res_model">sale.order</field>
+    <field name="domain">[('state','=','draft')]</field>
+    <field name="view_type">form</field>
+</record>
+<record model="ir.actions.act_window.view" id="action_order_detall_fr_tree">
+    <field name="view_mode">tree</field>
+    <field name="act_window_id" ref="carreras.action_order_detall_fr"/>
+</record>
+<record model="ir.actions.act_window.view" id="action_order_detall_fr_form">
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="carreras.view_order_form_all"/>
+    <field name="act_window_id" ref="carreras.action_order_detall_fr"/>
+</record>
+
+<!-- Consulta Detallada d'Albarans Pendents -->
+<record model="ir.actions.act_window" id="action_order_detall_pendents">
+    <field name="name">Consulta Detallada d'Albarans Pendents</field>
+    <field name="res_model">sale.order</field>
+    <field name="domain">[('state','=','manual')]</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_type">form</field>
+</record>
+<record model="ir.actions.act_window.view" id="action_order_detall_pendents_tree">
+    <field name="view_mode">tree</field>
+    <field name="act_window_id" ref="carreras.action_order_detall_pendents"/>
+</record>
+<record model="ir.actions.act_window.view" id="action_order_detall_pendents_form">
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="carreras.view_order_form_all"/>
+    <field name="act_window_id" ref="carreras.action_order_detall_pendents"/>
+</record>
+
+<!-- Consulta Detallada d'Albarans Històrics -->
+<record model="ir.actions.act_window" id="action_order_detall_historics">
+    <field name="name">Consulta Detallada d'Albarans Històrics</field>
+    <field name="res_model">sale.order</field>
+    <field name="domain">[('state','&lt;&gt;','draft'),('state','&lt;&gt;','manual')]</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_type">form</field>
+</record>
+<record model="ir.actions.act_window.view" id="action_order_detall_historics_tree">
+    <field name="view_mode">tree</field>
+    <field name="act_window_id" ref="carreras.action_order_detall_historics"/>
+</record>
+<record model="ir.actions.act_window.view" id="action_order_detall_historics_form">
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="carreras.view_order_form_all"/>
+    <field name="act_window_id" ref="carreras.action_order_detall_historics"/>
+</record>
+
+</data>
+</terp>

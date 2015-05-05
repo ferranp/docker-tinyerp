@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+        <report id="account_receivable_match"
+                string="Quadrar efectes amb comptabilitat"
+                model="account.account"
+                name="account.receivable.match"
+                rml="account_receivable/report/receivable_match.rml"
+                auto="False"
+                menu="False"/>
+
+<!---        <report id="account_receivable"
+                string="Efectes del client"
+                model="account.account"
+                name="customer.receivable"
+                rml="account_receivable/report/customer_receivable.rml"
+                auto="False"
+                menu="False"/>
+-->
+        <report id="account_remittance"
+                string="Impressió d'una remesa"
+                model="account.receivable.remittance"
+                name="account.remittance"
+                rml="account_receivable/report/remittance.rml"
+                auto="False"
+                menu="True"/>
+
+        <report id="bank_risk"
+                string="Resum de Risc Bancari"
+                model="account.receivable.channel"
+                name="account_receivable.bank_risk"
+                rml="account_receivable/report/bank_risk.rml"
+                auto="False"
+                menu="True"/>
+                
+        <report id="bank_risk_detail"
+                string="Detall de Risc Bancari"
+                model="account.receivable.channel"
+                name="account_receivable.bank_risk_detail"
+                rml="account_receivable/report/bank_risk_detail.rml"
+                auto="False"
+                menu="True"/>
+
+        <report id="unpaid_notice"
+                string="Avís de Reclamació d'Impagat"
+                model="account.receivable"
+                name="unpaid.notice"
+                rml="account_receivable/report/unpaid_notice.rml"
+                auto="False"
+                menu="True"/>
+<!--
+        <report id="account_receivable"
+                string="Imprimir efecte"
+                model="account.receivable"
+                name="print.receivable"
+                auto="False"
+                menu="True"/>
+-->
+        <report id="account_receivables"
+                string="Llistat d'efectes"
+                model="account.receivable"
+                name="receivables.report"
+                rml="account_receivable/report/receivables_report.rml"
+                auto="False"
+                menu="True"/>
+
+</data>
+</terp>

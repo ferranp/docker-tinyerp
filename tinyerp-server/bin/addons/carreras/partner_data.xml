@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+<record model="ir.rule.group" id="customer_comp_rule_group">
+    <field name="name">Customer multi-company</field>
+    <field name="model_id" search="[('model','=','res.partner.customer')]" model="ir.model"/>
+    <field name="global" eval="True"/>
+</record>
+<record model="ir.rule" id="customer_comp_rule">
+    <field name="field_id" search="[('model','=','res.partner.customer'),('name','=','company_id')]" model="ir.model.fields"/>
+    <field name="operator">child_of</field>
+    <field name="operand">user.company_id.id</field>
+    <field name="rule_group" ref="customer_comp_rule_group"/>
+</record>
+
+<record model="ir.rule.group" id="supplier_comp_rule_group">
+    <field name="name">Supplier multi-company</field>
+    <field name="model_id" search="[('model','=','res.partner.supplier')]" model="ir.model"/>
+    <field name="global" eval="True"/>
+</record>
+<record model="ir.rule" id="supplier_comp_rule">
+    <field name="field_id" search="[('model','=','res.partner.supplier'),('name','=','company_id')]" model="ir.model.fields"/>
+    <field name="operator">child_of</field>
+    <field name="operand">user.company_id.id</field>
+    <field name="rule_group" ref="supplier_comp_rule_group"/>
+</record>
+
+</data>
+</terp>

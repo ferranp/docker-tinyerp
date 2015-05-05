@@ -1,0 +1,514 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+<!-- *************************************************************** -->
+<!-- CLIENTS -->
+
+<record model="ir.ui.view" id="invoice_form_dump1">
+    <field name="name">account.invoice.form.dump1</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_form" />
+    <field name="arch" type="xml">
+        <field name="date_due" position="replace" />
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_form_dump2">
+    <field name="name">account.invoice.form.dump2</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_form" />
+    <field name="arch" type="xml">
+        <field name="date_invoice" position="replace" />
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_form_dump3">
+    <field name="name">account.invoice.form.dump3</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_form" />
+    <field name="arch" type="xml">
+        <field name="name" position="replace">
+            <field name="date_due" select="1"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_form_dump4">
+    <field name="name">account.invoice.form.dump4</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="priority" eval="1" />
+    <field name="inherit_id" ref="account.invoice_form" />
+    <field name="arch" type="xml">
+        <field name="currency_id" position="after">
+            <field name="date_invoice" on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)" select="1"/>
+        </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="invoice_form_dump5">
+    <field name="name">account.invoice.form.dump5</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="priority" eval="1" />
+    <field name="inherit_id" ref="account.invoice_form" />
+    <field name="arch" type="xml">
+        <button name="invoice_cancel" position="replace">
+            <button name="action_cancel_all" states="draft,proforma,sale,open" string="Cancel" type="object"/>
+        </button>
+    </field>
+</record>
+<record model="ir.ui.view" id="invoice_form_dump6">
+    <field name="name">account.invoice.form.dump6</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="priority" eval="1" />
+    <field name="inherit_id" ref="account.invoice_form" />
+    <field name="arch" type="xml">
+        <button name="action_cancel_draft" position="replace" />
+    </field>
+</record>
+
+
+<!-- vista en llista de factures de clients -->
+<record model="ir.ui.view" id="invoice_tree_carreras">
+    <field name="name">account.invoice.tree.carreras</field>
+    <field name="model">account.invoice</field>
+    <field name="type">tree</field>
+    <field name="priority" eval="1" />
+    <field name="arch" type="xml">
+        <tree string="Invoice"  colors="blue:state=='draft'">
+            <field name="number"/>
+            <field name="date_invoice"/>
+            <field name="account_id"/>
+            <field name="amount_untaxed" sum="Untaxed amount"/>
+            <field name="amount_total" sum="Total amount"/>
+            <field name="date_due"/>
+            <field name="state"/>
+            <field name="currency_id"/>
+        </tree>
+    </field>
+</record>
+
+<!-- Històric de factures de clients -->
+    <record model="ir.actions.act_window" id="action_out_invoice_tree">
+        <field name="name">Històric de factures</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('type','=','out_invoice')]</field>
+        <field name="context">{'type':'out_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_out_invoice_tree_view1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="action_out_invoice_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_out_invoice_tree_view2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="act_window_id" ref="action_out_invoice_tree"/>
+    </record>
+
+
+<!-- *************************************************************** -->
+<!-- PROVEIDORS -->
+<!--
+<record model="ir.ui.view" id="invoice_supplier_form_dumpa">
+    <field name="name">account.invoice.supplier.form.dumpa</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="number" position="replace">
+            <field name="number" select="1"/>
+        </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="invoice_supplier_form_dumpb">
+    <field name="name">account.invoice.supplier.form.dumpb</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="number" position="replace">
+            <field name="name"/>
+        </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="invoice_supplier_form_dumpc">
+    <field name="name">account.invoice.supplier.form.dumpc</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="name" position="replace">
+            <field name="number"/>
+        </field>
+    </field>
+</record>
+-->
+<record model="ir.ui.view" id="invoice_supplier_form_dump1">
+    <field name="name">account.invoice.supplier.form.dump1</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="date_invoice" position="replace" />
+    </field>
+</record>
+<record model="ir.ui.view" id="invoice_supplier_form_dump2">
+    <field name="name">account.invoice.supplier.form.dump2</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="name" position="replace" />
+    </field>
+</record>
+<record model="ir.ui.view" id="invoice_supplier_form_dump3">
+    <field name="name">account.invoice.supplier.form.dump3</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="reference" position="replace" />
+    </field>
+</record>
+<record model="ir.ui.view" id="invoice_supplier_form_dump4">
+    <field name="name">account.invoice.supplier.form.dump4</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="reference_type" position="replace" />
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_supplier_form_dump5">
+    <field name="name">account.invoice.supplier.form.dump5</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="currency_id" position="replace">
+            <field name="currency_id"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_supplier_form_dump6">
+    <field name="name">account.invoice.supplier.form.dump6</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="address_invoice_id" position="after">
+            <field name="date_supplier" on_change="onchange_payment_term_date_invoice(payment_term, date_supplier)" required="1"/>
+            <field name="date_invoice" select="1"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_supplier_form_dump7">
+    <field name="name">account.invoice.supplier.form.dump7</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="partner_id" position="replace">
+             <field name="partner_id" on_change="onchange_partner_id(type,partner_id)" select="1" />
+        </field>
+    </field>
+</record>
+
+<!--                    domain="[('supplier_ids', '&lt;&gt;', '')]"/>-->
+
+<record model="ir.ui.view" id="invoice_supplier_form_dump8">
+    <field name="name">account.invoice.supplier.form.dump8</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="payment_term" position="replace">
+              <field name="payment_term" on_change="onchange_payment_term_date_invoice(payment_term, date_supplier)" />
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_supplier_form_dump9">
+    <field name="name">account.invoice.supplier.form.dump9</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="date_due" position="after">
+            <field name="name" select="1" readonly="0"/>
+            <field name="reference" string="Registre" select="1"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="invoice_supplier_form_dump10">
+    <field name="name">account.invoice.supplier.form.dump10</field>
+    <field name="type">form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form" />
+    <field name="arch" type="xml">
+        <field name="number" position="replace">
+            <field name="number" string="Identificador" select="2"/>
+        </field>
+    </field>
+</record>
+<!-- vista en llista de factures de proveidors -->
+<record model="ir.ui.view" id="invoice_tree_carreras_sup">
+    <field name="name">account.invoice.tree.carreras.sup</field>
+    <field name="model">account.invoice</field>
+    <field name="type">tree</field>
+    <field name="priority" eval="2" />
+    <field name="arch" type="xml">
+        <tree string="Invoice"  colors="blue:state=='draft'">
+            <field name="reference" string="Registre"/>
+            <field name="date_invoice"/>
+            <field name="account_id"/>
+            <field name="amount_untaxed" sum="Untaxed amount"/>
+            <field name="amount_total" sum="Total amount"/>
+            <field name="date_due"/>
+            <field name="state"/>
+            <field name="currency_id"/>
+        </tree>
+    </field>
+</record>
+
+<!-- Alta de factures -->
+    <record model="ir.actions.act_window" id="action_in_invoice_new">
+        <field name="name">Alta de Factura</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('type','=','in_invoice')]</field>
+        <field name="context">{'type':'in_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view_n1">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="action_in_invoice_new"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view_n2">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="action_in_invoice_new"/>
+    </record>
+
+<!-- Factures en esborrany -->
+    <record model="ir.actions.act_window" id="action_in_invoice_tree_draft">
+        <field name="name">Factures en Esborrany</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('type','=','in_invoice'),('state','=','draft')]</field>
+        <field name="context">{'type':'in_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view_d1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="action_in_invoice_tree_draft"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view_d2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="action_in_invoice_tree_draft"/>
+    </record>
+
+<!-- Factures Pendents -->
+    <record model="ir.actions.act_window" id="action_in_invoice_tree_open">
+        <field name="name">Factures Pendents</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('type','=','in_invoice'),('state','=','open')]</field>
+        <field name="context">{'type':'in_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view_o1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="action_in_invoice_tree_open"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view_o2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="action_in_invoice_tree_open"/>
+    </record>
+
+<!-- Històric de factures de proveiors -->
+    <record model="ir.actions.act_window" id="action_in_invoice_tree">
+        <field name="name">Històric de factures</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('type','=','in_invoice')]</field>
+        <field name="context">{'type':'in_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="action_in_invoice_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_in_invoice_tree_view2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="action_in_invoice_tree"/>
+    </record>
+
+<!--
+
+<record model="ir.actions.act_window" id="action_invoice_tree_carreras">
+    <field name="name">Draft Customer Invoices</field>
+    <field name="res_model">account.invoice</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('state','=','draft'),('type','=','out_invoice')]</field>
+    <field name="context">{'type':'out_invoice'}</field>
+</record>
+<record model="ir.actions.act_window.view" id="action_invoice_tree_carreras_view1">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="invoice_tree_carreras"/>
+    <field name="act_window_id" ref="action_invoice_tree_carreras"/>
+</record>
+<record model="ir.actions.act_window.view" id="action_invoice_tree_carreras_view2">
+    <field name="sequence" eval="2"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="account.invoice_form"/>
+    <field name="act_window_id" ref="action_invoice_tree_carreras"/>
+</record>
+-->
+<!-- *************************************************************** -->
+<!-- GESTIO DE L IVA -->
+
+<!-- Factures emeses -->
+    <record model="ir.actions.act_window" id="action_invoice_emeses">
+        <field name="name">Factures Emeses</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <!--<field name="domain">[('state','in',['open','paid']),('type','in',['out_invoice','out_refund'])]</field>-->
+        <field name="domain">[('state','in',['open','paid']),('type','=','out_invoice')]</field>
+        <field name="context">{'type':'out_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_invoice_emeses_view1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="action_invoice_emeses"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_invoice_emeses_view2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_form"/>
+        <field name="act_window_id" ref="action_invoice_emeses"/>
+    </record>
+<!-- Factures rebudes -->
+    <record model="ir.actions.act_window" id="action_invoice_rebudes">
+        <field name="name">Factures Rebudes</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <!--<field name="domain">[('state','in',['open','paid']),('type','in',['in_invoice','in_refund'])]</field>-->
+        <field name="domain">[('state','in',['open','paid']),('type','=','in_invoice')]</field>
+        <field name="context">{'type':'in_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_invoice_rebudes_view1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="action_invoice_rebudes"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_invoice_rebudes_view2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="action_invoice_rebudes"/>
+    </record>
+
+<!-- *********************************************************************** -->
+
+<!-- Lligam entre factures i albarans -->
+
+<act_window name="Albarans"
+            domain="[('invoice_ids', 'in', [active_id])]"
+            res_model="sale.order"
+            src_model="account.invoice"
+            id="act_account_invoice_2_sale_order"/>
+
+<record model="ir.actions.act_window.view" id="act_account_invoice_2_sale_order_tree">
+    <field name="view_mode">tree</field>
+    <field name="act_window_id" ref="carreras.act_account_invoice_2_sale_order"/>
+</record>
+<record model="ir.actions.act_window.view" id="act_account_invoice_2_sale_order_form">
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_order_form_all"/>
+    <field name="act_window_id" ref="carreras.act_account_invoice_2_sale_order"/>
+</record>
+
+
+    <!-- INICI  
+    <delete model="ir.actions.act_window" id="account_payment.act_account_invoice_2_payment_line"/>
+ -->
+
+<!-- Tots els abonaments -->
+<!--
+    <record model="ir.actions.act_window" id="action_refund_tree">
+        <field name="name">Tots els Abonaments</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('amount_untaxed','&lt;',0)]</field>
+        <field name="context">{'type':'out_invoice'}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_refund_tree_view1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="action_refund_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_refund_tree_view2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_form"/>
+        <field name="act_window_id" ref="action_refund_tree"/>
+    </record>
+-->
+<!-- *********************************************************************** -->
+
+<!-- Lligam entre intervinents i factures -->
+
+
+<act_window name="Model 347 Clients"
+    domain="[('partner_id', '=', active_id),('state', 'in', ['open','paid']),('type','=','out_invoice')]"
+    res_model="account.invoice"
+    src_model="res.partner"
+    id="act_res_partner_2_account_out_invoice_opened"/>
+
+<act_window name="Model 347 Proveidors"
+    domain="[('partner_id', '=', active_id),('state', 'in', ['open','paid']),('type','=','in_invoice')]"
+    res_model="account.invoice"
+    src_model="res.partner"
+    id="act_res_part_2_acc_in_invoice_open"/>
+
+
+    <record model="ir.actions.act_window.view" id="act_res_part_2_acc_in_invoice_open1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="act_res_part_2_acc_in_invoice_open"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="act_res_part_2_acc_in_invoice_open2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="act_res_part_2_acc_in_invoice_open"/>
+    </record>
+
+
+</data>
+</terp>

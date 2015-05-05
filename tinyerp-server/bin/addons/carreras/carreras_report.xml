@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<terp>
+<data noupdate="1">
+        <report id="carreras_report_partner"
+                string="Llistat de Intervinents"
+                model="res.partner"
+                name="carreras.partner_report"
+                rml="carreras/report/partner_report.rml"
+                auto="False"
+                menu="False"/>
+        <report id="carreras_report_customer"
+                string="Llistat de Clients"
+                model="res.partner"
+                name="carreras.customer_report"
+                rml="carreras/report/customer_report.rml"
+                auto="False"
+                menu="False"/>
+        
+        
+</data>
+</terp>

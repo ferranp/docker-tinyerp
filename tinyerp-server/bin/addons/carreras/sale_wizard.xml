@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+    <wizard
+        string="Generar Albarà"
+        model="sale.order"
+        name="carreras.cash"
+        menu="False"
+        id="wizard_carreras_cash"/>
+        
+    <wizard 
+            string="Facturació d'Albarans"
+            model="sale.order"
+            name="carreras.make_invoices"
+            menu="False"
+            id="wizard_carreras_make_invoices" />
+
+    <wizard 
+            string="Generar Abonaments"
+            model="sale.order"
+            name="carreras.make_refunds"
+            menu="False"
+            id="wizard_carreras_make_refunds" />
+
+    <wizard 
+            string="Impressió de Factures"
+            model="account.invoice"
+            name="carreras.print_invoices"
+            menu="False"
+            id="wizard_carreras_print_invoices" />
+
+    <wizard 
+            string="Imprimir Albarà"
+            model="sale.order"
+            name="carreras.print_delivery"
+            menu="True"
+            keyword="client_print_multi"
+            id="wizard_carreras_print_delivery"/>
+    <wizard 
+            string="Cercar Números de Fulls de Ruta"
+            model="sale.order"
+            name="carreras.search_order_nums"
+            menu="False"
+            id="wizard_search_order_nums"/>
+
+    <wizard 
+            string="Càlcul de Comissions"
+            model="sale.order"
+            name="carreras.comission.calculation"
+            menu="False"
+            id="wizard_comission_calculate"/>
+    <wizard 
+            string="Tancament de la Liquidació"
+            model="agent.agent"
+            name="carreras.date.close"
+            menu="False"
+            id="wizard_date_close"/>
+    <wizard 
+            string="Llistat de comprovació de les Comissions"
+            model="agent.agent"
+            name="carreras.comission.report"
+            menu="True"
+            id="wizard_comission_report"/>
+
+    <wizard 
+            string="Llistat de comprovació de les Comissions"
+            model="agent.agent"
+            name="carreras.close.report"
+            menu="True"
+            id="wizard_close_report"/>
+
+    <wizard 
+            string="Estadística de Tractaments"
+            model="product.product"
+            name="carreras.estadis.product"
+            menu="False"
+            id="wizard_estadis_product"/>
+
+    <wizard 
+            string="Estadística per Clients"
+            model="product.product"
+            name="carreras.estadis.customer"
+            menu="False"
+            id="wizard_estadis_customer"/>
+
+
+</data>
+</terp>

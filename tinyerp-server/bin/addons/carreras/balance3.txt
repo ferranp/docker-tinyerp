@@ -1,0 +1,470 @@
+*,B0,"Balance de situación"
+*,B1,"Activo"
+*,B3,"Pasivo"
+
+*,B11,"Material"
+*,B12,"Inmaterial"
+*,B13,"Financiero"
+*,B14,"Gastos amortizables"
+*,B21,"Existencias"
+*,B22,"Deudores"
+*,B23,"Cuentas financieras"
+*,B24,"Situaciones transitorias de financiación"
+*,B25,"Ajustes por periodificación"
+*,B26,"Resultados"
+*,B30,"Capital y reservas"
+*,B31,"Subvenciones en capital"
+*,B32,"Previsiones"
+*,B33,"Provisiones"
+*,B34,"Deudas a plazos largo y medio"
+*,B35,"Deudas a corto plazo"
+*,B36,"Ajustes por periodificación"
+*,B37,"Resultados"
+
+
+*,B112,"Inmovilizado en curso"
+
+*,B123,"Otros conceptos menos amortización"
+
+*,B131,"T¡tulos con cotizaci¢n oficial"
+*,B132,"T¡tulos sin cotizaci¢n oficial"
+*,B133,"Otras participaciones en empresas"
+*,B134,"Prestamos"
+*,B135,"Fianzas y dep¢sitos"
+
+*,B141,"Gastos amortizables de constitución"
+*,B142,"Gastos amortizables de emisi¢n de obligaciones"
+*,B143,"Otros Gastos amortizables"
+
+*,B221,"Clientes"
+*,B222,"Anticipos a proveedores"
+*,B223,"Efectos comerciales a cobrar"
+*,B224,"Otros deudores por trafico"
+*,B225,"Clientes y deudores de dudoso cobro"
+
+*,B231,"T¡tulos con cotizaci¢n oficial"
+*,B232,"T¡tulos sin cotizaci¢n oficial"
+*,B234,"Prestamos a corto plazo"
+*,B235,"Otras inversiones financieras temporales"
+*,B236,"Dividendo activo a cuenta"
+*,B237,"Caja"
+*,B238,"Bancos e instituciones de crédito"
+
+*,B241,"Accionistas desembolssos pendientes por suscripción"
+
+*,B251,"Pagos anticipados e ingresos diferidos"
+
+*,B321,"Previsiones para diferencias de cambio"
+
+*,B331,"Provisiones para reparaciones y obras extras"
+
+*,B341,"Obligaciones y bonos en circulaci¢n"
+*,B342,"Préstamos"
+*,B343,"Acreedores"
+*,B344,"Fianzas y dep¢sitos recibidos"
+
+*,B351,"Proveedores"
+*,B352,"Anticipos a clientes"
+*,B353,"Hacienda Pública"
+*,B354,"Organismos de la Seguridad Social"
+*,B355,"Otros acreedores"
+*,B356,"Préstamos recibidos"
+*,B357,"Acreedores no comerciales"
+
+*,B361,"Pagos diferidos e ingresos anticipados"
+
+# Nivell 1
+B0,B1
+B0,B3
+
+# Nivell 2
+B1,B11
+B1,B12
+B1,B13
+B1,B14
+B1,B21
+B1,B22
+B1,B23
+B1,B24
+B1,B25
+B1,B26
+
+B3,B30
+B3,B31
+B3,B32
+B3,B34
+B3,B35
+B3,B36
+B3,B37
+
+#Nivell 3 i detall
+
+B11,200
+B11,292
+B11,202
+B11,203
+B11,204
+B11,205
+B11,206
+B11,207
+B11,208
+B11,209
+B11,280
+
+B11,B112
+B112,230
+B112,232
+B112,233
+B112,236
+B112,238
+B112,239
+
+B12,210
+B12,211
+
+B12,B123
+B123,212
+B123,213
+
+B12,281
+
+B13,B131
+B131,240
+B131,243
+B131,250
+
+B13,B132
+B132,241
+B132,243
+B132,251
+B132,252
+
+B13,B133
+B133,242
+B132,249
+B132,259
+
+B13,B134
+B134,244
+B134,245
+B134,246
+B134,254
+B134,255
+
+B13,B135
+B135,260
+B135,261
+B135,265
+B135,266
+B135,293
+B135,295
+B135,296
+
+B14,B141
+B141,270
+B141,271
+B14,275
+
+B14,B143
+B143,272
+B143,273
+B143,274
+B143,276
+B143,277
+
+B21,30
+B21,31
+B21,32
+B21,33
+B21,34
+B21,35
+B21,36
+B21,37
+B21,38
+B21,39
+
+B22,B221
+B221,430
+B221,431
+
+B22,B222
+B222,408
+B222,409
+
+B22,B223
+B223,450
+B223,455
+
+B22,B224
+B224,407
+B224,440
+B224,460
+B224,470
+B224,471
+B224,472
+
+B22,B225
+B225,435
+B225,445
+B225,490 
+B225,491
+
+B23,B231
+B231,530
+B231,531
+B231,532
+
+B23,B232
+B232,533
+B232,539
+B232,534
+
+B23,B235
+B235,535
+B235,540
+B235,545 
+#B235,550
+#B235,551
+B235,592
+B235,590
+B235,591
+
+B23,B236
+B236,559
+
+B23,B237
+B237,570
+B237,571
+
+B23,B238
+B238,572
+B238,573
+B238,574
+
+B24,B241
+B241,190
+B241,191
+B24,193
+B24,195
+B24,196
+
+B25,B251
+B251,480
+B251,486
+#B251,581
+B251,585
+
+#B26,890
+
+B30,100
+B30,103
+B30,110
+B30,111
+B30,112
+B30,113
+B30,114
+B30,115
+B30,116
+B30,117
+B30,130
+B30,131
+                                   
+B31,140                            
+
+B32,B321
+B321,120
+B321,121
+
+B32,122
+B32,123
+
+B33,B321
+B331,290
+B331,291
+B331,492
+ 
+B34,B341
+B341,150
+B341,151
+B341,152
+B341,153
+
+B34,B342
+B342,160
+B342,161
+B342,170
+B342,171
+
+B34,B343
+B343,165
+B343,166
+B343,175
+B343,176
+
+B34,B344
+B344,180
+B344,181
+B344,185
+B344,186
+
+B35,B351
+B351,400
+B351,401
+B351,402
+B351,420
+
+B35,B352
+B352,438
+B352,439
+
+B35,B353
+B353,475
+B353,476
+
+B35,477
+
+B35,355
+B355,410
+B355,437
+B355,465
+
+B35,B356
+B356,162
+B356,500
+
+B35,B357
+B357,167
+B357,505
+B357,510
+B357,511
+B357,512
+B357,513
+B357,520
+B357,525
+#B357,550
+#B357,551
+B357,555
+
+B36,B361
+B361,481
+B361,485
+B361,580
+#B361,581
+
+B37,890
+
+
+
+*,E0,"Explotación"
+*,E1,"Gastos"
+*,E5,"Ingresos"
+
+
+*,E10,"Existencias, saldos iniciales"
+*,E11,"Provisiones por depreciación de existencias, ejercicio actual
+*,E12,"Compras"
+*,E13,"Devoluciones de compras"
+*,E14,"Gastos de personal"
+*,E15,"Gastos financieros"
+*,E16,"Tributos"
+*,E17,"Trabajos, suministros y servicios exteriores"
+*,E18,"Transportes y fletes"
+*,E19,"Gastos diversos"
+*,E20,"Amortitzaciones"
+*,E21,"Provisiones"
+*,E22,"Envases a devolver a proveedores"
+*,E23,"Investigaciones, estudios y proyectos en curso"
+*,E24,"Insolvencias definitivas sin dotación"
+*,E25,"Rappels por ventas"
+
+
+*,E50,"Existencias, saldos finales"
+*,E51,"Provisiones por depreciación de existencias, ejercició anterior"
+*,E52,"Ventas"
+*,E53,"Devoluciones de Ventas"
+*,E54,"Ingresos accesorios de la explotación"
+*,E55,"Ingresos financieros"
+*,E56,"Subvenciones a la explotación"
+*,E57,"Trabajos realizados por la empresa para su inmovilizado"
+*,E58,"Provisiones aplicadas a su finalidad"
+*,E59,"Rappels por compras"
+
+
+# Nivell 1
+E0,E1
+E0,E5
+
+# Nivell 2
+E1,E10
+E1,E11
+E1,E12
+E1,E13
+E1,E14
+E1,E15
+E1,E16
+E1,E17
+E1,E18
+E1,E19
+E1,E20
+E1,E21
+E1,E22
+E1,E23
+E1,E24
+E1,E25
+
+E5,E50
+E5,E51
+E5,E52
+E5,E54
+E5,E55
+E5,E56
+E5,E57
+E5,E58
+E5,E59
+
+#Nivell 3 i detall
+
+E10,30 
+E10,38 
+E11,39 
+E12,600
+E12,607
+E13,608
+E14,61 
+E15,62 
+E16,63 
+E17,64 
+E18,65 
+E19,66 
+E20,68 
+E21,69 
+E22,407
+E23,239
+E24,24 
+E24,25 
+E24,43 
+E24,44 
+E24,45 
+E24,53 
+E25,709
+
+E50,30
+E50,38
+E51,39
+E52,700
+E52,701
+E52,702
+E52,703
+E52,704
+E52,705
+E52,707
+E52,71
+E52,72
+E53,708
+E54,73
+E55,74
+E56,75
+E57,76
+E58,79
+E59,609
+

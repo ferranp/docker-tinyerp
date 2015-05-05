@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+        <report id="pricelist_tr_report"
+                string="Llistat de tarifes de Tractament"
+                model="pricelist.kilo"
+                name="carreras.pricelist_tr_report"
+                rml="carreras/report/pricelist_tr_report.rml"
+                auto="False"
+                menu="False"/>
+        
+        <report id="pricelist_rec_report"
+                string="Llistat de tarifes de Recubriment"
+                model="pricelist.rec"
+                name="carreras.pricelist_rec_report"
+                rml="carreras/report/pricelist_rec_report.rml"
+                auto="False"
+                menu="False"/>
+        
+        <report id="pricelist_partner_report"
+                string="Llistat de tarifes de clients"
+                model="res.partner"
+                name="carreras.pricelist_partner_report"
+                rml="carreras/report/pricelist_partner_report.rml"
+                auto="False"
+                menu="False"/>
+<!--
+        <report id="pricelist_supplier_report"
+                string="Llistat de Tarifes de Compres"
+                model="product.product"
+                name="carreras.pricelist_supplier_report"
+                rml="carreras/report/pricelist_supplier_report.rml"
+                auto="False"
+                menu="False"/>
+-->
+</data>
+</terp>

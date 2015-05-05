@@ -1,0 +1,32 @@
+[options]
+without_demo = all
+root_path = /opt/tinyerp-server/bin
+verbose = True
+demo = {}
+port = 8069
+secure = False
+netinterface = 
+upgrade = False
+admin_passwd = admin
+smtp_server = localhost
+;db_user = terp
+price_accuracy = 3
+soap = False
+pidfile = None
+db_maxconn = 64
+reportgz = False
+xmlrpc = True
+db_port = False
+db_name = TTC
+netrpc = True
+interface = 
+logfile = None
+pg_path = None
+translate_modules = ['all']
+stop_after_init = False
+netport = 8070
+;db_password = terp
+debug_mode = True
+;db_host = localhost
+addons_path = /opt/tinyerp-server/bin/addons
+

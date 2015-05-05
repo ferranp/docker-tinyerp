@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+    <delete model="ir.actions.report.xml" id="sale.report_sale_order"/>
+</data>
+</terp>

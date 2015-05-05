@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,434.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="28.0" y1="0.0" width="510" height="434"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Detall">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" rightIndent="0.0" leftIndent="125.0" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P2" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P3" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P4" fontName="Courier" fontSize="10.0" leading="13" alignment="RIGHT"/>
+    <paraStyle name="P5" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P6" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P7" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P8" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P9" fontName="Courier" fontSize="11.0" leading="14" alignment="LEFT"/>
+    <paraStyle name="P10" fontName="Courier" fontSize="11.0" leading="14" alignment="LEFT"/>
+    <paraStyle name="P11" fontName="Courier" fontSize="10.0" leading="13" alignment="RIGHT"/>
+    <paraStyle name="P12" rightIndent="0.0" leftIndent="0.0" fontName="Courier" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P13" fontName="Courier" fontSize="11.0" leading="14"/>
+    <paraStyle name="P14" fontName="Courier" fontSize="10.0" leading="13"/>
+    <paraStyle name="P15" fontName="Courier" fontSize="10.0" leading="13" alignment="RIGHT"/>
+    <paraStyle name="P16" fontName="Courier" fontSize="10.0" leading="13" alignment="RIGHT"/>
+    <paraStyle name="P17" fontName="Courier" fontSize="10.0" leading="13" alignment="CENTER"/>
+    <paraStyle name="Standard" fontName="Times-Roman"/>
+    <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Table Contents" fontName="Times-Roman"/>
+    <paraStyle name="Table Heading" fontName="Times-Roman" alignment="CENTER"/>
+    <paraStyle name="Footnote" fontName="Times-Roman"/>
+    <paraStyle name="Horizontal Line" fontName="Times-Roman" fontSize="6.0" leading="8" spaceBefore="0.0" spaceAfter="14.0"/>
+  </stylesheet>
+  <story>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <para style="P1">[[ repeatIn(objects, 'o') ]]<font face="Times-Roman" size="9.0">[[ repeatIn(range(pages(o)),'pagina') ]]</font></para>
+    <para style="P1">[[ o.company_id.partner_id.name ]]</para>
+    <para style="P1">[[ o.company_id.partner_id.address[0].street ]]</para>
+    <para style="P1">[[ o.company_id.partner_id.address[0].zip ]] [[ o.company_id.partner_id.address[0].city ]]</para>
+    <para style="P1">TELEFONOS : [[ o.company_id.partner_id.address[0].phone ]] FAX : [[ o.company_id.partner_id.address[0].fax ]]</para>
+    <blockTable colWidths="313.0,203.0" repeatRows="1" style="Table1">
+      <tr>
+        <td>
+          <para style="P2">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">
+            <font color="white"> </font>
+          </para>
+          <blockTable colWidths="60.0,66.0,126.0" repeatRows="1" style="Table2">
+            <tr>
+              <td>
+                <para style="P2">[[ o.delivery ]]</para>
+              </td>
+              <td>
+                <para style="P2">[[ format_date(o.date_delivery) ]]</para>
+              </td>
+              <td>
+                <para style="P2">[[ o.customer_id.name ]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="P7">
+            <font color="white"> </font>
+          </para>
+          <para style="P7">No.HOJA DE RUTA : [[ o.name ]]</para>
+        </td>
+        <td>
+          <para style="P7">[[ o.partner_invoice_id.partner_id.name ]]</para>
+          <para style="P2">[[ o.partner_invoice_id.street ]]</para>
+          <para style="P2">[[ o.partner_invoice_id.zip ]] [[ o.partner_invoice_id.city ]]</para>
+          <para style="P2">
+            <font color="white"> </font>
+          </para>
+          <para style="P2">[[ o.partner_id.ref ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="85.0,101.0,69.0,48.0,31.0,45.0,63.0,68.0" repeatRows="1" style="Detall">
+      <tr>
+        <td>
+          <para style="P13">TIPO</para>
+        </td>
+        <td>
+          <para style="P14">TRATAMIENTO</para>
+        </td>
+        <td>
+          <para style="P11">LONGI.</para>
+        </td>
+        <td>
+          <para style="P11">DIAM.</para>
+        </td>
+        <td>
+          <para style="P11">MD</para>
+        </td>
+        <td>
+          <para style="P11">CANT.</para>
+        </td>
+        <td>
+          <para style="P11">PRECIO</para>
+        </td>
+        <td>
+          <para style="P11">IMPORTE</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P13">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P14">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P9">[[ repeatIn(lines_re(o,pagina),'l') ]]</para>
+          <para style="P10">[[ l[0] ]]</para>
+        </td>
+        <td>
+          <para style="P3">[[ l[1] ]] <font face="Times-Roman"> </font></para>
+        </td>
+        <td>
+          <para style="P4">[[ l[2] ]] </para>
+        </td>
+        <td>
+          <para style="P4">[[ l[3] ]]</para>
+        </td>
+        <td>
+          <para style="P4">[[ l[4] ]] </para>
+        </td>
+        <td>
+          <para style="P4">[[ l[5] ]] </para>
+        </td>
+        <td>
+          <para style="P4">[[ l[6] ]] </para>
+        </td>
+        <td>
+          <para style="P4">[[ l[7] ]] </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P17">
+      <font color="white"> </font>
+    </para>
+    <para style="P17">[[ pagina &lt; pages(o)-1 and 'SUMA Y SIGUE' or '']]</para>
+    <para style="P17">
+      <font color="white"> </font>
+    </para>
+    <para style="P17">
+      <font color="white"> </font>
+    </para>
+    <para style="P17">
+      <font color="white"> </font>
+    </para>
+    <para style="P16">[[ pagina == pages(o)-1 and 'TOTAL IMPORTE ALBARAN : %s' % numf(o.amount_untaxed).rjust(50) or '']]</para>
+    <blockTable colWidths="106.0,404.0" repeatRows="1" style="Table4">
+      <tr>
+        <td>
+          <para style="P8">
+            <font color="white"> </font>
+          </para>
+          <para style="P5">OBSERVACIONES :</para>
+          <para style="P5">
+            <font color="white"> </font>
+          </para>
+          <para style="P5">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P5">
+            <font color="white"> </font>
+          </para>
+          <para style="P5">[[ get_line(o.note,0) ]]</para>
+          <para style="P6">[[ get_line(o.note,1) ]]</para>
+          <para style="P6">[[ get_line(o.note,2) ]]</para>
+          <para style="P6">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P12">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>
+

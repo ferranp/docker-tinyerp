@@ -1,0 +1,691 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+<!-- Alta de intervinents de comptat -->
+    <record model="ir.ui.view" id="view_carreras_partner_cash">
+        <field name="name">carreras.partner.cash</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+             <form string="Alta de Clients de Comptat">
+                <field name="name" />
+                <newline/>
+                <field name="ref" required="True"/>
+                <newline/>
+                <field name="address" mode="form,tree" colspan="4" nolabel="1" select="1">
+                  <form string="Adreces">
+                         <field name="name" select="2" colspan="4"/>
+                         <newline/>
+                         <field name="street" select="2"/>
+                         <group col="4" colspan="2" >
+                           <field name="zip" select="2"/>
+                           <field name="city" select="2"/>
+                         </group>
+                         <newline/>
+                         <field name="phone"/>
+                         <field name="fax"/>
+                         <newline/>
+                         <field name="mobile"/>
+                         <field name="email" select="2" widget="email" />
+                  </form>
+                </field>
+           </form>
+        </field>
+    </record>
+
+
+<!-- Intervinents -->
+    <record model="ir.ui.view" id="view_carreras_partner">
+        <field name="name">carreras.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <page string="Extra Info" position="after">
+                <page string="Proveïdor">
+                    <field name="supplier_ids" colspan="4" nolabel="1" widget="one2many_list"/>
+                </page>
+                <page string="Client">
+                    <field name="ref_prov" />
+                    <newline/>
+                    <field name="last_invoice" select="2"/>
+                    <newline/>
+                    <separator string="Informacio de pagament" colspan="4"/>
+                    <group col="3" colspan="4">
+                        <label string="Periode NO pagament" nolabel="1"/>
+                        <field name="start_no_pay" nolabel="1" />
+                        <field name="end_no_pay"   nolabel="1" />
+                        <newline/>
+                        <label string="Dies de pagament" nolabel="1"/>
+                        <group col="3" colspan="2">
+                            <field name="pay_day1" nolabel="1" />
+                            <field name="pay_day2" nolabel="1" />
+                            <field name="pay_day3" nolabel="1" />
+                        </group>
+                    </group>    
+                    <field name="customer_ids" colspan="4" nolabel="1" widget="one2many_list"/>
+                </page>
+            </page>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_carreras_partner2">
+        <field name="name">carreras.partner.form2</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="category_id" position="replace">
+                <group rowspan="1" colspan="4">
+                <field name="category_id" rowspan="1" colspan="4" select="2" nolabel="1"/>
+                </group>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_carreras_partner3">
+        <field name="name">carreras.partner.form3</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="title" position="replace">
+                <field name="code"/>
+                <field name="prov_code"/>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_carreras_partner_name">
+        <field name="name">carreras.partner.form.name</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="name" position="replace">
+                <field name="name" select="1" colspan="4"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_carreras_partner5">
+        <field name="name">carreras.partner.form5</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="credit_limit" position="after">
+                <field name="block_ts"/>
+                <field name="message"/>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_carreras_partner6">
+        <field name="name">carreras.partner.form6</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="ref" position="replace">
+                <field name="ref" required="1"/>
+            </field>
+        </field>
+    </record>
+
+  <!-- llista -->
+
+    <record model="ir.ui.view" id="view_carreras_partner4">
+        <field name="name">carreras.partner.tree4</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="code"/>
+                <field name="prov_code"/>
+            </field>
+        </field>
+    </record>
+
+
+ <!-- Avisos -->
+<record model="ir.ui.view" id="view_messages_form">
+    <field name="name">res.messages.form</field>
+    <field name="model">res.messages</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Avisos">
+            <field name="code" select="1"/>
+            <field name="block" select="1"/>
+            <field name="name" select="1" colspan="4"/>
+            <separator string="Notes" colspan="4"/>
+            <field name="description" nolabel="1" colspan="4"/>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_messages_tree">
+    <field name="name">res.messages.tree</field>
+    <field name="model">res.messages</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Avisos">
+            <field name="code" select="1"/>
+            <field name="name" select="1"/>
+            <field name="block" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_partner_messages">
+    <field name="name">Avisos a Clients</field>
+    <field name="res_model">res.messages</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+<!-- banc del client -->
+    <record model="ir.ui.view" id="view_carreras_partner7">
+        <field name="name">carreras.partner.form7</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="bank_ids" position="replace">
+                    <field name="bank_ids" colspan="4" nolabel="1"
+                        context="address=address">
+                        <form string="Bank account">
+                            <field name="state" select="2"/>
+                            <newline/>
+                            <field name="acc_number" select="1"/>
+                            <newline/>
+                            <field name="bank"/>
+                            <newline/>
+                            <field name="sequence"/>
+                            <field name="name" select="2" colspan="4"/>
+                            <separator string="Bank account owner" colspan="4"/>
+                            <field name="owner_name" colspan="4"/>
+                            <field name="street" colspan="4"/>
+                            <field name="city"/>
+                            <field name="zip"/>
+                            <field name="country_id" completion="1"/>
+                            <field name="state_id"/>
+                        </form>
+                      <tree string="Bank Details">
+                        <field name="state"/>
+                        <field name="name"/>
+                        <field name="acc_number"/>
+                        <field name="owner_name"/>
+                      </tree>
+                    </field>
+            </field>
+        </field>
+    </record>
+
+
+<!-- Codis de client -->        
+    <record model="ir.ui.view" id="view_carreras_partner_customer_form">
+        <field name="name">res.partner.customer.form</field>
+        <field name="model">res.partner.customer</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Codis de client">
+                <field name="name" select="1"/>
+                <field name="company_id" select="1"/>
+                <field name="partner_id" colspan="4" select="1"/>
+                <field name="active" select="1"/>
+                <newline/>
+                <field name="agent_id" select="2"/>
+                <separator string="Dades de Facturació" colspan="4"/>
+                <field name="discount"/>
+                <field name="discount_inv"/>
+                <field name="financing_cost"/>
+                <field name="invoice_copies"/>
+            </form>
+        </field>
+    </record>
+<!--
+    <record model="ir.ui.view" id="view_carreras_customer_tree">
+        <field name="name">res.partner.customer.tree</field>
+        <field name="model">res.partner.customer</field>
+        <field name="type">tree</field>
+        <field name="priority">3</field>
+        <field name="arch" type="xml">
+            <tree string="Codis de client">
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+-->
+<record model="ir.ui.view" id="view_carreras_customer_tree2">
+    <field name="name">res.partner.customer.tree</field>
+    <field name="model">res.partner.customer</field>
+    <field name="type">tree</field>
+    <field name="priority">2</field>
+    <field name="arch" type="xml">
+        <tree string="Clients">
+            <field name="name" select="1"/>
+            <field name="partner_id" select="1"/>
+            <field name="company_id" />
+            <field name="active" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_partner_client_code">
+    <field name="name">Codis de Clients</field>
+    <field name="res_model">res.partner.customer</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_carreras_customer_tree2"/>
+</record>
+
+<record model="ir.actions.act_window" id="action_partner_clientX">
+    <field name="name">Clients</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('customer_ids','&lt;&gt;','')]</field>
+</record>
+
+<record model="ir.ui.view" id="view_carreras_customer_tree_prod">
+    <field name="name">res.partner.customer.tree.prod</field>
+    <field name="model">res.partner.customer</field>
+    <field name="type">tree</field>
+    <field name="priority">20</field>
+    <field name="arch" type="xml">
+        <tree string="Clients">
+            <field name="name" select="1"/>
+            <field name="partner_id" select="1"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_partner_client_code3">
+    <field name="name">Clients</field>
+    <field name="res_model">res.partner.customer</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="view_carreras_customer_tree_prod"/>
+</record>
+
+<!-- Codis de proveïdor -->        
+    <record model="ir.ui.view" id="view_carreras_partner_supplier_form">
+        <field name="name">res.partner.supplier.form</field>
+        <field name="model">res.partner.supplier</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Codis de client">
+                <field name="name" select="1"/>
+                <field name="company_id" select="1"/>
+                <field name="partner_id" colspan="4" select="1"/>
+                <field name="active" select="1"/>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_carreras_supplier_tree2">
+        <field name="name">res.partner.supplier.tree</field>
+        <field name="model">res.partner.supplier</field>
+        <field name="type">tree</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <tree string="Clients">
+                <field name="name" select="1"/>
+                <field name="partner_id" select="1"/>
+                <field name="company_id" />
+                <field name="active" select="1"/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.actions.act_window" id="action_partner_prov_code">
+            <field name="name">Codis de Proveïdors</field>
+            <field name="res_model">res.partner.supplier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_carreras_supplier_tree2"/>
+        </record>
+        <record model="ir.actions.act_window" id="action_partner_supplier">
+            <field name="name">Proveïdors</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('supplier_ids','&lt;&gt;',False)]</field>
+        </record>
+<!-- 
+            <field name="domain">[('prov_code','&lt;&gt;','')]</field>
+            <field name="domain">[('is_supplier','=',True)]</field>
+            <field name="context">{'is_supplier':True}</field>
+
+Aquesta consulta s'ha de fer com la de clients quan es donin d'alta els proveidors
+
+        <record model="ir.actions.act_window" id="action_partner_prov">
+            <field name="name">Intervinents Proveïdors</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('category_id','like','Prov')]</field>
+            <field name="context">{'category_id':'Prov'}</field>
+        </record>
+-->
+
+<!-- Empreses -->
+        <record model="ir.ui.view" id="view_carreras_form">
+                <field name="name">res.company.form</field>
+                <field name="model">res.company</field>
+                <field name="inherit_id" ref="base.view_company_form"/>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                        <field name="name" position="after">
+                                <label colspan="2" />
+                                <field name="short_name" />
+                        </field>
+                </field>
+        </record>
+        <record model="ir.ui.view" id="view_carreras_form2">
+                <field name="name">res.company.form</field>
+                <field name="model">res.company</field>
+                <field name="inherit_id" ref="base.view_company_form"/>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                        <field name="currency_id" position="after">
+                                <field name="purchase_sequence_id" />
+                                <label />
+                                <newline />
+                                <field name="remittance_sequence_id" />
+                                <label />
+                                <newline />
+                                <field name="refund_sequence_id" />
+                                <label />
+                                <newline />
+                                <field name="cash_sequence_id" />
+                                <label />
+                                <newline />
+                                <field name="credit_sequence_id" />
+                                <label />
+                                <newline />
+                                <separator string="Numeradors" colspan="2"/>
+                                <label />
+                                <newline />
+                                <field name="channel_id" />
+                        </field>
+                </field>
+        </record>
+
+<!-- Adreces -->
+
+<record model="ir.ui.view" id="carreras_view_partner_address_tree">
+    <field name="name">res.partner.address.tree.carreras</field>
+    <field name="model">res.partner.address</field>
+    <field name="type">tree</field>
+    <field name="priority" eval="1" />
+    <field name="arch" type="xml">
+        <tree string="Contactes">
+            <field name="partner_id" />
+            <field name="street"/>
+            <field name="city"/>
+            <field name="zip"/>
+            <field name="phone"/>
+            <field name="fax"/>
+            <field name="email"/>
+            <field name="mobile"/>
+            <field name="street2"/>
+            <field name="country_id"/>
+            <field name="name" />
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="carreras_action_partner_address_form">
+    <field name="name">Contactes</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner.address</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+</record>
+<!--
+<record model="ir.actions.act_window.view" id="carreras_action_partner_address_form_view1">
+    <field name="sequence" eval="10"/>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="carreras_view_partner_address_tree"/>
+    <field name="act_window_id" ref="carreras_action_partner_address_form"/>
+</record>
+<record model="ir.actions.act_window.view" id="carreras_action_partner_address_form_view2">
+    <field name="sequence" eval="20"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="base.view_partner_address_form1"/>
+    <field name="act_window_id" ref="carreras_action_partner_address_form"/>
+</record>
+-->
+
+<!-- Clients de Carreras -->
+<record model="ir.ui.view" id="view_all_carreras_customers">
+    <field name="name">view.all.carreras.customers</field>
+    <field name="model">carreras.customers</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="nif"/>
+                <field name="name"/>
+                <field name="message"/>
+                <field name="credit_limit"/>
+                <field name="company_id"/>
+            </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_all_carreras_customers">
+    <field name="name">Clients de Grup TTC</field>
+    <field name="res_model">carreras.customers</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+</record>
+
+<!-- Risc de clients -->
+<record model="ir.ui.view" id="view_carreras_customers_risk_tree">
+    <field name="name">view.carreras.customers.risk.tree</field>
+    <field name="model">res.partner</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+            <tree>
+                <field name="code" string="Client"/>
+                <field name="alb_risk"/>
+                <field name="fac_risk"/>
+                <field name="efe_risk"/>
+                <field name="cir_risk"/>
+                <field name="imp_risk"/>
+                <field name="mor_risk"/>
+                <field name="risk"/>
+                <field name="credit_limit"/>
+            </tree>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_carreras_customers_risk_form">
+    <field name="name">view.carreras.customers.risk.form</field>
+    <field name="model">res.partner</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Risc del Client">
+            <field name="code" readonly="1"/>
+            <field name="ref" readonly="1"/>
+            <newline />
+            <field name="name" readonly="1" colspan="4"/>
+            <separator string="Risc Calculat" colspan="4"/>
+            <field name="alb_risk"/>
+            <newline />
+            <field name="fac_risk"/>
+            <newline />
+            <field name="efe_risk"/>
+            <newline />
+            <field name="cir_risk"/>
+            <newline />
+            <field name="imp_risk"/>
+            <newline />
+            <field name="mor_risk"/>
+            <separator colspan="4"/>
+            <field name="risk"/>
+            <newline />
+            <field name="credit_limit" readonly="1"/>
+        </form>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_carreras_customers_risk">
+    <field name="name">Risc de Clients</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('customer_ids','&lt;&gt;','')]</field>
+    <field name="view_mode">tree,form</field>
+</record>
+<record model="ir.actions.act_window.view" id="action_carreras_customers_risk_tree">
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="carreras.view_carreras_customers_risk_tree"/>
+    <field name="act_window_id" ref="carreras.action_carreras_customers_risk"/>
+</record>
+<record model="ir.actions.act_window.view" id="action_carreras_customers_risk_form">
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="carreras.view_carreras_customers_risk_form"/>
+    <field name="act_window_id" ref="carreras.action_carreras_customers_risk"/>
+</record>
+
+
+<!-- Events -->
+<record model="ir.ui.view" id="res_partner_event_carreras_dump1">
+    <field name="name">res.partner.event.tree.dump1</field>
+    <field name="model">res.partner.event</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="base.res_partner_event-wopartner-view_tree" />
+    <field name="arch" type="xml">
+        <field name="som" position="replace" />
+    </field>
+</record>
+<record model="ir.ui.view" id="res_partner_event_carreras_dump2">
+    <field name="name">res.partner.event.tree.dump2</field>
+    <field name="model">res.partner.event</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="base.res_partner_event-wopartner-view_tree" />
+    <field name="arch" type="xml">
+        <field name="type" position="replace" />
+    </field>
+</record>
+<record model="ir.ui.view" id="res_partner_event_carreras_dump3">
+    <field name="name">res.partner.event.tree.dump3</field>
+    <field name="model">res.partner.event</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="base.res_partner_event-wopartner-view_tree" />
+    <field name="arch" type="xml">
+        <field name="partner_type" position="replace" />
+    </field>
+</record>
+
+<!-- *********************************************************************** -->
+
+<!--
+    <record model="ir.actions.act_window" id="act_res_part_2_acc_in_invoice_open">
+        <field name="name">Model 347 Proveidors</field>
+        <field name="res_model">account.invoice</field>
+        <field name="src_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('partner_id', '=', active_id),('state', 'in', ['open','paid']),('type','=','in_invoice')]</field>
+        <field name="context">{'type':'in_invoice'}</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_res_part_2_acc_in_invoice_open1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="act_res_part_2_acc_in_invoice_open"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="act_res_part_2_acc_in_invoice_open2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="act_res_part_2_acc_in_invoice_open"/>
+    </record>
+
+<act_window name="Model 347 Proveidors"
+    domain="[('partner_id', '=', active_id),('state', 'in', ['open','paid']),('type','=','in_invoice')]"
+    res_model="account.invoice"
+    src_model="res.partner"
+    view_id="carreras.invoice.tree.carreras.sup"
+    id="act_res_partner_2_account_in_invoice_opened"/>
+
+    <record model="ir.actions.act_window.view" id="act_res_partner_2_account_in_invoice_opened_view1">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="carreras.invoice_tree_carreras_sup"/>
+        <field name="act_window_id" ref="act_res_partner_2_account_in_invoice_opened"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="act_res_partner_2_account_in_invoice_opened_view2">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="act_res_partner_2_account_in_invoice_opened"/>
+    </record>
+<act_window name="Model 347 Proveidors"
+    domain="[('partner_id', '=', active_id),('state', 'in', ['open','paid']),('type','=','in_invoice')]"
+    res_model="account.invoice"
+    src_model="res.partner"
+    id="act_res_partner_2_account_in_invoice_opened"/>
+
+    groups="admin"
+<record model="ir.actions.act_window.view" id="act_account_invoice_2_sale_order_tree">
+    <field name="view_mode">tree</field>
+    <field name="act_window_id" ref="carreras.act_account_invoice_2_sale_order"/>
+</record>
+<record model="ir.actions.act_window.view" id="act_account_invoice_2_sale_order_form">
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_order_form_all"/>
+    <field name="act_window_id" ref="carreras.act_account_invoice_2_sale_order"/>
+    domain="[('supplier_ids.id','in', [active_id])]"
+</record>
+-->
+
+
+<!--
+    <field name="key2">tree_but_open</field>
+<act_window name="Intervinent"
+    domain="[('id','=', partner_id)]"
+    res_model="res.partner"
+    src_model="res.partner.supplier"
+    id="act_res_partner_supplier_2_res_partner"/>
+
+<record model="ir.values" id="ir_carreras_open_res_partner">
+    <field name="key2">tree_but_action</field>
+    <field name="model">res.partner.supplier</field>
+    <field name="name">Obrir Intervinent</field>
+    <field name="value" eval="'ir.actions.act_window,%d'%act_res_partner_supplier_2_res_partner"/>
+    <field name="object" eval="True"/>
+</record>
+<act_window name="Intervinent"
+    domain="[('id','=', partner_id)]"
+    res_model="res.partner"
+    src_model="res.partner.supplier"
+    id="act_res_partner_supplier_2_res_partner2"/>
+<act_window name="Intervinent"
+    domain="[('id','=', partner_id)]"
+    res_model="res.partner"
+    src_model="res.partner.supplier"
+    view_type="form"
+    view_mode="form,tree"
+    id="act_res_partner_supplier_2_res_partner2"/>
+<record model="ir.actions.act_window" id="act_res_partner_supplier_2_res_partner3">
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner</field>
+    <field name="src_model">res.partner.supplier</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="base.view_partner_tree" />
+    <field name="domain">[('id','=', partner_id)]</field>
+</record>
+<record model="ir.values" id="ir_carreras_open_res_partner">
+    <field name="key2" eval="'tree_but_open'"/>
+    <field name="model" eval="'res.partner.supplier'"/>
+    <field name="name">Obrir Intervinent</field>
+    <field name="value" eval="'ir.actions.act_window,%d'%act_res_partner_supplier_2_res_partner3"/>
+    <field name="object" eval="True"/>
+</record>
+
+-->
+
+
+</data>
+</terp>

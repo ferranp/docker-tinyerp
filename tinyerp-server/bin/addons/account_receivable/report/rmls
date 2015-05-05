@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for i in `ls *.sxw`
+do
+ base=`echo "$i" | cut -d . -f 1`
+ echo "./tiny_sxw2rml.py $base.sxw > $base.rml"
+ ./tiny_sxw2rml.py $base.sxw > $base.rml
+done

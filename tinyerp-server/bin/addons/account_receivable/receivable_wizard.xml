@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+    <wizard 
+            string="Efectes de un client"
+            model="account.receivable"
+            name="customer.receivable"
+            menu="False"
+            id="wizard_customer_receivable" />
+
+    <wizard 
+            string="Avisos d'Efectes Vençuts a un Client"
+            model="account.receivable"
+            name="customer.notice"
+            menu="True"
+            id="wizard_customer_notice" />
+    <wizard 
+            string="Risc Bancari"
+            model="account.receivable.channel"
+            name="bank.risk"
+            menu="True"
+            id="wizard_bank_risk" />
+    <wizard 
+            string="Seleccionar Efectes"
+            model="account.receivable.remittance"
+            name="remittance.receivables"
+            menu="True"
+            keyword="client_action_multi"
+            id="wizard_remittance_receivables" />
+    <wizard 
+            string="Comptabilitzar Remesa"
+            model="account.receivable.remittance"
+            name="remittance.post"
+            menu="True"
+            keyword="client_action_multi"
+            id="wizard_remittance_post" />
+    <wizard 
+            string="Comptabilitzar Efecte"
+            model="account.receivable"
+            name="receivable.post"
+            menu="True"
+            id="wizard_receivable_post" />
+    <wizard 
+            string="Generar norma 58"
+            model="account.receivable.remittance"
+            name="remittance.norma58"
+            menu="True"
+            keyword="client_action_multi"
+            id="wizard_remittance_norma58" />
+    <wizard 
+            string="Cuadre efectes amb comptabilitat"
+            model="account.receivable"
+            name="receivable.match"
+            menu="False"
+            id="wizard_receivable_match" />
+    <wizard 
+            string="Llistat d'efectes"
+            model="account.receivable"
+            name="receivables.report"
+            menu="False"
+            id="wizard_receivables_report" />
+    <wizard 
+            string="Alta d'impagats"
+            model="account.receivable"
+            name="create.unpaid"
+            menu="False"
+            id="wizard_create_unpaid" />
+    <wizard 
+            string="Impressió d'Efectes"
+            model="account.receivable"
+            name="print.receivable"
+            menu="True"
+            keyword="client_print_multi"
+            id="wizard_print_receivable" />
+
+</data>
+</terp>

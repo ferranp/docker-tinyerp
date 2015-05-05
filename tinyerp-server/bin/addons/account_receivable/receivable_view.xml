@@ -1,0 +1,491 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+    <menuitem name="Billing Book" icon="terp-account"/>
+
+
+<!-- Forma de pagament -->        
+                <record model="ir.ui.view" id="view_payment_term">
+                        <field name="name">account.payment.term.form</field>
+                        <field name="model">account.payment.term</field>
+                        <field name="inherit_id" ref="account.view_payment_term_form" />
+                        <field name="type">form</field>
+                        <field name="arch" type="xml">
+                                <field name="active" position="after">
+                                        <field name="type" select="1"/>
+                                </field>
+                        </field>
+                </record>
+
+        <record model="ir.ui.view" id="view_payment_term_tree">
+                <field name="name">account.payment.term.tree</field>
+                <field name="model">account.payment.term</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                        <tree string="Payment Term">
+                                <field name="name"/>
+                                <field name="type"/>
+                        </tree>
+                </field>
+        </record>
+<!--
+                <field name="domain">[('state','=','pending')]</field>
+-->
+
+<!-- Tipus de forma de pagament -->        
+                <record model="ir.ui.view" id="view_payment_term_type">
+                        <field name="name">account.payment.term.type.form</field>
+                        <field name="model">account.payment.term.type</field>
+                        <field name="type">form</field>
+                        <field name="arch" type="xml">
+                <form string="Tipus de formes de pagament">
+                    <field name="code"/>
+                    <field name="name" select="1"/>
+                </form>
+                        </field>
+                </record>
+
+        <record model="ir.actions.act_window" id="action_payment_term_type_form">
+                <field name="name">account.payment.term.type.form</field>
+                <field name="res_model">account.payment.term.type</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Billing Book/Configuration" groups="admin" sequence="1"/>
+
+        <menuitem name="Billing Book/Configuration/Payment Terms/Tipus de rebuts" 
+            id="menu_action_payment_term_type_form" 
+            action="action_payment_term_type_form"/>
+
+<!-- Efectes -->
+
+    <record model="ir.ui.view" id="view_receivable_receivable_form">
+        <field name="name">account.receivable.form</field>
+        <field name="model">account.receivable</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+          <form string="Efecte">
+            <notebook>
+                <page string="Dades Generals">
+                    <field name="name" />
+                    <field name="ref" />
+                    <field name="invoice_id" on_change="onchange_invoice_id(invoice_id)"/>
+                    <field name="company_id" />
+                    
+                    <newline/>
+                    <field name="type" />
+                    <field name="date_maturity" />
+                    <newline/>
+                    
+                    <field name="date" />
+                    <field name="date_risk" />
+
+                    <separator string="Dades del client" colspan="4" />
+                    <field name="partner_id" on_change="onchange_partner_id(partner_id)"/>
+                    <field name="account_id" domain="[('type','=','receivable')]"/>
+                    <field name="address_invoice_id" />
+                    <field name="bank_id" domain="[('partner_id','=',partner_id)]"/>
+                    
+                    <newline/>
+                    <separator string="Imports" colspan="4" />
+                    <field name="amount" />
+                    <field name="currency_id" />
+                    <field name="expenses" />
+                    <field name="amount_original" />
+                    <field name="unpaid" select="2"/>
+                    <field name="morositat" select="2"/>
+                    <separator string="Dades de la remesa" colspan="4" />
+                    <group col="9" colspan="4">
+                        <field name="remittance_id" colspan="4"/>
+                        <field name="move_id" colspan="4"/>
+                        <newline/>
+                        <field name="xec" colspan="4"/>
+                        <newline/>
+                        <label string="CCC :" align="1.0" />
+                        <field name="ccc1" nolabel="1"/>
+                        <field name="ccc2" nolabel="1"/>
+                        <field name="ccc3" nolabel="1"/>
+                        <field name="ccc4" nolabel="1"/>
+                    </group>
+                    <newline/>
+                    <separator colspan="4" />
+                    <field name="state" />
+                    <label  />
+                    <button name="button_create" string="Crear Efecte" states="draft" type="object"/>
+                </page>
+                <page string="Notes">
+                    <field name="note" />
+                </page>
+            </notebook>
+          </form>
+        </field>
+    </record>
+
+        <record model="ir.actions.act_window" id="action_receivable_form">
+                <field name="name">Efectes</field>
+                <field name="res_model">account.receivable</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form,tree</field>
+        </record>
+
+    <record model="ir.ui.view" id="view_receivable_receivable_tree">
+        <field name="name">account.receivable.form</field>
+        <field name="model">account.receivable</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+          <tree string="Efectes" colors="red:morositat=='moros';blue:unpaid=='unpaid' and morositat=='normal';gray:state=='received' and current_date&gt;=date_risk">
+                    <field name="name" select="1"/>
+                    <field name="invoice_id" select="1"/>
+                    <!--<field name="ref" select="1"/>-->
+                    <field name="account_id" select="1"/>
+                    <field name="type" select="1"/>
+                    <field name="date" select="1"/>
+                    <field name="date_maturity" />
+                    <field name="date_risk" />
+                    <field name="amount" select="1" sum="Import Total"/>
+                    <field name="state" select="2"/>
+                    <field name="expenses" />
+                    <field name="unpaid" />
+                    <field name="morositat" />
+          </tree>
+        </field>
+    </record>
+
+        <record model="ir.actions.act_window" id="action_receivable_list">
+                <field name="name">Històric d'Efectes</field>
+                <field name="res_model">account.receivable</field>
+                <field name="view_type">form</field>
+                <field name="domain">[('state','&lt;&gt;','draft'),('state','&lt;&gt;','pending')]</field>
+                <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_receivable_list_pending">
+                <field name="name">Efectes Pendents</field>
+                <field name="res_model">account.receivable</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('state','=','pending')]</field>
+                <field name="context">{'state':'pending'}</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_receivable_list_draft">
+                <field name="name">Efectes en Esborrany</field>
+                <field name="res_model">account.receivable</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('state','=','draft')]</field>
+                <field name="context">{'state':'draft'}</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_receivable_list_unpaid">
+                <field name="name">Consulta d'Impagats</field>
+                <field name="res_model">account.receivable</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('state','=','pending'),('unpaid','=','unpaid'),('morositat','=','normal')]</field>
+        </record>
+
+<!-- Remeses -->
+    <record model="ir.ui.view" id="view_receivable_remittance_form">
+        <field name="name">account.receivable.remittance.form</field>
+        <field name="model">account.receivable.remittance</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+          <form string="Remesa">
+            <notebook>
+                <page string="Dades Generals">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="type" on_change="onchange_type(type)"/>
+                    <field name="company_id"/>
+                    <field name="move_id" readonly="1"/>
+                    <field name="channel_id" required="1"/>
+                    <newline/>
+                    <separator string="Efectes" colspan="4" />
+                    <field name="receivable_ids" colspan="4" nolabel="1" domain="[('remittance_id','=',False),('state','=','pending'),('type','=',type)]" widget="many2many"/>
+                    <field name="num_receivables" readonly="1"/>
+                    <field name="amount" readonly="1"/>
+                    <field name="state" readonly="1"/>
+                    <group col="1" colspan="2">
+                    <button name="button_create" string="Crear Remesa" states="draft" type="object"/>
+                    <button name="button_cancel" string="Cancelar" states="pending" type="object"/>
+                    </group>
+                </page>
+                <page string="Notes">
+                    <field name="note" />
+                </page>
+            </notebook>
+          </form>
+        </field>
+    </record>
+        <record model="ir.actions.act_window" id="action_receivable_remittance_form">
+                <field name="name">Remeses</field>
+                <field name="res_model">account.receivable.remittance</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form,tree</field>
+        </record>
+
+    <record model="ir.ui.view" id="view_receivable_remittance_tree">
+        <field name="name">receivable.remittance.form</field>
+        <field name="model">account.receivable.remittance</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+          <tree string="Remeses">
+                    <field name="name" />
+                    <field name="channel_id" />
+                    <field name="date" />
+                    <field name="num_receivables" />
+                    <field name="amount" sum="Import Total"/>
+                    <field name="state" />
+          </tree>
+        </field>
+    </record>
+
+        <record model="ir.actions.act_window" id="action_receivable_remittance_list">
+                <field name="name">Històric de Remeses</field>
+                <field name="res_model">account.receivable.remittance</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('state','=','received')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_receivable_remittance_list_pending">
+                <field name="name">Remeses Pendents</field>
+                <field name="res_model">account.receivable.remittance</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('state','=','pending')]</field>
+                <field name="context">{'state':'pending'}</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_receivable_remittance_list_draft">
+                <field name="name">Remeses en Esborrany</field>
+                <field name="res_model">account.receivable.remittance</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[('state','=','draft')]</field>
+                <field name="context">{'state':'draft'}</field>
+        </record>
+
+    <!-- Lligam de factures amb efectes -->
+    <record model="ir.ui.view" id="view_account_invoice_form">
+        <field name="name">account.receivable.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <page string="Other Info" position="after">
+                <page string="Efectes">
+                    <field name="receivable_ids" colspan="4" nolabel="1" widget="one2many_list"/>
+                </page>
+            </page>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="view_partner_bank_tree">
+                <field name="name">Bancs</field>
+                <field name="model">res.partner.bank</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                        <tree string="Bank Details">
+                                <field name="sequence"/>
+                                <field name="name"/>
+                                <field name="type_id"/>
+                                <field name="number"/>
+                        </tree>
+                </field>
+        </record>
+
+    <menuitem
+            name="Billing Book/Efectes"
+            id="menu_receivable" sequence="2"/>
+    <menuitem
+            name="Billing Book/Efectes/Efecte"
+            action="action_receivable_form"
+            id="menu_receivable_new" sequence="1"/>
+    <menuitem
+            name="Billing Book/Efectes/Efectes d'un client"
+            action="wizard_customer_receivable"
+            type="wizard"
+            id="menu_receivable_list_partner" sequence="2"/>
+    <menuitem
+            name="Billing Book/Efectes/Efectes Vençuts d'un client"
+            action="wizard_customer_notice"
+            type="wizard"
+            id="menu_customer_notice"/>
+    <menuitem
+            name="Billing Book/Efectes/Efectes Pendents"
+            action="action_receivable_list_pending"
+            id="menu_receivable_list_pending" sequence="3"/>
+    <menuitem
+            name="Billing Book/Efectes/Tots els Efectes"
+            action="action_receivable_list"
+            id="menu_receivable_list_all" sequence="4"/>
+
+    <menuitem
+            name="Billing Book/Remeses"
+            id="menu_receivable_remittance" sequence="3"/>
+    <menuitem
+            name="Billing Book/Remeses/Remesa"
+            action="action_receivable_remittance_form"
+            id="menu_receivable_remittance_new" sequence="1"/>
+    <menuitem
+            name="Billing Book/Remeses/Remeses en Esborrany"
+            action="action_receivable_remittance_list_draft"
+            id="menu_receivable_remittance_list_draft" sequence="2"/>
+    <menuitem
+            name="Billing Book/Remeses/Remeses Pendents"
+            action="action_receivable_remittance_list_pending"
+            id="menu_receivable_remittance_list_pending" sequence="3"/>
+    <menuitem
+            name="Billing Book/Remeses/Totes les Remeses"
+            action="action_receivable_remittance_list"
+            id="menu_receivable_remittance_list_all" sequence="4"/>
+<!--
+    <menuitem
+            name="Billing Book/Llistar remesa"
+            action="wizard_customer_receivable"
+            type="wizard"
+            id="menu_receivable_remittance_print" sequence="8"/>
+    <menuitem
+            name="Billing Book/Comptabilitzar remesa"
+            action="wizard_account_extracte"
+            type="wizard"
+            id="menu_receivable_remittance_account" sequence="9"/>
+    <menuitem
+            name="Billing Book/Generar Norma-58"
+            action="wizard_customer_receivable"
+            type="wizard"
+            id="menu_receivable_remittance_gen_noram_58" sequence="10"/>
+-->            
+    <menuitem
+            name="Billing Book/Quadrar efectes amb comptabilitat"
+            action="wizard_receivable_match"
+            icon="STOCK_PRINT"
+            type="wizard"
+            id="menu_receivable_remittance_match" sequence="5"/>
+
+<!-- Dades per a generar la noram 58 -->
+    <record model="ir.ui.view" id="view_receivable_norma58_form">
+        <field name="name">account.receivable.norma58.form</field>
+        <field name="model">account.receivable.norma58</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+          <form string="Dades norma 58">
+                    <field name="name" colspan="4"/>
+                    <separator string="Presentador" colspan="4" />
+                    <field name="presentador" />
+                    <field name="nom_pre" />
+                    <field name="suf_pre" />
+                    <separator string="Ordenant" colspan="4" />
+                    <field name="ordenant" />
+                    <field name="nom_ord" />
+                    <field name="suf_ord" />
+                    <separator string="Receptor" colspan="4" />
+                    <field name="ent_rec" />
+                    <field name="ofi_rec" />
+                    <field name="cod_ine" />
+                    <separator string="Compte" colspan="4" />
+                    <field name="bank_acc" />
+                    <newline/>
+                    <label string="Compte amb format xxxx.xxxx.xx.xxxxxxxxxx" colspan="2"/>
+                    <separator string="Dades Identificaties" colspan="4" />
+                    <field name="ident1" />
+                    <field name="ident2" />
+          </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_norma58_form">
+            <field name="name">Dades Norma 58</field>
+            <field name="res_model">account.receivable.norma58</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_receivable_norma58_tree">
+        <field name="name">account.receivable.norma58.form</field>
+        <field name="model">account.receivable.norma58</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+          <tree string="Dades Norma 58">
+                    <field name="name" />
+                    <field name="bank_acc" />
+          </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_norma58_list">
+            <field name="name">Dades Norma 58</field>
+            <field name="res_model">account.receivable.norma58</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Billing Book/Dades Norma 58" 
+        sequence="4"
+        id="menu_action_norma58_form" 
+        action="action_norma58_list"/>
+    <act_window name="Efectes Pendents"
+            domain="[('partner_id', '=', active_id),('state', '=', 'pending')]"
+            res_model="account.receivable"
+            src_model="res.partner"
+            id="act_res_partner_2_account_receivable"/>
+    <act_window name="Efectes Pendents"
+            domain="[('account_id', '=', active_id),('state', '=', 'pending')]"
+            res_model="account.receivable"
+            src_model="account.account"
+            id="act_account_account_2_account_receivable"/>
+
+<!-- Bancs -->
+
+    <record model="ir.ui.view" id="view_receivable_bank_form">
+        <field name="name">receivable.bank.form</field>
+        <field name="model">account.receivable.channel</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Banc">
+                <field name="name" select="1"/>
+                <field name="company_id" />
+                <newline/>
+                <field name="code" select="1"/>
+                <newline/>
+                <separator colspan="4" />
+                <field name="supplier_account_id"/>
+                <field name="cash_account_id"/>
+                <newline/>
+                <field name="norma_58_id"/>
+                <newline/>
+                <field name="days"/>
+                <field name="risk"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_receivable_bank_tree">
+        <field name="name">receivable.bank.tree</field>
+        <field name="model">account.receivable.channel</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Banks">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="days"/>
+                <field name="norma_58_id"/>
+                <field name="risk"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_receivable_bank_view">
+        <field name="res_model">account.receivable.channel</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_receivable.view_receivable_bank_form"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_receivable_bank_view_tree">
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="account_receivable.view_receivable_bank_tree"/>
+        <field name="act_window_id" ref="account_receivable.action_receivable_bank_view"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_receivable_bank_view_form">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_receivable.view_receivable_bank_form"/>
+        <field name="act_window_id" ref="account_receivable.action_receivable_bank_view"/>
+    </record>
+
+</data>
+</terp>

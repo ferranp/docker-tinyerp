@@ -1,0 +1,392 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+
+<!--
+    Despeses de Finançament
+-->
+
+    <record model="ir.ui.view" id="view_account_financing_tree">
+        <field name="name">carreras.account.financing.tree</field>
+        <field name="model">account.financing</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+          <tree string="Despeses de Finançament">
+              <field name="code" />
+              <field name="name" />
+              <field name="percentage" />
+          </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_financing_form">
+        <field name="name">carreras.account.financing.form</field>
+        <field name="model">account.financing</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+          <form string="Despeses de Finançament">
+              <field name="code" />
+              <field name="name" />
+              <field name="percentage" />
+          </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_account_financing">
+        <field name="name">Despeses de Finançament</field>
+        <field name="res_model">account.financing</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+<!--
+    Pla comptable
+-->
+
+    <record model="ir.ui.view" id="view_carreras_account_list">
+        <field name="name">carreras.account.tree</field>
+        <field name="model">account.account</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="account.view_account_list" />
+        <field name="arch" type="xml">
+                <field name="name" position="after">
+                  <field name="company_id" />
+                </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_carreras_account_form">
+        <field name="name">carreras.account.form</field>
+        <field name="model">account.account</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_account_form" />
+        <field name="arch" type="xml">
+                <field name="company_id" position="replace" >
+                  <field name="company_id" select="1"/>
+                </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_carreras_account_form2">
+        <field name="name">carreras.account.form</field>
+        <field name="model">account.account</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_account_form" />
+        <field name="arch" type="xml">
+                <field name="parent_id" position="before" >
+                            <field name="credit"/>
+                            <field name="debit"/>
+                            <newline/>
+                            <field name="balance"/>
+                </field>
+        </field>
+    </record>
+
+                        <!-- field readonly="1" name="balance_ids" colspan="4" nolabel="1">
+                            <tree>
+                                <field name="code"/>
+                                <field name="fiscalyear_id"/>
+                                <field name="period_id"/>
+                                <field name="credit"/>
+                                <field name="debit"/>
+                                <field name="balance"/>
+                            </tree>
+                        </field -->
+
+    <record model="ir.ui.view" id="view_account_balance_tree">
+        <field name="name">account.balance.tree</field>
+        <field name="model">report.account.balance</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="code" select="1"/>
+                    <field name="fiscalyear_id"/>
+                    <field name="period_id"/>
+                    <field name="credit"/>
+                    <field name="debit"/>
+                    <field name="balance"/>
+                </tree>
+        </field>
+    </record>
+    <act_window name="Saldos per periode"
+            domain="[('account_id', '=', active_id)]"
+            res_model="report.account.balance"
+            src_model="account.account"
+            id="act_account_account_2_account_balance"/>
+
+
+<!--
+    Any fiscal	
+    
+    Comentat, la versio 4.2 ja te el camp company
+    
+<record model="ir.ui.view" id="view_carreras_fiscalyear_tree">
+    <field name="name">carreras.fiscalyear.tree</field>
+    <field name="model">account.fiscalyear</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="account.view_account_fiscalyear_tree" />
+    <field name="arch" type="xml">
+            <field name="state" position="after">
+              <field name="company_id"/>
+            </field>
+    </field>
+</record>
+-->
+<record model="ir.ui.view" id="view_carreras_fiscalyear_form">
+    <field name="name">carreras.fiscalyear.form</field>
+    <field name="model">account.fiscalyear</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_account_fiscalyear_form" />
+    <field name="arch" type="xml">
+            <field name="company_id" position="replace" >
+              <field name="company_id" select="1"/>
+            </field>
+    </field>
+</record>
+
+<!--
+    Període fiscal
+-->
+
+<record model="ir.ui.view" id="view_carreras_period_tree">
+    <field name="name">carreras.period.tree</field>
+    <field name="model">account.period</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="account.view_account_period_tree" />
+    <field name="arch" type="xml">
+            <field name="state" position="after">
+              <field name="company_id"/>
+            </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_carreras_period_form">
+    <field name="name">carreras.period.form</field>
+    <field name="model">account.period</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_account_period_form" />
+    <field name="arch" type="xml">
+            <field name="company_id" position="replace" >
+              <field name="company_id" select="1"/>
+            </field>
+    </field>
+</record>
+
+<!--
+    Diari
+-->
+
+<record model="ir.ui.view" id="view_carreras_journal_tree">
+    <field name="name">carreras.journal.tree</field>
+    <field name="model">account.journal</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="account.view_account_journal_tree" />
+    <field name="arch" type="xml">
+            <field name="name" position="after">
+              <field name="company_id"/>
+            </field>
+    </field>
+</record>
+
+<!--
+    Taxes
+-->
+
+<record model="ir.ui.view" id="view_carreras_tax_tree">
+    <field name="name">carreras.tax.tree</field>
+    <field name="model">account.tax</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="account.view_tax_tree" />
+    <field name="arch" type="xml">
+            <field name="type" position="after">
+              <field name="company_id"/>
+            </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_carreras_tax_form">
+    <field name="name">carreras.tax.form</field>
+    <field name="model">account.tax</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_tax_form" />
+    <field name="arch" type="xml">
+            <field name="company_id" position="replace" >
+              <field name="company_id" select="1"/>
+            </field>
+    </field>
+</record>
+
+<!--
+  Codis Taxes
+-->
+
+<record model="ir.ui.view" id="view_carreras_tax_code_tree">
+    <field name="name">carreras.tax.code.tree</field>
+    <field name="model">account.tax.code</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="account.view_tax_code_tree" />
+    <field name="arch" type="xml">
+            <field name="code" position="after">
+              <field name="company_id"/>
+            </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_carreras_tax_code_form">
+    <field name="name">carreras.tax.code.form</field>
+    <field name="model">account.tax.code</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_tax_code_form" />
+    <field name="arch" type="xml">
+            <field name="company_id" position="replace" >
+              <field name="company_id" select="1"/>
+            </field>
+    </field>
+</record>
+
+
+<record model="ir.actions.act_window" id="action_account_period_reopen_tree">
+    <field name="res_model">account.period</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('state','=','done')]</field>
+    <field name="view_id" ref="account.view_account_period_tree"/>
+</record>
+
+
+<!--
+   Assentament
+-->
+
+<record model="ir.ui.view" id="view_carreras_account_move_form">
+    <field name="name">carreras.account.move.form</field>
+    <field name="model">account.move</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_move_form" />
+    <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="credit" />
+                <field name="debit" />
+                <!-- field name="balance" / -->
+            </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_move_tree_dumb1">
+    <field name="name">account.move.tree.dumb1</field>
+    <field name="model">account.move</field>
+    <field name="type">tree</field>
+    <field name="inherit_id" ref="account.view_move_tree" />
+    <field name="arch" type="xml">
+            <field name="line_id" position="replace" />
+    </field>
+</record>
+
+<!--
+    Línies d assentaments
+-->
+<record model="ir.ui.view" id="view_carreras_account_move_line_form">
+    <field name="name">carreras.account.move.line.form</field>
+    <field name="model">account.move.line</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_move_line_form" />
+    <field name="arch" type="xml">
+            <field name="date_maturity" position="replace">
+                <field name="date_maturity" select="1"/>
+            </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_account_move_line_tree_dumb1">
+    <field name="name">account.move.line.tree.dumb1</field>
+    <field name="model">account.move.line</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_move_line_tree" />
+    <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="date_maturity" />
+            </field>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_account_move_line_tree_dumb2">
+    <field name="name">account.move.line.tree.dumb2</field>
+    <field name="model">account.move.line</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_move_line_tree" />
+    <field name="arch" type="xml">
+            <field name="name" position="replace" >
+                <field name="name" string="Concepte" />
+            </field>
+    </field>
+</record>
+
+<!--
+    Bank statements
+-->
+
+<!-- Aixi no surt en vermell quan no cohincideix el saldo inicial i final -->
+<record model="ir.ui.view" id="view_carreras_bank_statement_tree">
+    <field name="name">carreras.account.bank.statement.tree</field>
+    <field name="model">account.bank.statement</field>
+    <field name="inherit_id" ref="account.view_bank_statement_tree" />
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+      <tree string="Statement" position="replace">
+        <tree string="Statement" colors="blue:state=='draft'">
+            <field name="date"/>
+            <field name="name"/>
+            <field name="journal_id"/>
+            <field name="period_id"/>
+            <field name="balance_start" string="Saldo Inicial"/>
+            <field name="balance_end_real" string="Saldo Final"/>
+            <field name="state"/>
+        </tree>
+      </tree>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_carreras_bank_statement_form">
+    <field name="name">carreras.account.bank.statement.form</field>
+    <field name="model">account.bank.statement</field>
+    <field name="type">form</field>
+    <field name="inherit_id" ref="account.view_bank_statement_form" />
+    <field name="arch" type="xml">
+        <field name="line_ids" position="replace">
+            <field name="line_ids" colspan="4" nolabel="1">
+                <tree string="Statement lines" editable="bottom"
+                    colors="red:amount!=reconcile_amount and reconcile_id">
+                    <field name="date"/>
+                    <field name="ref" string="Registre"
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="name"/>
+                    <field name="type"
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="partner_id"
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="account_id"
+                        domain="[('journal_id','=',parent.journal_id)]"
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="amount"/>
+                    <field name="reconcile_id"
+                        context="{'partner_id': partner_id, 'amount': amount, 'account_id': account_id, 'currency_id': parent.currency}"/>
+                    <field name="reconcile_amount" invisible="1"/>
+                </tree>
+                <form string="Statement lines">
+                    <field name="date"/>
+                    <field name="ref" string="Registre"
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="type"
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="partner_id" 
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="account_id" 
+                        domain="[('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+                        on_change="onchange_partner_id(ref,type,partner_id,account_id,parent.currency)"/>
+                    <field name="amount"/>
+                    <field name="reconcile_id" context="{'partner_id':partner_id,'amount':amount,'account_id':account_id}"/> 
+                    <field name="name"/>
+                    <separator string="Notes" colspan="4"/>
+                    <field name="note" nolabel="1" colspan="4"/>
+                </form>
+            </field>
+        </field>
+    </field>
+</record>
+
+</data>
+</terp>

@@ -1,0 +1,635 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (c) 2004 TINY SPRL. (http://tiny.be) All Rights Reserved.
+#                    Fabien Pinckaers <fp@tiny.Be>
+#
+# WARNING: This program as such is intended to be used by professional
+# programmers who take the whole responsability of assessing all potential
+# consequences resulting from its eventual inadequacies and bugs
+# End users who are looking for a ready-to-use solution with commercial
+# garantees and support are strongly adviced to contract a Free Software
+# Service Company
+#
+# This program is Free Software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+##############################################################################
+
+import tools
+import ir
+import pooler
+import time
+from tools import config
+
+from osv import fields,osv
+#import memcached as osv
+
+class res_messages(osv.osv):
+    _name = "res.messages"
+    _description = "Missatges"
+    _columns = {
+        'code': fields.char('Codi', size=3, required=True),
+        'name': fields.char('Descripció', size=40),
+        'block':fields.boolean('Bloquejar', required=True),
+        'description': fields.text('Observacions'),
+    }
+    _order = 'code'
+
+    def name_get(self, cr, uid, ids, context={}):
+        res = []
+        for r in self.browse(cr,uid,ids,context):
+            res.append((r.id,"%s - %s" % (r.code,r.name)))
+        return res
+
+res_messages()
+
+"""
+  Afegeix dies de pagament, codis de client i periode no pago a 
+  la taula de intervinents
+"""
+class partner_carreras(osv.osv):
+    _name = "res.partner"
+    _inherit = "res.partner"
+
+    def _code(self, cr, uid, ids, field_name, arg, context={}):
+        cs = self.browse(cr,uid,ids,context=context)
+        res = {}
+        for c in cs:
+            res[c.id] = c.customer_ids and c.customer_ids[0].name or ''
+        
+        return res
+
+    def _prov_code(self, cr, uid, ids, field_name, arg, context={}):
+        cs = self.browse(cr,uid,ids,context=context)
+        res = {}
+        for c in cs:
+            res[c.id] = c.supplier_ids and c.supplier_ids[0].name or ''
+        return res
+
+    def _check_addr(self, cr, uid, ids):
+        if uid==1 or self.pool.get('res.users').browse(cr, uid, uid).login == "batch":
+            return True
+        for p in self.browse(cr, uid, ids):
+            if not p.address:
+                return False
+        return True
+
+    def _get_risc_alb(self, cr, uid, ids, field_name, arg, context={}):
+        if 'company_id' in context:
+            company_id=context['company_id']
+        else:
+            company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
+        so_obj=self.pool.get('sale.order')
+        res = {}
+        for p in self.browse(cr, uid, ids):
+            risc=0.0
+            s = [('state','in',['draft','manual']),
+                ('partner_id','=',p.id),
+                ('company_id','child_of',[company_id])]
+            rids = so_obj.search(cr,uid,s)
+            for so in so_obj.browse(cr,uid,rids):
+                risc = risc + so.amount_total
+            res[p.id] = risc
+        return res
+
+    def _get_risc_fac(self, cr, uid, ids, field_name, arg, context={}):
+        if 'company_id' in context:
+            company_id=context['company_id']
+        else:
+            company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
+        inv_obj=self.pool.get('account.invoice')
+        res = {}
+        for p in self.browse(cr, uid, ids):
+            risc=0.0
+            s = [('state','=','draft'),
+                ('partner_id','=',p.id),
+                ('company_id','child_of',[company_id])]
+            rids = inv_obj.search(cr,uid,s)
+            for inv in inv_obj.browse(cr,uid,rids):
+                risc = risc + inv.amount_total
+            res[p.id] = risc
+        return res
+
+    def _get_risc_efe(self, cr, uid, ids, field_name, arg, context={}):
+        if 'company_id' in context:
+            company_id=context['company_id']
+        else:
+            company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
+        rec_obj=self.pool.get('account.receivable')
+        res = {}
+        for p in self.browse(cr, uid, ids):
+            risc=0.0
+            s = [('state','in',['pending','posted']),
+                ('unpaid','=','normal'),
+                ('morositat','=','normal'),
+                ('partner_id','=',p.id),
+                ('company_id','child_of',[company_id])]
+            # uid = 1 perque així es salta les regles
+            rids = rec_obj.search(cr,1,s)
+            for rec in rec_obj.browse(cr,1,rids):
+                risc = risc + rec.amount
+            res[p.id] = risc
+        return res
+
+    def _get_risc_cir(self, cr, uid, ids, field_name, arg, context={}):
+        if 'company_id' in context:
+            company_id=context['company_id']
+        else:
+            company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
+        rec_obj=self.pool.get('account.receivable')
+        res = {}
+        for p in self.browse(cr, uid, ids):
+            risc=0.0
+            s= [('state','=','received'),
+                ('remittance_id','<>',False),
+                ('morositat','=','normal'),
+                ('partner_id','=',p.id),
+                ('date_risk','>',time.strftime('%Y-%m-%d')),
+                ('company_id','child_of',[company_id])]
+            # uid = 1 perque així es salta les regles
+            rids = rec_obj.search(cr,1,s)
+            for rec in rec_obj.browse(cr,1,rids):
+                risc = risc + rec.amount
+            res[p.id] = risc
+        return res
+
+    def _get_risc_imp(self, cr, uid, ids, field_name, arg, context={}):
+        if 'company_id' in context:
+            company_id=context['company_id']
+        else:
+            company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
+        rec_obj=self.pool.get('account.receivable')
+        res = {}
+        for p in self.browse(cr, uid, ids):
+            risc=0.0
+            s = [('state','in',['pending','posted']),
+                ('unpaid','<>','normal'),
+                ('morositat','=','normal'),
+                ('partner_id','=',p.id),
+                ('company_id','child_of',[company_id])]
+            # uid = 1 perque així es salta les regles
+            rids = rec_obj.search(cr,1,s)
+            for rec in rec_obj.browse(cr,1,rids):
+                risc = risc + rec.amount
+            res[p.id] = risc
+        return res
+
+    def _get_risc_mor(self, cr, uid, ids, field_name, arg, context={}):
+        if 'company_id' in context:
+            company_id=context['company_id']
+        else:
+            company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
+        rec_obj=self.pool.get('account.receivable')
+        res = {}
+        for p in self.browse(cr, uid, ids):
+            risc=0.0
+            s = [('state','in',['pending','posted','received']),
+                ('morositat','<>','normal'),
+                ('partner_id','=',p.id),
+                ('company_id','child_of',[company_id])]
+            # uid = 1 perque així es salta les regles
+            rids = rec_obj.search(cr,1,s)
+            for rec in rec_obj.browse(cr,1,rids):
+                risc = risc + rec.amount
+            res[p.id] = risc
+        return res
+
+    def _get_risc(self, cr, uid, ids, field_name, arg, context={}):
+        res={}.fromkeys(ids,0)
+        # Fulls de Ruta i Albarans sense factura
+        vals= self._get_risc_alb(cr,uid,ids,field_name,arg,context)
+        for id,val in vals.iteritems(): res[id] += val
+        # Factures sense cartera
+        vals= self._get_risc_fac(cr,uid,ids,field_name,arg,context)
+        for id,val in vals.iteritems(): res[id] += val
+        # Cartera viva
+        vals= self._get_risc_efe(cr,uid,ids,field_name,arg,context)
+        for id,val in vals.iteritems(): res[id] += val
+        # Cartera circulant
+        vals= self._get_risc_cir(cr,uid,ids,field_name,arg,context)
+        for id,val in vals.iteritems(): res[id] += val
+        # Impagats
+        vals= self._get_risc_imp(cr,uid,ids,field_name,arg,context)
+        for id,val in vals.iteritems(): res[id] += val
+        # Moros
+        vals= self._get_risc_mor(cr,uid,ids,field_name,arg,context)
+        for id,val in vals.iteritems(): res[id] += val
+        return res
+    
+    """
+    def _is_supplier(self, cr, uid, ids, field_name, arg, context={}):
+        res = {}
+        for c in self.browse(cr,uid,ids,context=context):
+            res[c.id] = c.supplier_ids and True or False
+            res[c.id] = True
+            res[c.id] = False
+        vals=res.values()
+        #print len(vals)
+        #print len(filter(lambda x:x,vals))
+        #print len(filter(lambda x: not x,vals))
+        #print " "
+        return res
+    """
+    
+    _columns = {
+        'customer_ids': fields.one2many('res.partner.customer', 'partner_id', 'Codis de client',select=True),
+        'supplier_ids': fields.one2many('res.partner.supplier', 'partner_id', 'Codis de proveïdors',select=True),
+        #'is_supplier': fields.function(_is_supplier,string='Proveidor',type='boolean',method=True,select=True),
+        'pay_day1' : fields.integer('Dia da pagament 1'),
+        'pay_day2' : fields.integer('Dia da pagament 2'),
+        'pay_day3' : fields.integer('Dia da pagament 3'),
+        'ref_prov' : fields.char('Referencia proveidor',size=64),
+        'start_no_pay' : fields.date('Inici periode No pago'),
+        'end_no_pay' : fields.date('Final periode No pago'),
+        'code' : fields.function(_code,string='Codi Client',type='char',method=True,),
+        'prov_code' : fields.function(_prov_code,string='Codi Proveïdor',type='char',method=True,),
+        'last_invoice' : fields.date('Data última factura'),
+        #'finan_cost' : fields.many2one('account.financing','Despeses financeres'),
+        'message'    : fields.many2one('res.messages','Avisos'),
+        'property_account_discount': fields.property(
+          'account.account',
+          type='many2one', 
+          relation='account.account', 
+          string="Compte Descompte", 
+          method=True,
+          view_load=True,
+          group_name="Accounting Properties",
+          #domain="[('type', '=', 'payable')]",
+          #help="This account will be used, instead of the default one, as the payable account for the current partner"),
+        ),
+        'property_account_financing': fields.property(
+          'account.account',
+          type='many2one', 
+          relation='account.account', 
+          string="Compte Finançament", 
+          method=True,
+          view_load=True,
+          group_name="Accounting Properties",
+          #domain="[('type', '=', 'payable')]",
+          #help="This account will be used, instead of the default one, as the payable account for the current partner"),
+        ),
+        #forma de pagament al proveïdor
+        'property_supplier_payment_term': fields.property(
+          'account.payment.term',
+          type='many2one', 
+          relation='account.payment.term', 
+          string ='Condicions al Proveïdor',
+          method=True,
+          view_load=True,
+          group_name="Accounting Properties",
+          help="This payment term will be used, instead of the default one, for the current partner"),
+        
+        'alb_risk' : fields.function(_get_risc_alb,string='No facturat',type='float',method=True,),
+        'fac_risk' : fields.function(_get_risc_fac,string='Facturat',type='float',method=True,),
+        'efe_risk' : fields.function(_get_risc_efe,string='Cartera Viva',type='float',method=True,),
+        'cir_risk' : fields.function(_get_risc_cir,string='Circulant',type='float',method=True,),
+        'imp_risk' : fields.function(_get_risc_imp,string='Impagat',type='float',method=True,),
+        'mor_risk' : fields.function(_get_risc_mor,string='Morós',type='float',method=True,),
+        'risk' : fields.function(_get_risc,string='Total',type='float',method=True,),
+        
+        # ts mínim pel bloqueig de clients
+        'block_ts': fields.datetime('Desbloquejat fins'),
+        # NIF
+        'ref': fields.char('Code', size=64, select=1),
+    }
+
+    _sql_constraints = [
+        ('ref_uniq', 'unique (ref)', 'El NIF ha de ser unic !'),
+    ]
+
+    def _check_ref(self, cr, uid, ids):
+        def is_valid_CIF(abc):
+            par = 0;
+            non = 0;
+            #lletres="ABCDEFGHNPQS" abans de 2009
+            lletres="ABCDEFGHJPQRSUVNWXYZ"
+            lletra_cif="JABCDEFGHI"
+            let = abc[0]
+
+            if len(abc)!=9:
+                return False
+            if abc[0] not in lletres:
+                return False;
+            if not abc[1:8].isdigit():
+                return False;
+
+            for zz in range(2,8,2):
+                par = par + int(abc[zz])
+            for zz in range(1,9,2):
+                nn = 2 * int(abc[zz])
+                if nn > 9: nn = 1+ (nn-10)
+                non = non + nn
+            parcial = par + non
+            control = (10 - ( parcial % 10))
+            if control==10: control=0
+            
+            control_lletra = lletra_cif[control]
+
+            #- Societats Anònimes estrangeres (A00)
+            #- Corporacions Locals (P)
+            #- Organismes Públics  (Q)
+            #- Congregacions i Institucions Religioses (R)
+            #- Òrgans d'Administració de l'Estat (S)
+            #- Òrgans de Comunitats autònomes (S).
+            if abc[0:3] == "A00" or abc[0] in ['P','Q','R','S']:
+                if abc[8] != control_lletra:
+                    return False
+
+            #- Societats Anònimes (A)
+            #- Societats de Responsabilitat Limitada (B)
+            #- Societats Col·lectives (C)
+            #- Societats Comanditàries (D)
+            #- Comunitats de Béns (E)
+            #- Societats Cooperatives (F)
+            #- Associacions i altres tipus no definits (G,J,U,V)
+            if abc[8].isdigit() and int(abc[8]) == control:
+                return True
+            if abc[8] == control_lletra:
+                return True
+            return False
+
+        def is_valid_NIF(abc):
+            if len(abc)!=9:
+                return False
+            if not abc[0:8].isdigit():
+                return False
+            if not abc[8].isalpha():
+                return False
+            
+            dni=int(abc[0:8])
+            cadena = "TRWAGMYFPDXBNJZSQVHLCKET"
+            pos = dni % 23
+            if cadena[pos] != abc[8]:
+                return False;
+            return True;
+
+        def is_valid_targeta_resident(abc):
+            if len(abc)!=9:
+                return False
+            if abc[0] not in ['X','Y','Z']:
+                return False
+            if not abc[1:8].isdigit():
+                return False
+            if not abc[8].isalpha():
+                return False
+            
+            dni=int(abc[1:8])
+            cadena = "TRWAGMYFPDXBNJZSQVHLCKET"
+            pos = dni % 23
+            if cadena[pos] != abc[8]:
+                return False;
+            return True;
+
+        if uid==1 or self.pool.get('res.users').browse(cr, uid, uid).login == "batch":
+            return True
+
+        for p in self.browse(cr, uid, ids):
+            # comptat
+            if p.code[1:4]=='000':
+                continue
+            ref = p.ref.strip().upper()
+            # estranger
+            if len(ref) > 9 and ref[0:2].isalpha():
+                continue
+            if len(ref) != 9 or not ref[1:8].isdigit():
+                #print "%-15s %4s %5s %s" % (ref or ' ',p.code or ' ',p.prov_code or ' ',p.name or ' ')
+                #continue
+                raise osv.except_osv("NIF %s Erroni" % ref,
+                    "%s\n%s%s" % (p.name ,p.code and ("Client %s\n" % p.code) or '',p.prov_code and ("Proveïdor %s\n" % p.prov_code) or ''  ))
+            if ref[0].isalpha() and is_valid_CIF(ref):
+                continue
+            if ref[8].isalpha() and is_valid_NIF(ref):
+                continue
+            if ref[0] in ['X','Y','Z'] and is_valid_targeta_resident(ref):
+                continue
+            #print "%-15s %4s %5s %s" % (ref or ' ',p.code or ' ',p.prov_code or ' ',p.name or ' ')
+            #continue
+            raise osv.except_osv("NIF %s Erroni" % ref,
+                "%s\n%s%s" % (p.name ,p.code and ("Client %s\n" % p.code) or '',p.prov_code and ("Proveïdor %s\n" % p.prov_code) or ''  ))
+        return True
+
+    _constraints = [
+        (_check_addr, "S'han d'omplir les dades de contacte", ['address']),
+        (_check_ref, "NIF incorrecte, ha de ser de la forma ANNNNNNNN o NNNNNNNNA", ['ref']),
+    ]
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context={}, toolbar=False):
+        if view_type != 'form':
+            return super(osv.osv, self).fields_view_get(cr, uid, view_id,view_type,context,toolbar)
+        if not self.pool.get('res.users').has_groups(cr,uid,uid,['Producció']):
+            return super(osv.osv, self).fields_view_get(cr, uid, view_id,view_type,context,toolbar)
+        ids=self.pool.get('ir.ui.view').search(cr,uid,[('name','=','carreras.partner.cash')])
+        if not ids:
+            return super(osv.osv, self).fields_view_get(cr, uid, view_id,view_type,context,toolbar)
+        return super(osv.osv, self).fields_view_get(cr, uid, ids[0],view_type,context,toolbar)
+
+    def write(self, cr, uid, ids, vals, context={}):
+        if self.pool.get('res.users').has_groups(cr,uid,uid,['Producció']):
+            raise osv.except_osv(
+                "Operació no permesa",
+                "L'usuari no pot modificar intervinents")
+        return super(partner_carreras, self).write(cr, uid, ids, vals, context=context)
+
+    """
+    def unlink(self, cr, uid, ids, context={}):
+        #if self.pool.get('res.users').has_groups(cr,uid,uid,['Direcció']):
+        
+        raise osv.except_osv(
+                "Operació no permesa",
+                "No es poden eliminar intervinents")
+    """
+
+partner_carreras()
+
+"""
+  Taula que lliga els intervinents amb les empreses amb un numero 
+  de client
+  
+"""
+class partner_customer(osv.osv):
+    _name = "res.partner.customer"
+    _description='Codis de client'
+    _order = "name"
+    _columns = {
+        'name': fields.char('Codi', size=64, required=True,select=True),
+        'partner_id': fields.many2one('res.partner', 'Partner', required=True, ondelete='cascade', select=True),
+        'company_id': fields.many2one('res.company', 'Companyia', required=True, ondelete='cascade', select=True),
+        'active' : fields.boolean('Actiu'),
+        'discount': fields.float('Descompte de Recobriment', digits=(16,2)),
+        'discount_inv': fields.float('Descompte de Facturacio', digits=(16,2)),
+        'financing_cost': fields.many2one('account.financing','Despeses financeres'),
+        'invoice_copies': fields.integer('Copies de la Factura '),
+        # Representant
+        'agent_id' : fields.many2one('agent.agent', 'Representant'),
+
+    }
+    _defaults = {
+        'active' : lambda *a: 1,
+        'invoice_copies' : lambda *a: 1,
+    }
+
+    def _check_invoice_copies(self, cr, uid, ids):
+        for i in self.browse(cr, uid, ids):
+            if i.invoice_copies < 0:
+                return False
+        return True
+
+    _constraints = [
+        (_check_invoice_copies, 
+            "El numero de copies no pot ser negatiu", ['invoice_copies']),
+    ]
+    
+    _sql_constraints = [
+        ('code_uniq', 'unique (name)', 'El codi de client ha de ser unic !')
+        ]    
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context={}, toolbar=False):
+        if not self.pool.get('res.users').has_groups(cr,uid,uid,['Producció']):
+            return super(osv.osv, self).fields_view_get(cr, uid, view_id,view_type,context,toolbar)
+        ids=self.pool.get('ir.ui.view').search(cr,uid,[('name','=','res.partner.customer.tree.prod')])
+        if not ids:
+            return {}
+        return super(osv.osv, self).fields_view_get(cr, uid, ids[0],view_type,context,toolbar)
+
+partner_customer()
+
+"""
+  Taula que lliga els intervinents amb les empreses amb un numero 
+  de proveidor
+  
+"""
+class partner_supplier(osv.osv):
+    _name = "res.partner.supplier"
+    _description='Codis de Proveidors'
+    _order = "name"
+    _columns = {
+        'name': fields.char('Codi', size=64, required=True,select=True),
+        'partner_id': fields.many2one('res.partner', 'Partner', required=True, ondelete='cascade', select=True),
+        'company_id': fields.many2one('res.company', 'Companyia', required=True, ondelete='cascade', select=True),
+        'active' : fields.boolean('Actiu'),
+    }
+    _defaults = {
+        'active' : lambda *a: 1,
+    }
+
+    _sql_constraints = [
+        ('code_uniq', 'unique (name)', 'El codi de proveidor ha de ser unic !')
+        ]    
+partner_supplier()
+
+
+class res_company(osv.osv):
+    _name = "res.company"
+    _inherit = "res.company"
+    _columns = {
+        'short_name': fields.char('Nom curt', size=10, required=True),
+        'channel_id': fields.many2one('account.receivable.channel', "Canal"),
+        'credit_sequence_id': fields.many2one('ir.sequence', "Numerador de Factures de Crèdit",
+                help="Numerador de factures de clients de crèdit per aquesta empresa", required=False),
+        'cash_sequence_id': fields.many2one('ir.sequence', "Numerador de Factures de Comptat",
+                help="Numerador de factures de comptat per aquesta empresa", required=False),
+        'refund_sequence_id': fields.many2one('ir.sequence', "Numerador d'Abonaments",
+                help="Numerador d'abonaments per aquesta empresa", required=False),
+        'remittance_sequence_id': fields.many2one('ir.sequence', "Numerador de Remeses Bancàries",
+                help="Numerador de remeses per aquesta empresa", required=False),
+        'purchase_sequence_id': fields.many2one('ir.sequence', "Numerador de Comandes",
+                help="Numerador de comandes per aquesta empresa", required=False),
+    }
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context={}, toolbar=False):
+        if view_type != 'form':
+            return super(osv.osv, self).fields_view_get(cr, uid, view_id,view_type,context,toolbar)
+        if self.pool.get('res.users').has_groups(cr,uid,uid,['Direcció','Administració','Administracio1']):
+        #if not self.pool.get('res.users').has_groups(cr,uid,uid,['Producció']):
+            return super(osv.osv, self).fields_view_get(cr, uid, view_id,view_type,context,toolbar)
+        return {}
+
+res_company()
+
+class res_partner_address(osv.osv):
+    _name = 'res.partner.address' 
+    _inherit = 'res.partner.address' 
+
+    def name_get(self, cr, user, ids, context={}):
+        if not len(ids):
+            return []
+        res = []
+        for r in self.read(cr, user, ids, ['name','street','zip','city','partner_id']):
+            if context.get('contact_display', 'contact')=='partner':
+                res.append((r['id'], r['partner_id'][1]))
+            else:
+                addr = str(r['street'] or '')
+                if r['street'] and (r['zip'] or r['city']):
+                    addr += ', '
+                addr += str(r['zip'] or '') + ' ' + str(r['city'] or '')
+                if len(addr.strip()) == 0:
+                    addr= str(r['name'])
+                res.append((r['id'], addr or '/'))
+        return res
+
+res_partner_address()
+
+#
+# Vista de tots els clients de Grup TTC
+#
+class carreras_customers(osv.osv):
+    _name = "carreras.customers"
+    _description = "Clients"
+    _auto = False
+    _columns = {
+        'code': fields.char('Codi de Client', size=5, readonly=True,select=True),
+        'name': fields.char('Nom', size=128, readonly=True,select=True),
+        'nif': fields.char('NIF', size=64, readonly=True,select=True),
+        'message': fields.many2one('res.messages','Avisos'),
+        'credit_limit': fields.float('Límit de crèdit', digits=(16, 2)),
+        'company_id': fields.many2one('res.company', 'Companyia', readonly=True, ondelete='cascade'),
+    }
+    _order = 'code,name'
+    def init(self, cr):
+        cr.execute("""
+            create or replace view carreras_customers as (
+                select
+                    c.id,
+                    p.ref as nif,
+                    c.name as code,
+                    p.name,
+                    p.message,
+                    p.credit_limit,
+                    c.company_id
+                from
+                    res_partner p,
+                    res_partner_customer c
+                where
+                    p.id = c.partner_id and c.active and p.active
+            )""")
+carreras_customers()
+
+""" Usuaris de carreras """
+class user_carreras(osv.osv):
+    _name = "res.users"
+    _inherit = "res.users"
+
+    _columns = {
+        'pricelist_company_id': fields.many2one('res.company', 'Companyia de la Tarifa'),
+    }
+
+    def has_groups(self, cr, u, uid, groups, context={}):
+        user= self.browse(cr,u, uid,context)
+        for group in user.groups_id:
+            if group.name in groups:
+                return True
+        return False
+
+user_carreras()

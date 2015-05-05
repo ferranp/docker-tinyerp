@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="35.0" y1="35.0" width="525" height="772"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table3">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica"/>
+    <paraStyle name="P2" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P3" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5" rightIndent="17.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="12.0" leading="15" alignment="CENTER" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P6" rightIndent="17.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P7" rightIndent="17.0" leftIndent="-0.0" fontName="Helvetica-Bold" fontSize="8.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P8" rightIndent="17.0" leftIndent="-0.0" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="Standard" fontName="Times-Roman"/>
+    <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Table Contents" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Table Heading" fontName="Times-Roman" alignment="CENTER" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Times-Roman" fontSize="10.0" leading="13" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Times-Roman"/>
+  </stylesheet>
+  <story>
+    <para style="P5">[[ account().code ]] - [[ account().name ]]</para>
+    <para style="P6"><font color="white"> .........</font>[[ fiscalyear().name ]]</para>
+    <para style="P6"><font color="white"> .........</font>[[ get_period() ]]</para>
+    <para style="P6">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="55.0,61.0,61.0,61.0,61.0,61.0,61.0,61.0" repeatRows="1" style="Table3">
+      <tr>
+        <td>
+          <para style="P4">Codi</para>
+        </td>
+        <td>
+          <para style="P3">Saldo Anterior </para>
+        </td>
+        <td>
+          <para style="P3">Debe Periode</para>
+        </td>
+        <td>
+          <para style="P3">Haver Periode</para>
+        </td>
+        <td>
+          <para style="P3">Saldo Periode</para>
+        </td>
+        <td>
+          <para style="P3">Debe Actual</para>
+        </td>
+        <td>
+          <para style="P3">Haver Actual</para>
+        </td>
+        <td>
+          <para style="P3">Saldo Actual</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P8"><font face="Times-Roman" size="7.0">[[ repeatIn(lines(data['form']),'a') ]]</font>[[ a['code'] ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(a['prev_balance']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(a['debit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(a['credit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(a['balance']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(a['act_debit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(a['act_credit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(a['act_balance']) ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P7">Total</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(totals()['prev_balance']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(totals()['debit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(totals()['credit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(totals()['balance']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(totals()['act_debit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(totals()['act_credit']) ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ numf(totals()['act_balance']) ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>
+

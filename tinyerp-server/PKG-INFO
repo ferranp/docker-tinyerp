@@ -1,0 +1,18 @@
+Metadata-Version: 1.0
+Name: tinyerp-server
+Version: 4.2.0
+Summary: Tiny's ERP Server
+Home-page: http://www.tinyerp.com
+Author: Tiny.be
+Author-email: info@tiny.be
+License: GPL-2
+Description: Tiny ERP is a complete ERP and CRM. The main features are accounting (analytic
+        and financial), stock management, sales and purchases management, tasks
+        automation, marketing campaigns, help desk, POS, etc. Technical features include
+        a distributed server, flexible workflows, an object database, a dynamic GUI,
+        customizable reports, and SOAP and XML-RPC interfaces.
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: GNU General Public License Version 2 (GPL-2)
+Classifier: Programming Language :: Python

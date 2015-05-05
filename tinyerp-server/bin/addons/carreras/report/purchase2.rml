@@ -1,0 +1,468 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Taula1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Taula4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Taula5">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Capsalera">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Titol">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+    <blockTableStyle id="Titol2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Detall">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Taula2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+    <blockTableStyle id="Taula3">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Peu">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Banc">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P2" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="6.0" leading="8" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P3" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P6" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10"/>
+    <paraStyle name="P7" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT"/>
+    <paraStyle name="P8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT"/>
+    <paraStyle name="P9" rightIndent="1.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P10" fontName="Helvetica-BoldOblique" fontSize="6.0" leading="8" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P11" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P12" fontName="Helvetica-BoldOblique" fontSize="7.0" leading="9" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P13" rightIndent="-0.0" leftIndent="1.0" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P14" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P15" rightIndent="-13.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P16" rightIndent="-9.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P17" rightIndent="9.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P18" rightIndent="-92.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P19" rightIndent="-22.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P20" rightIndent="4.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P21" fontName="Helvetica" fontSize="8.0" leading="10"/>
+    <paraStyle name="P22" fontName="Helvetica" fontSize="8.0" leading="10"/>
+    <paraStyle name="P23" fontName="Helvetica" fontSize="8.0" leading="10"/>
+    <paraStyle name="P24" fontName="Helvetica" fontSize="8.0" leading="10"/>
+    <paraStyle name="P25" fontName="Helvetica" fontSize="8.0" leading="10"/>
+    <paraStyle name="P26" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10"/>
+    <paraStyle name="P27" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT"/>
+    <paraStyle name="P28" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="7.0" leading="9" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P29" rightIndent="0.0" leftIndent="9.0" fontName="Helvetica" fontSize="7.0" leading="9" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P30" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P31" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Standard" fontName="Times-Roman"/>
+    <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Header" fontName="Times-Roman"/>
+    <paraStyle name="Table Contents" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Table Heading" fontName="Times-Roman" alignment="CENTER" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Times-Roman" fontSize="10.0" leading="13" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Table" fontName="Times-Roman" fontSize="10.0" leading="13" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Times-Roman"/>
+  </stylesheet>
+  <story>
+    <para style="P10">[[ repeatIn(objects,'o') ]]</para>
+    <para style="P12">[[ repeatIn(range(pages(o)),'p') ]] </para>
+    <para style="P5">[[ o.partner_id.supplier_ids[0].company_id.partner_id.name ]]</para>
+    <blockTable colWidths="240.0,242.0" style="Taula1">
+      <tr>
+        <td>
+          <blockTable colWidths="234.0" style="Taula4">
+            <tr>
+              <td>
+                <para style="P23">[[ o.partner_id.supplier_ids[0].company_id.partner_id.address[0].street ]] </para>
+                <para style="P27">[[ o.partner_id.supplier_ids[0].company_id.partner_id.address[0].zip ]] [[ o.partner_id.supplier_ids[0].company_id.partner_id.address[0].city ]]</para>
+                <para style="P27">TELEFONO [[ o.partner_id.supplier_ids[0].company_id.partner_id.address[0].phone ]] </para>
+                <para style="P27">TELEFAX [[ o.partner_id.supplier_ids[0].company_id.partner_id.address[0].fax ]]</para>
+                <para style="P30">C.I.F. [[ o.partner_id.supplier_ids[0].company_id.partner_id.ref ]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="P22">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <blockTable colWidths="236.0" style="Taula5">
+            <tr>
+              <td>
+                <para style="P21">[[ o.partner_id.name ]]</para>
+                <para style="P21">A la atención de [[ o.partner_id.address[0].name ]]</para>
+                <para style="P21">[[ o.partner_id.address[0].street or '' ]]</para>
+                <para style="P21">[[ o.partner_id.address[0].zip or '' ]] [[ o.partner_id.address[0].city or '' ]]</para>
+                <para style="P6">TELEFONO [[ o.partner_id.address[0].phone ]] </para>
+                <para style="P6">TELEFAX [[ o.partner_id.address[0].fax ]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="P21">
+            <font color="white"> </font>
+          </para>
+          <para style="P22">
+            <font color="white"> </font>
+          </para>
+          <para style="P8">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="Text body">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="59.0,5.0,194.0,51.0,6.0,167.0" style="Capsalera">
+      <tr>
+        <td>
+          <para style="P11">PROVEEDOR</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.partner_id.prov_code ]]</para>
+        </td>
+        <td>
+          <para style="P11">ENTREGAR</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P11">PEDIDO No.</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.name ]]</para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P11">FECHA</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ format_date(o.date_order) ]]</para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P28">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="491.0" repeatRows="1" style="Titol">
+      <tr>
+        <td>
+          <blockTable colWidths="53.0,240.0,48.0,45.0,49.0,49.0,7.0" repeatRows="1" style="Titol2">
+            <tr>
+              <td>
+                <para style="P3">CODIGO</para>
+              </td>
+              <td>
+                <para style="P3">DESCRIPCIÓN </para>
+              </td>
+              <td>
+                <para style="P4">CANTIDAD</para>
+              </td>
+              <td>
+                <para style="P14">PRECIO </para>
+              </td>
+              <td>
+                <para style="P14">DTO.</para>
+              </td>
+              <td>
+                <para style="P14">IMPORTE</para>
+              </td>
+              <td>
+                <para style="P14">
+                  <font color="white"> </font>
+                </para>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <para style="P3">
+                  <font color="white"> </font>
+                </para>
+              </td>
+              <td>
+                <para style="P3">
+                  <font color="white"> </font>
+                </para>
+              </td>
+              <td>
+                <para style="P4">
+                  <font color="white"> </font>
+                </para>
+              </td>
+              <td>
+                <para style="P14">
+                  <font color="white"> </font>
+                </para>
+              </td>
+              <td>
+                <para style="P14">
+                  <font color="white"> </font>
+                </para>
+              </td>
+              <td>
+                <para style="P14">
+                  <font color="white"> </font>
+                </para>
+              </td>
+              <td>
+                <para style="P14">
+                  <font color="white"> </font>
+                </para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="P9"/>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="48.0,240.0,48.0,48.0,48.0,48.0" repeatRows="1" style="Detall">
+      <tr>
+        <td>
+          <para style="P13"><font face="Times-Roman" size="6.0">[[ repeatIn(lines(o,p),'s') ]]</font>[[ s and s[0] ]]</para>
+        </td>
+        <td>
+          <para style="P3">[[ s and s[1] ]] </para>
+        </td>
+        <td>
+          <para style="P4">[[ s and (s[2]+' Uni') ]] </para>
+        </td>
+        <td>
+          <para style="P14">[[ s and s[3] ]] </para>
+        </td>
+        <td>
+          <para style="P14">[[ s and s[4] ]]</para>
+        </td>
+        <td>
+          <para style="P14">[[ s and s[5] ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P29">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="491.0" repeatRows="1" style="Taula2">
+      <tr>
+        <td>
+          <blockTable colWidths="38.0,314.0,85.0,53.0" repeatRows="1" style="Taula3">
+            <tr>
+              <td>
+                <para style="P3">OBSERV: </para>
+              </td>
+              <td>
+                <para style="P3">[[ get_line(o.notes,0) ]]</para>
+              </td>
+              <td>
+                <para style="P14">TOTAL PEDIDO :</para>
+              </td>
+              <td>
+                <para style="P20">[[ numf(o.amount_untaxed) ]]</para>
+              </td>
+            </tr>
+          </blockTable>
+          <para style="P9"/>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P2">[[ o.partner_id.supplier_ids[0].company_id.rml_footer1 ]]</para>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="86.0,6.0,176.0,70.0,5.0,137.0" style="Peu">
+      <tr>
+        <td>
+          <para style="P15">PLAZO DE ENTREGA</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P18">[[ format_date(o.date_delivery) ]]</para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P17">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P11">FORMA DE ENVIO</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.form_delivery and o.form_delivery or '']]</para>
+        </td>
+        <td>
+          <para style="P11">PORTES</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.ports == 'P' and 'PAGADOS' or 'DEBIDOS']]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P11">SOLICITADO POR</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.creator.name ]]</para>
+        </td>
+        <td>
+          <para style="P16">APROBADO POR</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">
+            <font color="white"> </font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="103.0,6.0,373.0" style="Banc">
+      <tr>
+        <td>
+          <para style="P19">CONDICIONES DE PAGO</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.partner_id.property_supplier_payment_term.name ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P11">ENTIDAD BANCARIA</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.partner_id.bank_ids[0].name ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P11">CUENTA BANCARIA</para>
+        </td>
+        <td>
+          <para style="P11">:</para>
+        </td>
+        <td>
+          <para style="P11">[[ o.partner_id.bank_ids[0].acc_number ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>
+

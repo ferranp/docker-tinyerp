@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<terp>
+<data >
+
+    <!--
+    Payment term type
+    -->	
+    <record model="account.payment.term.type" id="account_payment_term_type_gir">
+        <field name="code">gir</field>
+        <field name="name">Gir</field>
+    </record>
+    <record model="account.payment.term.type" id="account_payment_term_type_reposicio">
+        <field name="code">reposicio</field>
+        <field name="name">Reposició</field>
+    </record>
+    <record model="account.payment.term.type" id="account_payment_term_type_comptat">
+        <field name="code">comptat</field>
+        <field name="name">Comptat</field>
+    </record>
+    <record model="account.payment.term.type" id="account_payment_term_type_abonament">
+        <field name="code">abonament</field>
+        <field name="name">Abonament</field>
+    </record>
+<!-- Tipus de Sequences-->
+        <record model="ir.sequence.type" id="seq_type_rem">
+                <field name="name">Efectes</field>
+                <field name="code">account.receivable</field>
+        </record>
+        <record model="ir.sequence.type" id="seq_type_rec_man">
+                <field name="name">Remeses</field>
+                <field name="code">account.remittance</field>
+        </record>
+
+<!-- Sequences -->
+        <record model="ir.sequence" id="seq_rec_man">
+                <field name="name">Efectes Manuals</field>
+                <field name="code">account.receivable</field>
+                <field name="padding" eval="6"/>
+                <field name="prefix">EM/</field>
+        </record>
+        <record model="ir.sequence" id="seq_rem">
+                <field name="name">Remeses</field>
+                <field name="code">account.remittance</field>
+                <field name="padding" eval="6"/>
+                <field name="prefix">RE/</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_rem_TL">
+                <field name="name">Remeses TL</field>
+                <field name="code">account.remittance</field>
+                <field name="padding" eval="6"/>
+                <field name="prefix">TL/</field>
+        </record>
+        <record model="ir.sequence" id="seq_rem_TJ">
+                <field name="name">Remeses TJ</field>
+                <field name="code">account.remittance</field>
+                <field name="padding" eval="6"/>
+                <field name="prefix">TJ/</field>
+        </record>
+        <record model="ir.sequence" id="seq_rem_BD">
+                <field name="name">Remeses BD</field>
+                <field name="code">account.remittance</field>
+                <field name="padding" eval="6"/>
+                <field name="prefix">BD/</field>
+        </record>
+        <record model="ir.sequence" id="seq_rem_TC">
+                <field name="name">Remeses TC</field>
+                <field name="code">account.remittance</field>
+                <field name="padding" eval="6"/>
+                <field name="prefix">TC/</field>
+        </record>
+
+<!-- Rules -->
+        <record model="ir.rule.group" id="account_receivable_channel_comp_rule_group">
+            <field name="name">account_receivable_channel multi-company</field>
+            <field name="model_id" search="[('model','=','account.receivable.channel')]" model="ir.model"/>
+            <field name="global" eval="True"/>
+        </record>
+        <record model="ir.rule" id="account_receivable_channel_comp_rule">
+            <field name="field_id" search="[('model','=','account.receivable.channel'),('name','=','company_id')]" model="ir.model.fields"/>
+            <field name="operator">=</field>
+            <field name="operand">user.company_id.id</field>
+            <field name="rule_group" ref="account_receivable_channel_comp_rule_group"/>
+        </record>
+
+        <record model="ir.rule.group" id="account_receivable_comp_rule_group">
+            <field name="name">account_receivable multi-company</field>
+            <field name="model_id" search="[('model','=','account.receivable')]" model="ir.model"/>
+            <field name="global" eval="True"/>
+        </record>
+        <record model="ir.rule" id="account_receivable_comp_rule">
+            <field name="field_id" search="[('model','=','account.receivable'),('name','=','company_id')]" model="ir.model.fields"/>
+            <field name="operator">=</field>
+            <field name="operand">user.company_id.id</field>
+            <field name="rule_group" ref="account_receivable_comp_rule_group"/>
+        </record>
+
+        <record model="ir.rule.group" id="account_receivable_remittance_comp_rule_group">
+            <field name="name">account_receivable_remittance multi-company</field>
+            <field name="model_id" search="[('model','=','account.receivable.remittance')]" model="ir.model"/>
+            <field name="global" eval="True"/>
+        </record>
+        <record model="ir.rule" id="account_receivable_remittance_comp_rule">
+            <field name="field_id" search="[('model','=','account.receivable.remittance'),('name','=','company_id')]" model="ir.model.fields"/>
+            <field name="operator">=</field>
+            <field name="operand">user.company_id.id</field>
+            <field name="rule_group" ref="account_receivable_remittance_comp_rule_group"/>
+        </record>
+
+</data>
+</terp>

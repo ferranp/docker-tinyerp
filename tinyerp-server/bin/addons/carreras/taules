@@ -1,0 +1,17 @@
+Taules que tenen el paràmetre de configuracio config['price_accuracy']
+---------------------------------------------------------------------.
+account_invoice_line
+sale_order
+sale_order_line
+pricelist_kilo
+pricelist_kilo_line
+pricelist_rec
+pricelist_rec_line
+pricelist_partner
+product_template
+product_product
+pricelist_partnerinfo
+product_pricelist_item
+purchase_order_line
+stock_move
+

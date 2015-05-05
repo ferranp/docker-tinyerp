@@ -1,0 +1,252 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+    <wizard 
+            string="Càrrega de Clients"
+            model="res.partner"
+            name="carreras.load_customer"
+            menu="False"
+            id="wizard_load_customer" />
+
+    <wizard 
+            string="Càrrega de Proveïdors"
+            model="res.partner"
+            name="carreras.load_supplier"
+            menu="False"
+            id="wizard_load_supplier" />
+    <wizard 
+            string="Traspàs des de Caché"
+            model="account.invoice"
+            name="carreras.traspas"
+            menu="False"
+            id="wizard_traspas" />
+
+    <wizard 
+            string="Càrrega de Pagaments"
+            model="account.move.line"
+            name="carreras.load_payment"
+            menu="False"
+            id="wizard_load_payment" />
+
+<!--
+    <wizard 
+            string="Carregar fulls de ruta i albarans"
+            model="sale.order"
+            name="carreras.load_order"
+            menu="False"
+            id="wizard_load_order" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar fulls de ruta i albarans"
+                action="wizard_load_order"
+                type="wizard"
+                id="menu_load_order"/>
+
+    <wizard 
+            string="Carregar empreses"
+            model="res.company"
+            name="carreras.load_company"
+            menu="False"
+            id="wizard_load_company" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar empreses"
+                action="wizard_load_company"
+                type="wizard"
+                id="menu_load_company"/>
+    <wizard 
+            string="Carregar comptes"
+            model="account.account"
+            name="carreras.load_account"
+            menu="False"
+            id="wizard_load_account" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar comptes"
+                action="wizard_load_account"
+                type="wizard"
+                id="menu_load_account"/>
+-->
+
+<!--
+    <wizard 
+            string="Carregar clients i proveidors"
+            model="res.partner"
+            name="carreras.load_partner"
+            menu="False"
+            id="wizard_load_partner" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar clients i proveidors"
+                action="wizard_load_partner"
+                type="wizard"
+                id="menu_load_partner"/>
+
+    <wizard 
+            string="Carregar diaris"
+            model="account.journal"
+            name="carreras.load_journal"
+            menu="False"
+            id="wizard_load_journal" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar diaris"
+                action="wizard_load_journal"
+                type="wizard"
+                id="menu_load_journal"/>
+    <wizard 
+            string="Carregar dades extra"
+            model="account.period"
+            name="carreras.load_extra"
+            menu="False"
+            id="wizard_load_extra" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar dades extra"
+                action="wizard_load_extra"
+                type="wizard"
+                id="menu_load_extra"/>
+    <wizard 
+            string="Carregar formes de pagament"
+            model="account.paymentterm"
+            name="carreras.load_paymentterm"
+            menu="False"
+            id="wizard_load_paymentterm" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar formes de pagament"
+                action="wizard_load_paymentterm"
+                type="wizard"
+                id="menu_load_paymentterm"/>
+    <wizard 
+            string="Carregar productes"
+            model="product.product"
+            name="carreras.load_product"
+            menu="False"
+            id="wizard_load_product" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar productes"
+                action="wizard_load_product"
+                type="wizard"
+                id="menu_load_product"/>
+    <wizard 
+            string="Carregar assentaments"
+            model="account.move"
+            name="carreras.load_account_move"
+            menu="False"
+            id="wizard_load_account_move" />
+    <menuitem
+                name="Administration/Carregues/Carregar assentaments"
+                action="wizard_load_account_move"
+                type="wizard"
+                id="menu_load_account_move"/>
+
+    <wizard 
+            string="Carregar factures"
+            model="account.invoice"
+            name="carreras.load_invoice"
+            menu="False"
+            id="wizard_load_invoice" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar factures"
+                action="wizard_load_invoice"
+                type="wizard"
+                id="menu_load_invoice"/>
+-->
+    <!--
+    <wizard 
+            string="Carregar bancs"
+            model="account.bank"
+            name="carreras.load_bank"
+            menu="False"
+            id="wizard_load_bank" />
+    <menuitem
+                name="Administration/Carregues/Carregar bancs"
+                action="wizard_load_bank"
+                type="wizard"
+                id="menu_load_bank"/>
+    -->
+    <!--
+    <wizard 
+            string="Carregar tarifes de preus"
+            model="res.partner"
+            name="carreras.load_pricelist"
+            menu="False"
+            id="wizard_load_pricelist" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar tarifes de preus"
+                action="wizard_load_pricelist"
+                type="wizard"
+                id="menu_load_pricelist"/>
+    
+    <wizard 
+            string="Carregar tarifes de preus per Client"
+            model="res.partner"
+            name="carreras.load_pricelist_partner"
+            menu="False"
+            id="wizard_load_pricelist_partner" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar tarifes de preus per Client"
+                action="wizard_load_pricelist_partner"
+                type="wizard"
+                id="menu_load_pricelist_partner"/>
+
+    <wizard 
+            string="Carregar tarifes de preus per kilo"
+            model="res.partner"
+            name="carreras.load_pricelist_kilo"
+            menu="False"
+            id="wizard_load_pricelist_kilo" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar tarifes de preus per kilo"
+                action="wizard_load_pricelist_kilo"
+                type="wizard"
+                id="menu_load_pricelist_kilo"/>
+                
+    <wizard 
+            string="Carregar tarifes de preus per recubriments"
+            model="res.partner"
+            name="carreras.load_pricelist_rec"
+            menu="False"
+            id="wizard_load_pricelist_rec" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar tarifes de preus per recubriments"
+                action="wizard_load_pricelist_rec"
+                type="wizard"
+                id="menu_load_pricelist_rec"/>
+
+    <wizard 
+            string="Carregar tipus de peces"
+            model="res.partner"
+            name="carreras.load_pricelist_piece"
+            menu="False"
+            id="wizard_load_pricelist_piece" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar tipus de peces"
+                action="wizard_load_pricelist_piece"
+                type="wizard"
+                id="menu_load_pricelist_piece"/>
+
+    <wizard 
+            string="Carregar efectes"
+            model="account.receivable"
+            name="carreras.load_receivable"
+            menu="False"
+            id="wizard_load_receivable" />
+
+    <menuitem
+                name="Administration/Carregues/Carregar efectes"
+                action="wizard_load_receivable"
+                type="wizard"
+                id="menu_receivable"/>
+-->
+</data>
+</terp>

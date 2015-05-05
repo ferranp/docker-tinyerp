@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<terp>
+<data>
+
+<record model="res.groups" id="carreras_group_management">      <field name="name">Direcció</field>       </record>
+<record model="res.groups" id="carreras_group_administration">  <field name="name">Administració</field>   </record>
+<record model="res.groups" id="carreras_groups_production">     <field name="name">Producció</field>       </record>
+<record model="res.groups" id="carreras_groups_nomenu">         <field name="name">nomenu</field>           </record>
+
+<menuitem name="Human Resources" groups="nomenu"/>
+<menuitem name="Inventory Control" groups="nomenu"/>
+<menuitem name="Production Management" groups="nomenu"/>
+<menuitem name="Partners" groups="nomenu"/>
+<menuitem name="Products" groups="nomenu"/>
+<menuitem name="Sales Management" groups="nomenu"/>
+<menuitem name="Billing Book" groups="nomenu"/>
+<menuitem name="Purchase Management" groups="nomenu"/>
+
+<menuitem name="Administration"         sequence="20" groups="admin"/>
+<menuitem name="Financial Management"   sequence="21" groups="admin" />
+
+<menuitem name="Manteniments"           sequence="1"/>
+<menuitem name="Tractaments i Tarifes"  sequence="2" groups="admin" />
+<menuitem name="Gestió de Vendes"       sequence="3" />
+<menuitem name="Facturació"             sequence="4" groups="admin"/>
+<menuitem name="Comptabilitat"          sequence="6" groups="admin" />
+<menuitem name="Comissions"             sequence="7" groups="admin" />
+<menuitem name="Estadístiques"          sequence="8" groups="admin" />
+<menuitem name="Extres"                 sequence="10" groups="admin"/>
+
+<menuitem name="Manteniments" icon="terp-partner"/>
+<menuitem name="Manteniments/Taules"                            sequence="1"  groups="admin" />
+<menuitem name="Manteniments/Taules/Numeradors"                 sequence="6"  action="base.ir_sequence_form" id="carreras_menu_ir_sequence_form"/>
+<menuitem name="Manteniments/Taules/Avisos"                     sequence="7"  action="action_partner_messages" id="menu_action_partner_messages"/>
+<menuitem name="Manteniments/Taules/Tipus de rebuts"            sequence="8"  id="account_receivable.account_recmenu_action_payment_term_type_form" action="account_receivable.action_payment_term_type_form"/>
+<menuitem name="Manteniments/Taules/Formes de Pagament"         sequence="9"  id="carreras_menu_action_payment_term_form" action="account.action_payment_term_form"/>
+<menuitem name="Manteniments/Taules/Despeses de Finançament"    sequence="10" id="menu_action_account_financing" action="action_account_financing" />
+<menuitem name="Manteniments/Taules/Categories de Productes"    sequence="11" id="menu_action_product_category" action="product.product_category_action_form" />
+<menuitem name="Manteniments/Taules/Tipus de Pagament"          sequence="12" id="carreras_menu_action_payment_type_form" action="account_payment.action_payment_type_form"/>
+<menuitem name="Manteniments/Taules/Modes de Pagament"          sequence="13" id="carreras_menu_action_payment_mode_form" action="account_payment.action_payment_mode_form"/>
+<menuitem name="Manteniments/Taules/Families dels Productes"    sequence="14" id="carreras_menu_action_product_family_form" action="action_product_family"/>
+<menuitem name="Manteniments/Taules/Departaments dels Productes" sequence="15" id="carreras_menu_action_product_department_form" action="action_product_department"/>
+<menuitem name="Manteniments/Taules/Unitats de Mesura"           sequence="16" id="carreras_menu_action_product_uom_form_action" action="product.product_uom_form_action"/>
+<menuitem name="Manteniments/Taules/Categories d'Unitats de Mesura" sequence="17" id="carreras_menu_action_product_uom_categ_form_action" action="product.product_uom_categ_form_action"/>
+
+<menuitem name="Manteniments/Intervinents"              sequence="2" groups="admin" action="base.action_partner_form" id="carreras_menu_partner_form"/>
+<menuitem name="Manteniments/Contactes"                 sequence="3" action="carreras_action_partner_address_form" id="carreras_menu_partner_address_form"/>
+<!--
+<menuitem name="Manteniments/Clients"                   sequence="4" groups="admin" action="action_partner_clientX" id="menu_action_partner_client"/>
+-->
+<menuitem name="Manteniments/Codis de Clients"          sequence="5" groups="admin" action="action_partner_client_code" id="menu_action_partner_client_code"/>
+<!--
+<menuitem name="Manteniments/Proveïdors"                sequence="6" groups="admin" action="action_partner_supplier" id="menu_action_partner_prov"/>
+-->
+<menuitem name="Manteniments/Codis de Proveïdors"       sequence="7" groups="admin" action="action_partner_prov_code" id="menu_action_partner_prov_code"/>
+<menuitem name="Manteniments/Clients de Grup TTC"       sequence="8" action="action_all_carreras_customers" id="menu_all_carreras_customers"/>
+<menuitem name="Manteniments/Llistat de Intervinents"   sequence="9" groups="admin" type="wizard" icon="STOCK_PRINT" action="wizard_partner_report" id="menu_partner_report"/>
+<menuitem name="Manteniments/Llistat de Clients"        sequence="10" groups="admin" type="wizard" icon="STOCK_PRINT" action="wizard_customer_report" id="menu_customer_report"/>
+<menuitem name="Manteniments/Canvi d'empresa"           sequence="20" groups="admin" action="wizard_change_company" type="wizard" icon="STOCK_YES" id="menu_change_company2" />
+<menuitem name="Manteniments/Tarifes de Clients"        sequence="11" action="action_pricelist_partner_tree_list" id="menu_pricelist_partner_tree_list"/>
+
+<menuitem name="Tractaments i Tarifes" icon="terp-product"/>
+<menuitem name="Tractaments i Tarifes/Tractaments"                          sequence="1" action="carreras.product_customer_action" id="carreras_menu_products"/>
+<!--<menuitem name="Tractaments i Tarifes/Tots els productes"                   sequence="20" action="product.product_normal_action" id="carreras_menu_all_products"/>-->
+<menuitem name="Tractaments i Tarifes/Tarifes per Tractament"               sequence="2" action="action_pricelist_kilo_tree" id="menu_pricelist_kilo_tree"/>
+<menuitem name="Tractaments i Tarifes/Tarifes per Recubriment"              sequence="3" action="action_pricelist_rec_tree" id="menu_pricelist_rec_tree"/>
+<menuitem name="Tractaments i Tarifes/Tarifes per Client"                   sequence="4" action="action_pricelist_partner_tree" id="menu_pricelist_partner_tree"/>
+<menuitem name="Tractaments i Tarifes/Tipus de Peces"                       sequence="5" action="action_pricelist_piece_tree" id="menu_pricelist_piece_tree"/>
+<menuitem name="Tractaments i Tarifes/Recalcul de Tarifes de Recubriments"  sequence="6" type="wizard" action="wizard_pricelist_rec_compute" id="menu_pricelist_rec_compute"/>
+<menuitem name="Tractaments i Tarifes/Llistat de Tarifes de Tractaments"    sequence="7" type="wizard" icon="STOCK_PRINT" action="wizard_pricelist_tr_report" id="menu_pricelist_tr_report"/>
+<menuitem name="Tractaments i Tarifes/Llistat de Tarifes de Recubriments"   sequence="8" type="wizard" icon="STOCK_PRINT" action="wizard_pricelist_rec_report" id="menu_pricelist_rec_report"/>
+<menuitem name="Tractaments i Tarifes/Llistat de Tarifes de Clients"        sequence="9" type="wizard" icon="STOCK_PRINT" action="wizard_pricelist_partner_report" id="menu_pricelist_partner_report"/>
+
+<menuitem name="Gestió de Vendes" icon="terp-sale"/>
+<menuitem name="Gestió de Vendes/Entrada de Fulls de Ruta de Tractament"        sequence="1" id="menu_sale_order_new_TR" action="action_sale_order_new_TR"/>
+<menuitem name="Gestió de Vendes/Entrada de Fulls de Ruta de Recobriment"       sequence="2" id="menu_sale_order_new_RE" action="action_sale_order_new_RE"/>
+<menuitem name="Gestió de Vendes/Entrada de Dades de Qualitat"                  sequence="3" type="wizard" icon="STOCK_JUSTIFY_FILL" action="wizard_sale_order_local_quality" id="menu_sale_order_local_quality"/> 
+<menuitem name="Gestió de Vendes/Modificació de Fulls de Ruta de Tractament"    sequence="4" type="wizard" icon="STOCK_JUSTIFY_FILL" action="wizard_sale_order_TR" id="menu_sale_order_TR"/> 
+<menuitem name="Gestió de Vendes/Modificació de Fulls de Ruta de Recobriment"   sequence="5" type="wizard" icon="STOCK_JUSTIFY_FILL" action="wizard_sale_order_RE" id="menu_sale_order_RE"/>
+<menuitem name="Gestió de Vendes/Consulta i Reimpressió d'Albarans"             sequence="6" type="wizard" icon="STOCK_JUSTIFY_FILL" action="wizard_delivery_local" id="menu_delivery_local"/> 
+<menuitem name="Gestió de Vendes/Consulta i Reimpressió d'Albarans Històrics"   sequence="7" type="wizard" icon="STOCK_JUSTIFY_FILL" action="wizard_delivery_histo_local" id="menu_delivery_histo_local"/> 
+<menuitem name="Gestió de Vendes/Consulta Detallada de Fulls de Ruta"           sequence="8"  groups="admin" action="action_order_detall_fr" id="menu_sale_order_detall_fr"/>
+<menuitem name="Gestió de Vendes/Consulta Detallada d'Albarans Pendents"        sequence="9"  groups="admin" action="action_order_detall_pendents" id="menu_sale_order_detall_pendents"/>
+<menuitem name="Gestió de Vendes/Consulta Detallada d'Albarans Històrics"       sequence="10" groups="admin" action="action_order_detall_historics" id="menu_sale_order_detall_historics"/>
+<menuitem name="Gestió de Vendes/Cerca de Números de Fulls de Ruta"             sequence="11" groups="admin" type="wizard" action="wizard_search_order_nums" id="menu_search_order_nums"/>
+
+<!--<menuitem name="Gestió de Vendes/Recuperar Albarans"                            sequence="7" type="wizard" icon="STOCK_JUSTIFY_FILL" action="wizard_recovery_local" id="menu_recovery_local"/> -->
+
+<menuitem name="Facturació" icon="terp-account"/>
+<menuitem name="Facturació/Factures de Clients"     sequence="1" id="carreras_menu_action_customer_invoice" />
+<menuitem name="Facturació/Factures de Clients/Factura Manual"          sequence="1" id="carreras_menu_invoice_new" action="account.action_invoice_tree1"/>
+<menuitem name="Facturació/Factures de Clients/Facturació d'Albarans"   sequence="2" type="wizard" action="wizard_carreras_make_invoices" id="menu_carreras_make_invoices"/>
+<menuitem name="Facturació/Factures de Clients/Generar Abonaments"        sequence="2" type="wizard" action="wizard_carreras_make_refunds" id="menu_carreras_make_refunds"/>
+<menuitem name="Facturació/Factures de Clients/Factures en Esborrany"   sequence="3" id="carreras_menu_invoice_draft" action="account.action_invoice_tree5"/>
+<menuitem name="Facturació/Factures de Clients/Factures PRO-FORMA"      sequence="4" id="carreras_menu_action_invoice_tree6" action="account.action_invoice_tree6"/>
+<menuitem name="Facturació/Factures de Clients/Factures Pendents"       sequence="5" id="carreras_menu_action_invoice_tree7" action="account.action_invoice_tree7"/>
+<menuitem name="Facturació/Factures de Clients/Històric de Factures"    sequence="6" id="carreras_menu_action_out_invoice_tree" action="carreras.action_out_invoice_tree"/>
+
+<!--
+<menuitem name="Facturació/Abonaments de Clients"   sequence="2" id="carreras_menu_action_customer_refund" />
+<menuitem name="Facturació/Abonaments de Clients/Abonament Manual"          sequence="1" id="carreras_menu_action_invoice_tree3" action="account.action_invoice_tree3"/>
+<menuitem name="Facturació/Abonaments de Clients/Abonaments en Esborrany"   sequence="3" id="carreras_menu_action_invoice_tree10" action="account.action_invoice_tree10"/>
+<menuitem name="Facturació/Abonaments de Clients/Abonaments Pendents"       sequence="4" id="carreras_menu_action_invoice_tree11" action="account.action_invoice_tree11"/>
+<menuitem name="Facturació/Abonaments de Clients/Històric d'Abonaments"     sequence="4" id="carreras_menu_action_invoice_tree11" action="carreras.action_refund_tree"/>
+-->
+<menuitem name="Facturació/Diari de Vendes"         sequence="3" type="wizard" icon="STOCK_PRINT" action="wizard_invoice_journal" id="menu_invoice_journal"/>
+<menuitem name="Facturació/Confirmar Factures"      sequence="5" action="wizard_invoice_confirm" type="wizard" id="menu_invoice_confirm"/>
+<menuitem name="Facturació/Impressió de Factures"   sequence="7" type="wizard" icon="STOCK_PRINT" action="wizard_carreras_print_invoices" id="menu_carreras_print_invoices"/>
+<menuitem name="Facturació/Llistat de Factures"     sequence="9" type="wizard" icon="STOCK_PRINT" action="wizard_invoice_report" id="menu_invoice_report"/>
+
+<menuitem name="Comptabilitat" icon="terp-account"/>
+<menuitem name="Comptabilitat/Manteniments"                                     sequence="1" id="menu_carreras_mantemiments_comptabilitat"/>
+<menuitem name="Comptabilitat/Manteniments/Diaris"                              sequence="1" id="menu_carreras_journal" action="account.action_account_journal_form"/>
+<menuitem name="Comptabilitat/Manteniments/Comptes"                             sequence="2" id="menu_carreras_account" action="account.action_account_form"/>
+<menuitem name="Comptabilitat/Manteniments/Pla Comptable amb Imports"           sequence="3" id="menu_carreras_account2" action="account.action_account_tree"/>
+<menuitem name="Comptabilitat/Manteniments/Pla Comptable (ràpid)"               sequence="4" id="menu_carreras_account3" action="account.action_account_tree2"/>
+<menuitem name="Comptabilitat/Manteniments/Canals de Cobrament i Pagament"      sequence="5" id="menu_carreras_bancs" action="account_receivable.action_receivable_bank_view"/>
+
+<menuitem name="Comptabilitat/Assentaments"                                     sequence="2" id="menu_carreras_assentaments"/>
+<!--
+<menuitem name="Comptabilitat/Assentaments/Extractes"                           sequence="1" id="menu_carreras_bank_statement_tree" action="account.action_bank_statement_tree"/>
+<menuitem name="Comptabilitat/Assentaments/Extractes en Esborrany"              sequence="2" id="menu_carreras_bank_statement_draft_tree" action="account.action_bank_statement_draft_tree"/>
+-->
+<menuitem name="Comptabilitat/Assentaments/Consulta d'Assentaments"             sequence="3" id="menu_carreras_action_move_line_form" action="account.action_move_line_form"/>
+<menuitem name="Comptabilitat/Assentaments/Assentaments per Diari"              sequence="4" id="menu_carreras_assentaments_per_diari" action="account.action_move_journal_line_form" type="wizard"/>
+<!--
+<menuitem name="Comptabilitat/Assentaments/Consulta del Diari Comptable"        sequence="5" id="menu_carreras_action_move_line_search" action="account.action_move_line_search" />
+-->
+<menuitem name="Comptabilitat/Assentaments/Renumerar Assentaments"              sequence="6" action="wizard_move_number" type="wizard" id="menu_move_number"/>
+<menuitem name="Comptabilitat/Assentaments/Llistat d'assentaments"              sequence="7" action="wizard_move_report" type="wizard" id="menu_move_report" icon="STOCK_PRINT" />
+
+<menuitem name="Comptabilitat/Balanços"                                         sequence="3" id="menu_carreras_balancos"/>
+<menuitem name="Comptabilitat/Balanços/Balanç de Sumes i Saldos"                sequence="1" type="wizard" icon="STOCK_PRINT" action="wizard_balance" id="menu_balance"/>
+<menuitem name="Comptabilitat/Balanços/Balanç de Situació"                      sequence="2" type="wizard" icon="STOCK_PRINT" action="wizard_situation_balance" id="menu_situation_balance"/>
+<menuitem name="Comptabilitat/Balanços/Compte d'Explotació"                     sequence="3" type="wizard" icon="STOCK_PRINT" action="wizard_account_results" id="menu_account_results"/>
+<menuitem name="Comptabilitat/Balanços/Extracte de comptes"                     sequence="4" action="wizard_account_extracte" type="wizard" icon="STOCK_PRINT" id="menu_account_Extracte"/>
+
+<menuitem name="Comptabilitat/Gestió de Cobraments"                             sequence="4" id="menu_carreras_cobraments" />
+<menuitem name="Comptabilitat/Gestió de Cobraments/Efectes Manuals"             sequence="1" action="account_receivable.action_receivable_form" id="carreras_menu_receivable_new"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Efectes en Esborrany"        sequence="2" action="account_receivable.action_receivable_list_draft" id="carreras_menu_receivable_draft"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Efectes Pendents"            sequence="3" action="account_receivable.action_receivable_list_pending" id="carreras_menu_receivable_list_pending"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Històric d'Efectes"          sequence="4" action="account_receivable.action_receivable_list" id="carreras_menu_receivable_list_all"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Efectes d'un client"         sequence="5" action="account_receivable.wizard_customer_receivable" type="wizard" id="carreras_menu_receivable_list_partner"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Avisos d'Efectes Vençuts"    sequence="6" action="account_receivable.wizard_customer_notice" icon="STOCK_PRINT" type="wizard" id="carreras_menu_customer_notice"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Quadrar efectes amb comptabilitat"   sequence="7" action="account_receivable.wizard_receivable_match" icon="STOCK_PRINT" type="wizard" id="carreras_menu_receivable_remittance_match"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Remeses Bancàries"                       sequence="8" id="menu_carreras_remittance"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Remeses Bancàries/Remesa"                sequence="1" action="account_receivable.action_receivable_remittance_form" id="carreras_menu_receivable_remittance_new"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Remeses Bancàries/Remeses en Esborrany"  sequence="2" action="account_receivable.action_receivable_remittance_list_draft" id="carreras_menu_receivable_remittance_list_draft"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Remeses Bancàries/Remeses Pendents"      sequence="3" action="account_receivable.action_receivable_remittance_list_pending" id="carreras_menu_receivable_remittance_list_pending"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Remeses Bancàries/Històric de Remeses"   sequence="4" action="account_receivable.action_receivable_remittance_list" id="carreras_menu_receivable_remittance_list_all"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Remeses Bancàries/Dades Norma 58"        sequence="5" id="carreras_menu_action_norma58_form" action="account_receivable.action_norma58_list"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Consultes i Llistats"                                        sequence="9" id="menu_carreras_llistats"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Consultes i Llistats/Llistat d'efectes"                      sequence="1" type="wizard" action="account_receivable.wizard_receivables_report" id="menu_carreras_receivables_report"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Consultes i Llistats/Risc de Clients"                        sequence="2" id="carreras_menu_customers_risk" action="action_carreras_customers_risk"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Consultes i Llistats/Llistat de Risc de Clients"             sequence="3" type="wizard" icon="STOCK_PRINT" action="wizard_customer_risk_report" id="menu_carreras_customer_risk_report"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Consultes i Llistats/Risc Bancari"                           sequence="4" type="wizard" action="account_receivable.wizard_bank_risk" id="carreras_menu_bank_risk" />
+<menuitem name="Comptabilitat/Gestió de Cobraments/Impagats"                 sequence="10" id="menu_carreras_impagats"/>
+<menuitem name="Comptabilitat/Gestió de Cobraments/Impagats/Alta d'impagats"     sequence="1" type="wizard" action="account_receivable.wizard_create_unpaid" id="carreras_menu_create_unpaid" />
+<menuitem name="Comptabilitat/Gestió de Cobraments/Impagats/Consulta d'Impagats" sequence="2" action="account_receivable.action_receivable_list_unpaid" id="carreras_menu_receivable_list_unpaid" />
+
+<menuitem name="Comptabilitat/Gestió de Pagaments"                              sequence="5" id="menu_carreras_pagaments"/>
+<!--
+<menuitem name="Comptabilitat/Gestió de Pagaments/Proveïdors"                       sequence="1" action="action_partner_supplier" id="menu_action_partner_supplier"/>
+-->
+<menuitem name="Comptabilitat/Gestió de Pagaments/Productes"                        sequence="2" action="product_supplier_action" id="menu_action_supplier_product"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Tarifes"                          sequence="3" action="action_pricelist_supplier_tree" id="menu_action_pricelist_supplier"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Llistat de Tarifes"               sequence="4" type="wizard" icon="STOCK_PRINT" action="wizard_pricelist_supplier_report" id="menu_action_pricelist_supplier_report"/>
+
+<menuitem name="Comptabilitat/Gestió de Pagaments/Comandes de Compra"               sequence="5" id="carreras_menu_purchase_form_action"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Comandes de Compra/Comanda de Compra"     sequence="1" id="menu_purchase_form_action" action="carreras.purchase_form_action"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Comandes de Compra/Comandes en Procés"    sequence="2" id="menu_purchase_order_draft" action="carreras.purchase_form_action2" />
+<menuitem name="Comptabilitat/Gestió de Pagaments/Comandes de Compra/Comandes Confirmades"  sequence="3" id="menu_purchase_order_confirmed" action="carreras.purchase_form_action3" />
+<menuitem name="Comptabilitat/Gestió de Pagaments/Comandes de Compra/Històric de Comandes"  sequence="4" id="menu_carreras_purchase_form1" action="carreras.purchase_form_action1"/>
+<!--
+-->
+<menuitem name="Comptabilitat/Gestió de Pagaments/Factures de Proveïdors"           sequence="6" id="carreras_menu_suplier_invoice"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Factures de Proveïdors/Factura de Proveïdor"  sequence="1" id="carreras_menu_action_invoice_tree2" action="carreras.action_in_invoice_new"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Factures de Proveïdors/Factures en Esborrany" sequence="2" id="carreras_menu_action_invoice_tree8" action="carreras.action_in_invoice_tree_draft"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Factures de Proveïdors/Factures Pendents"     sequence="3" id="carreras_menu_action_invoice_tree9" action="carreras.action_in_invoice_tree_open"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Factures de Proveïdors/Històric de Factures"  sequence="4" id="carreras_menu_action_in_invoice_tree" action="carreras.action_in_invoice_tree"/>
+<!--
+<menuitem name="Comptabilitat/Gestió de Pagaments/Abonaments de Proveïdors"         sequence="3" id="carreras_menu_suplier_invoice_tree4"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Abonaments de Proveïdors/Abonament de Proveïdor"  sequence="1" id="carreras_menu_action_invoice_tree4" action="account.action_invoice_tree4"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Abonaments de Proveïdors/Abonaments en Esborrany" sequence="2" id="carreras_menu_action_invoice_tree12" action="account.action_invoice_tree12"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Abonaments de Proveïdors/Abonaments Pendents"     sequence="3" id="carreras_menu_action_invoice_tree13" action="account.action_invoice_tree13"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Diari de Cartera de Pagaments"    sequence="6" icon="STOCK_PRINT" id="carreras_menu_payment_journal"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Declaració model 347"             sequence="8" type="wizard" icon="STOCK_PRINT" action="wizard_report_347" id="menu_report_347_2"/>
+-->
+<menuitem name="Comptabilitat/Gestió de Pagaments/Diari de Compres"                 sequence="7" type="wizard" icon="STOCK_PRINT" action="wizard_invoice_journal_sup" id="menu_invoice_journal_sup"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Confirmar Factures"               sequence="8" action="wizard_supplier_invoice_confirm" type="wizard" id="menu_invoice_confirm_2"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Saldo de Proveïdors"              sequence="9" type="wizard" icon="STOCK_PRINT" id="carreras_menu_payment_journal" action="wizard_account_pending_payment"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Pagaments Manuals"                sequence="10" id="menu_carreras_bank_payment_tree" action="account.action_bank_statement_tree"/>
+<!--
+<menuitem name="Comptabilitat/Gestió de Pagaments/Pagaments en Esborrany"           sequence="11" id="menu_carreras_bank_payment_draft_tree" action="account.action_bank_statement_draft_tree"/>
+-->
+<menuitem name="Comptabilitat/Gestió de Pagaments/Pagaments en Esborrany"           sequence="11" id="menu_carreras_bank_payment_draft_tree" action="wizard_bank_statement_company" type="wizard" icon="STOCK_JUSTIFY_FILL"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Remeses de Pagaments"             sequence="12" id="carreras_payment_orders"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Remeses de Pagaments/Nou Pagament"               sequence="1" id="carreras_menu_action_payment_order_form" action="account_payment.action_payment_order_tree"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Remeses de Pagaments/Pagaments en Esborrany"     sequence="2" id="carreras_menu_action_payment_order_draft" action="account_payment.action_payment_order_draft"/>
+<menuitem name="Comptabilitat/Gestió de Pagaments/Remeses de Pagaments/Pagaments Pendents"         sequence="3" id="carreras_menu_action_payment_order_open" action="account_payment.action_payment_order_open"/>
+
+<menuitem name="Comptabilitat/Gestió de l'IVA"                                  sequence="6" id="menu_carreras_iva" />
+<menuitem name="Comptabilitat/Gestió de l'IVA/Factures Emeses"                  sequence="1" id="carreras_menu_emeses" action="action_invoice_emeses"/>
+<menuitem name="Comptabilitat/Gestió de l'IVA/Llistat de Factures Emeses"       sequence="2" type="wizard" icon="STOCK_PRINT" action="wizard_out_invoice_report" id="menu_out_invoice_report"/>
+<menuitem name="Comptabilitat/Gestió de l'IVA/Factures Rebudes"                 sequence="3" id="carreras_menu_rebudes" action="action_invoice_rebudes"/>
+<menuitem name="Comptabilitat/Gestió de l'IVA/Llistat de Factures Rebudes"      sequence="4" type="wizard" icon="STOCK_PRINT" action="wizard_in_invoice_report" id="menu_in_invoice_report"/>
+
+<menuitem name="Comptabilitat/Gestió del Model 347"                             sequence="7" id="menu_carreras_model347" />
+<menuitem name="Comptabilitat/Gestió del Model 347/Declaració model 347"        sequence="1" type="wizard" icon="STOCK_PRINT" action="wizard_report_347" id="menu_report_347"/>
+
+<menuitem name="Comptabilitat/Processos de Final d'Any"                         sequence="8" id="menu_carreras_final_any" />
+<menuitem name="Comptabilitat/Processos de Final d'Any/Explotació de l'Any"     sequence="1" id="menu_carreras_final_any_explo" action="wizard_fiscalyear_move_explo" type="wizard"/>
+<menuitem name="Comptabilitat/Processos de Final d'Any/Obertura de l'Any"       sequence="2" id="menu_carreras_final_any_open" action="wizard_fiscalyear_move_open" type="wizard"/>
+<menuitem name="Comptabilitat/Processos de Final d'Any/Tancament de l'Any"      sequence="3" id="menu_carreras_final_any_close" action="wizard_fiscalyear_move_close" type="wizard"/>
+<menuitem name="Comptabilitat/Processos de Final d'Any/Anys fiscals"            sequence="4" id="menu_carreras_final_fiscalyear" action="account.action_account_fiscalyear_form"/>
+<menuitem name="Comptabilitat/Processos de Final d'Any/Periodes oberts"         sequence="5" id="menu_carreras_final_any_period_close" action="account.action_account_period_tree"/>
+<menuitem name="Comptabilitat/Processos de Final d'Any/Periodes tancats"        sequence="6" id="menu_carreras_final_any_period_reopen" action="action_account_period_reopen_tree"/>
+
+<menuitem name="Comissions" icon="terp-account"/>
+<menuitem name="Comissions/Representants"                           sequence="1" id="carreras_menu_agent_agent" action="carreras.action_agent_agent_form"/>
+<menuitem name="Comissions/Representants per Tractament"            sequence="2" id="carreras_menu_agent_product" action="carreras.action_agent_product_form"/>
+<menuitem name="Comissions/Càlcul de Liquidacions"                  sequence="3" id="carreras_menu_agent_calcul" type="wizard" action="wizard_comission_calculate" />
+<menuitem name="Comissions/Llistat de Comprovació de Comissions"    sequence="4" id="carreras_menu_agent_comissions" icon="STOCK_PRINT" type="wizard" action="wizard_comission_report" />
+<menuitem name="Comissions/Llistat de Comissions"                   sequence="5" id="carreras_menu_agent_liquidacio" icon="STOCK_PRINT" type="wizard" action="wizard_close_report" />
+<menuitem name="Comissions/Tancament de Liquidacions"               sequence="6" id="carreras_menu_tancament" type="wizard" action="wizard_date_close" />
+
+<menuitem name="Estadístiques" icon="terp-account"/>
+<menuitem name="Estadístiques/Estadística de Clients"                           sequence="1" id="carreras_menu_estadis1" type="wizard" action="wizard_estadis_customer" />
+<menuitem name="Estadístiques/Estadística per Tractament"                       sequence="2" id="carreras_menu_estadis2" type="wizard" action="wizard_estadis_product" />
+
+<menuitem name="Extres" icon="terp-administration"/>
+<menuitem name="Extres/Canvi d'empresa"            sequence="1"  action="wizard_change_company" type="wizard" icon="STOCK_YES" id="menu_change_company" />
+<menuitem name="Extres/Empreses"                   sequence="2"  action="base.open_module_tree_company" id="menu_company_def"/>
+<menuitem name="Extres/Centres de Treball"         sequence="3"  id="carreras_menu_action_shop_form" action="sale.action_shop_form"/>
+<menuitem name="Extres/Usuaris"                    sequence="4"  action="base.action_res_users" id="carreras_menu_action_res_users"/>
+<menuitem name="Extres/Grups"                      sequence="5"  action="base.action_res_groups" id="carreras_menu_action_res_groups"/>
+<menuitem name="Extres/Impressores"                sequence="6"  id="carreras_menu_printjob_printers_form" icon="STOCK_PRINT" action="printjob.action_printjob_printers_form"/>
+<menuitem name="Extres/Cues d'Impressions"         sequence="7" id="carreras_menu_printjob_job_form" icon="STOCK_PRINT_PREVIEW" action="printjob.action_printjob_job_form"/>
+<menuitem name="Extres/Traspàs a Proves"           sequence="11" type="wizard" icon="STOCK_EXECUTE" action="wizard_copy" id="menu_carreras_copy"/>
+<menuitem name="Extres/Còpia de Seguretat"         sequence="12" type="wizard" icon="STOCK_EXECUTE" action="wizard_backup" id="menu_carreras_backup"/>
+<menuitem name="Extres/Reiniciar OpenERP"          sequence="13" type="wizard" icon="STOCK_EXECUTE" action="wizard_restart" id="menu_carreras_restart"/>
+<!--
+<menuitem name="Extres/Càrrega de Clients"         sequence="18" action="wizard_load_customer" type="wizard" id="menu_load_clients"/>
+<menuitem name="Extres/Càrrega de Proveïdors"      sequence="19" action="wizard_load_supplier" type="wizard" id="menu_load_proveidors"/>
+-->
+<menuitem name="Extres/Traspàs mensual des de Caché" sequence="20" action="wizard_traspas" type="wizard" id="menu_traspas"/>
+
+</data>
+</terp>

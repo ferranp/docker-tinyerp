@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<!-- 24.10.2014 Afegir camps a les tarifes de clients -->
+<terp>
+<data>
+
+<!-- Tarifes de Tractaments -->
+<record model="ir.ui.view" id="view_pricelist_kilo_form">
+    <field name="name">pricelist.kilo.form</field>
+    <field name="model">pricelist.kilo</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Tarifes per Tractament">
+            <field name="name" select="1"/>
+            <field name="company_id" select="1"/>
+            <!--field name="partner_id" colspan="4" select="1"/ -->
+            <field name="product_id" colspan="4" select="1" domain="[('categ_id','like','Vendes')]" />
+            <field name="depth" select="1"/>
+            <field name="product_uom"/>
+            <newline/>
+            <field name="minimum"/>
+            <field name="apply_minimum"/>
+            <separator string="Detall de pesos" colspan="4"/>
+            <field name="line_ids"/>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_pricelist_kilo_tree">
+    <field name="name">pricelist.kilo.tree</field>
+    <field name="model">pricelist.kilo</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Tarifes per kilo">
+            <field name="name" select="1"/>
+            <field name="product_id" select="1"/>
+            <field name="depth" select="1"/>
+            <field name="product_uom"/>
+            <field name="minimum"/>
+            <field name="company_id" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_pricelist_kilo_line_form">
+    <field name="name">pricelist.kilo.line.form</field>
+    <field name="model">pricelist.kilo.line</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Detall de tarifa">
+            <field name="name" select="1"/>
+            <newline/>
+            <field name="quantity" select="1"/>
+            <field name="price" select="1"/>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_pricelist_kilo_line_tree">
+    <field name="name">pricelist.kilo.line.tree</field>
+    <field name="model">pricelist.kilo.line</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Detall de tarifa">
+            <!--field name="name" select="1"/ -->
+            <field name="quantity" select="1"/>
+            <field name="price" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_pricelist_kilo_tree">
+    <field name="name">Tarifa per Tractament</field>
+    <field name="res_model">pricelist.kilo</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_pricelist_kilo_tree"/>
+</record>
+
+<!-- Tarifes de Recobriments -->
+
+<record model="ir.ui.view" id="view_pricelist_rec_form">
+    <field name="name">pricelist.rec.form</field>
+    <field name="model">pricelist.rec</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Tarifes per Recubriments">
+        <hpaned>
+            <child1>
+                <field name="name" select="1"/>
+                <newline/>
+                <field name="company_id" select="1"/>
+                <newline/>
+                <field name="product_id" colspan="4" select="1" domain="[('categ_id','like','Vendes')]" />
+                <newline/>
+                <field name="piece_id" select="1"/>
+                <newline/>
+                <field name="long" select="1"/>
+                <newline/>
+                <field name="minimum"/>
+                <newline/>
+                <field name="apply_minimum"/>
+            </child1>
+            <child2>
+                <field name="line_ids" rowspan="20" nolabel="1"/>
+            </child2>
+        </hpaned>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_pricelist_rec_tree">
+    <field name="name">pricelist.rec.tree</field>
+    <field name="model">pricelist.rec</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Tarifes per kilo">
+            <field name="name" select="1"/>
+            <field name="product_id" select="1"/>
+            <field name="piece_id" select="1"/>
+            <field name="long" select="1"/>
+            <field name="minimum"/>
+            <field name="company_id" select="1"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_pricelist_rec_line_form">
+    <field name="name">pricelist.rec.line.form</field>
+    <field name="model">pricelist.rec.line</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Detall de tarifa">
+            <field name="name" select="1"/>
+            <newline/>
+            <field name="diameter" select="1"/>
+            <field name="price" select="1"/>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_pricelist_rec_line_tree">
+    <field name="name">pricelist.rec.line.tree</field>
+    <field name="model">pricelist.rec.line</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Detall de tarifa">
+            <!--field name="name" select="1"/ -->
+            <field name="diameter" select="1"/>
+            <field name="price" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_pricelist_rec_tree">
+    <field name="name">Tarifa per Recubriment</field>
+    <field name="res_model">pricelist.rec</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_pricelist_rec_tree"/>
+</record>
+
+<!-- Peces -->
+<record model="ir.ui.view" id="view_pricelist_piece_tree">
+    <field name="name">pricelist.piece.tree</field>
+    <field name="model">pricelist.piece</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Tipus de Peces">
+            <field name="code" select="1"/>
+            <field name="name" select="1"/>
+        </tree>
+    </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_pricelist_piece_tree">
+    <field name="name">Tipus de peces</field>
+    <field name="res_model">pricelist.piece</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<!-- llista de peces -->
+<record model="ir.ui.view" id="view_pricelist_piece_tree_prod">
+    <field name="name">pricelist.piece.tree.prod</field>
+    <field name="model">pricelist.piece</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Tipus de Peces">
+            <field name="code" select="1"/>
+            <field name="name" select="1"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_pricelist_piece_tree_prod">
+    <field name="name">Tipus de Peces</field>
+    <field name="res_model">pricelist.piece</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="view_pricelist_piece_tree_prod"/>
+</record>
+
+<!-- Tarifes Especials de Clients -->
+<record model="ir.ui.view" id="view_pricelist_partner_form">
+    <field name="name">pricelist.partner.form</field>
+    <field name="model">pricelist.partner</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Tarifes per Client">
+            <field name="name" select="1"/>
+            <field name="company_id" select="1"/>
+            <newline/>
+            <field name="partner_id" select="1"/>
+            <field name="customer" select="1"/>
+            <newline/>
+            <field name="product_id" colspan="4" select="1" domain="[('categ_id','like','Vendes')]" />
+            <newline/>
+            <field name="profundity" select="1"/>
+            <newline/>
+            <field name="product_uom"/>
+            <newline/>
+            <field name="price"/>
+            <newline/>
+            <field name="minimum"/>
+            <field name="apply_minimum"/>
+            <newline/>
+            <field name="date_start"/>
+            <field name="date_end"/>
+            <newline/>
+            <field name="offer"/>
+            <newline/>
+            <field name="date_issued"/>
+            <newline/>
+            <field name="authorized"/>
+            <newline/>
+            <field name="section"/>
+            <separator colspan="4" string="Notes"/>
+            <field colspan="4" name="note" nolabel="1"/>
+        </form>
+    </field>
+</record>
+<record model="ir.ui.view" id="view_pricelist_partner_tree">
+    <field name="name">pricelist.partner.tree</field>
+    <field name="model">pricelist.partner</field>
+    <field name="type">tree</field>
+    <field name="priority">10</field>
+    <field name="arch" type="xml">
+        <tree string="Tarifes per Client">
+            <field name="name" select="1"/>
+            <field name="customer" select="1"/>
+            <field name="partner_id" select="1" string="Nom"/>
+            <field name="product_id" select="1"/>
+            <field name="profundity" select="1"/>
+            <field name="price"/>
+            <field name="minimum"/>
+            <field name="apply_minimum"/>
+            <field name="product_uom"/>
+            <field name="company_id" select="1"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_pricelist_partner_tree">
+    <field name="name">Tarifa per Client</field>
+    <field name="res_model">pricelist.partner</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<act_window name="Tarifa Client"
+        domain="[('partner_id', '=', active_id)]"
+        res_model="pricelist.partner"
+        src_model="res.partner"
+        id="act_res_partner_2_pricelist_partner"/>
+
+<!-- llista de preus especials de clients -->
+<record model="ir.ui.view" id="view_pricelist_partner_tree_prod">
+    <field name="name">pricelist.partner.tree.prod</field>
+    <field name="model">pricelist.partner</field>
+    <field name="type">tree</field>
+    <field name="priority">20</field>
+    <field name="arch" type="xml">
+        <tree string="Tarifes Especials">
+            <field name="name" select="1"/>
+            <field name="profundity" select="1"/>
+            <field name="price"/>
+            <field name="minimum"/>
+            <field name="apply_minimum"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_pricelist_partner_tree_prod">
+    <field name="name">Tarifes Especials</field>
+    <field name="res_model">pricelist.partner</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="view_pricelist_partner_tree_prod"/>
+</record>
+
+<!-- consulta de producció de preus especials de clients -->
+<record model="ir.actions.act_window" id="action_pricelist_partner_tree_list">
+    <field name="name">Tarifes de Clients</field>
+    <field name="res_model">pricelist.partner</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+</record>
+
+<!-- Tarifes de Compres -->
+<record model="ir.ui.view" id="view_pricelist_supplier_form">
+    <field name="name">pricelist.supplier.form</field>
+    <field name="model">pricelist.supplier</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Tarifes de Proveïdors">
+            <field name="product_id" select="1" domain="[('categ_id','like','Compres')]" />
+            <newline/>
+            <field name="partner_id" select="1"/>
+            <field name="supplier" select="1" string="Codi"/>
+            <newline/>
+            <field name="company_id" select="1"/>
+            <newline/>
+            <field name="name" select="1" colspan="4"/>
+            <newline/>
+            <field name="price"/>
+            <newline/>
+            <field name="date_start"/>
+            <field name="date_end"/>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_pricelist_supplier_tree">
+    <field name="name">pricelist.supplier.tree</field>
+    <field name="model">pricelist.supplier</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Tarifes de Proveïdors">
+            <field name="product_id" select="1"/>
+            <field name="supplier" select="1"/>
+            <field name="partner_id" select="1" string="Nom"/>
+            <field name="name" select="1"/>
+            <field name="price"/>
+            <field name="date_start"/>
+            <field name="date_end"/>
+            <field name="company_id" select="1"/>
+        </tree>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_pricelist_supplier_tree">
+    <field name="name">Tarifes de Proveïdors</field>
+    <field name="res_model">pricelist.supplier</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_pricelist_supplier_tree"/>
+</record>
+
+<act_window name="Tarifes del Proveïdor"
+        domain="[('partner_id', '=', active_id)]"
+        res_model="pricelist.supplier"
+        src_model="res.partner"
+        id="act_res_partner_2_pricelist_supplier"/>
+
+<act_window name="Tarifes del Producte"
+        domain="[('product_id', '=', active_id)]"
+        res_model="pricelist.supplier"
+        src_model="product.product"
+        id="act_product_product_2_pricelist_supplier"/>
+
+
+</data>
+</terp>

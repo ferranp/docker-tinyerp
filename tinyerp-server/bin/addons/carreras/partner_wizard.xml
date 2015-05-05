@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<terp>
+<data noupdate="1">
+    <wizard 
+            string="Llistat de Intervinents"
+            model="res.partner"
+            name="carreras.partner_report"
+            menu="False"
+            id="wizard_partner_report" />
+
+    <wizard 
+            string="Llistat de Clients"
+            model="res.partner"
+            name="carreras.customer_report"
+            menu="False"
+            id="wizard_customer_report" />
+
+    <wizard 
+            string="Risc del client"
+            model="res.partner"
+            name="carreras.partner_risk"
+            menu="True"
+            id="wizard_partner_risk" />
+
+    <wizard 
+            string="Llistat de Risc de Clients"
+            model="res.partner"
+            name="carreras.customer_risk_report"
+            menu="False"
+            id="wizard_customer_risk_report" />
+</data>
+</terp>
