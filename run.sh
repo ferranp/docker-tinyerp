@@ -11,5 +11,5 @@ python tinyerp-server.py --config=terp_serverrc \
     --database=$DB_NAME \
     --db_user=$DB_USER \
     --db_host=$DB_HOST \
-    --db_password=%DB_PASSWORD \
+    --db_password=$DB_PASSWORD \
     --db_port=$DB_PORT
