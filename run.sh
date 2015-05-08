@@ -3,7 +3,7 @@
 export DB_NAME=${DB_NAME:-ttc}
 export DB_USER=${DB_USER:-ttc}
 export DB_HOST=${DB_HOST:-db}
-export DB_PORT=${DB_HOST:-5432}
+export DB_PORT=${DB_PORT:-5432}
 export DB_PASSWORD=${DB_PASSWORD}
 
 cd tinyerp-server/bin
