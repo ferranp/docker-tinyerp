@@ -10,6 +10,9 @@ RUN apt-get update && \
     libxml2-dev \
     libxslt-dev \
     python-pip \
+    cups-bsd \
+    postgresql-client \
+    htmldoc \
     build-essential && \
     apt-get clean && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
