@@ -6,6 +6,7 @@ RUN apt-get update && \
     apt-get install -qq -y \
     python \
     python-dev \
+    python-reportlab \
     libpq-dev \
     libxml2-dev \
     libxslt-dev \
@@ -44,6 +45,7 @@ ADD terp_serverrc /app/tinyerp-server/bin/
 ADD run.sh /app/
 
 VOLUME ["/app/tinyerp-server"]
+VOLUME ["/home"]
 
 # bitcoind testnet ports
 EXPOSE 7070 7071
