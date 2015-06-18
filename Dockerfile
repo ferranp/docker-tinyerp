@@ -12,6 +12,7 @@ RUN apt-get update && \
     libxslt-dev \
     python-pip \
     cups-bsd \
+    ssh \
     postgresql-client \
     htmldoc \
     build-essential && \
@@ -45,7 +46,6 @@ ADD terp_serverrc /app/tinyerp-server/bin/
 ADD run.sh /app/
 
 VOLUME ["/app/tinyerp-server"]
-VOLUME ["/home"]
 
 # bitcoind testnet ports
 EXPOSE 7070 7071
