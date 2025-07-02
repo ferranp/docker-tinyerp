@@ -1,12 +1,12 @@
 
 build:
-	docker.io build -t ferranp/tinyerp .
+	docker build -t ferranp/tinyerpnew .
 
 run:
-	docker.io run -d --publish-all=true --env-file=.env ferranp/tinyerp
+	docker run -d --publish-all=true --env-file=.env ferranp/tinyerpnew
 
 runi:
-	docker.io run -t -i --publish-all=true --env-file=.env ferranp/tinyerp
+	docker run -t -i --publish-all=true --env-file=.env ferranp/tinyerpnew
 
 shell:
-	docker.io run -t -i ferranp/tinyerp /bin/bash
+	docker run --rm -t -i ferranp/tinyerpnew /bin/bash

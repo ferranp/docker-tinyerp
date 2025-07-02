@@ -3,5 +3,6 @@ Pillow==2.6.0
 #libxml2-python==2.6.9
 #reportlab==3.1.8
 #reportlab==2.6
+reportlab==2.4
 psycopg2==2.5.4
 Pyro==3.16
